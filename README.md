@@ -73,12 +73,6 @@ Namun, UlasBuku bukan sekadar tempat untuk ulasan. Seiring dengan pertumbuhan pe
     - User dapat masuk menggunakan login 
     - User dapat mendaftarkan menggunakan register 
 
-
-## Sumber Dataset 🧾
-Pada projek kali ini kami menggunakan dataset dari `Kaggle`, Dataset tersebut berisi lebih dari 300 buku Ilmu Komputer yang tersedia di Amazon:
-
-[Amazon Books Details for Computer Science](https://www.kaggle.com/datasets/uzair01/amazon-books)
-
 ## Role 👥
 1. Role dari pengunjung terdaftar: 
     - Dapat mendaftarkan akun dan melakukan login
@@ -90,7 +84,12 @@ Pada projek kali ini kami menggunakan dataset dari `Kaggle`, Dataset tersebut be
     - Dapat mendaftarkan akun dan melakukan login
     - Dapat mengelola katalog buku yang ada di UlasBuku
 
-## Referensi 
-1. [Ulas Kelas](https://www.ulaskelas.id/en)
+## Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester
+1. Menyelesaikan penambahan end-point pada situs web untuk setiap modul, termasuk untuk mengambil dan mengirim data.
+2. Menambahkan middleware pada aplikasi Django agar API dapat diakses dari luar situs web.
+3. Mengembangkan fungsi asinkron untuk semua proses yang terkait dengan pengambilan, pengiriman, dan pembaruan data.
+4. Untuk mengambil data, akan menggunakan metode HTTP GET dari end-point data di situs web, yang hasilnya akan digunakan untuk ditampilkan dalam widget yang digunakan.
+5. Untuk mengirim data, akan menggunakan metode HTTP POST yang mengarah ke end-point untuk menyimpan data yang ada dalam basis data Django.
 			      
 ## Berita Acara
+https://docs.google.com/spreadsheets/d/1O1KTTi_EoY6jM48UkqbLE_DGYHezYQU1T4mp4qgpH7I/edit?usp=sharing
