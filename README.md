@@ -1,5 +1,5 @@
 # UlasBuku 📖
-Link: http://ulasbuku-b07-tk.pbp.cs.ui.ac.id
+
 
 
 ## Kelompok B-07 💁‍♂️💁‍♀️
