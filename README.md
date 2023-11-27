@@ -64,7 +64,7 @@ Namun, UlasBuku bukan sekadar tempat untuk ulasan. Seiring dengan pertumbuhan pe
         1. Jumlah Bintang (1-5) 
         2. Terbaru-Terlama
 
-6. Forum (ada di setiap buku) (Nona)
+6. Forum (ada di setiap buku) (Rahida)
     - User dapat memposting pembicaraannya pada forum 
     - User dapat mengirimkan foto pada forum 
     - User dapat melihat perbincangan di forum tersebut 
