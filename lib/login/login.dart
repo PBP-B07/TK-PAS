@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/login/register.dart';
 
 void main() {
@@ -24,6 +25,7 @@ class LoginApp extends StatelessWidget {
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+  static String uname = "";
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -82,10 +84,10 @@ class _LoginPageState extends State<LoginPage> {
                 if (request.loggedIn) {
                   String message = response['message'];
                   String uname = response['username'];
-                  //Navigator.pushReplacement(
-                    //context,
-                    //MaterialPageRoute(builder: (context) => MyHomePage()),
-                  //);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()),
+                  );
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
                     ..showSnackBar(
