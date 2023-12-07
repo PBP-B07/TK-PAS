@@ -70,7 +70,7 @@ class _ProductPageState extends State<ProductPage> {
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: const Text('Catalog Buku'),
+      title: const Text('Catalogue Buku'),
     ),
     drawer: const LeftDrawer(),
     body: Column(
