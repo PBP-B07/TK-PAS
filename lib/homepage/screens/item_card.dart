@@ -3,6 +3,7 @@ import 'package:ulasbuku/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 // import 'package:ulasbuku/screens/item_list_page.dart';
 // import 'package:ulasbuku/screens/login.dart';
 // import 'package:ulasbuku/screens/menu.dart';
@@ -36,10 +37,10 @@ class ShopCard extends StatelessWidget {
       //     if (item.name == "Homepage") {
       //       Navigator.push(context,
       //           MaterialPageRoute(builder: (context) => const AddItemForm()));
-      //     } else if (item.name == "Catalogue") {
-      //       Navigator.push(context,
-      //           MaterialPageRoute(builder: (context) => const ProductPage()));
-      //     } else if (item.name == "Profile") {
+          if (item.name == "Lihat Buku") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ProductPage()));
+          } 
       //   final response = await request.logout(
       //       // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
       //       "http://localhost:8000/auth/logout/");
