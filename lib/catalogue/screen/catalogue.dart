@@ -15,6 +15,10 @@ class _ProductPageState extends State<ProductPage> {
   TextEditingController searchController = TextEditingController();
   List<Product> allProducts = [];
   List<Product> filteredProducts = [];
+  String selectedCategory = 'All Categories';
+  String selectedSort = 'Rating (Lowest)';
+  List<String> categories = ['All Categories'];
+  List<String> sortOptions = ['Rating (Lowest)', 'Rating (Highest)'];
 
   @override
   void initState() {
@@ -22,13 +26,15 @@ class _ProductPageState extends State<ProductPage> {
     fetchProduct().then((products) {
       setState(() {
         allProducts = products;
-        filteredProducts = products;
+        sortProductsByTitle(); // Sort products by title initially
+        filteredProducts = allProducts;
+        updateCategories(); // Update the category list
       });
     });
   }
 
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/');
+    var url = Uri.parse('http://127.0.0.1:8000/books/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -36,105 +42,211 @@ class _ProductPageState extends State<ProductPage> {
 
     if (response.statusCode == 200) {
       var data = jsonDecode(utf8.decode(response.bodyBytes));
-      List<Product> list_product = [];
+      List<Product> listProduct = [];
       for (var d in data) {
-        list_product.add(Product.fromJson(d));
+        listProduct.add(Product.fromJson(d));
       }
-      return list_product;
+      return listProduct;
     } else {
       throw Exception('Failed to load products');
     }
   }
 
   void filterSearchResults(String query) {
-  if (query.isEmpty) {
-    setState(() {
-      filteredProducts = allProducts;
-    });
-    return;
-  }
-
-  List<Product> dummyListData = [];
-  allProducts.forEach((item) {
-    if (item.fields.title.toLowerCase().contains(query.toLowerCase())) {
-      dummyListData.add(item);
+    if (query.isEmpty) {
+      setState(() {
+        filteredProducts = allProducts;
+      });
+      return;
     }
-  });
 
-  setState(() {
-    filteredProducts = dummyListData;
-  });
+    List<Product> dummyListData = [];
+    allProducts.forEach((item) {
+      if (item.fields.title.toLowerCase().contains(query.toLowerCase())) {
+        dummyListData.add(item);
+      }
+    });
+
+    setState(() {
+      filteredProducts = dummyListData;
+    });
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('Catalogue Buku'),
-    ),
-    drawer: const LeftDrawer(),
-    body: Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: searchController,
-            onChanged: filterSearchResults,
-            decoration: InputDecoration(
-              hintText: "Search...",
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.grey[200],
-            ),
-          ),
-        ),
-        Expanded(
-          child: filteredProducts.isNotEmpty ? ListView.builder(
-            itemCount: filteredProducts.length,
-            itemBuilder: (_, index) {
-              Product currentProduct = filteredProducts[index];
-              return InkWell(
-                onTap: () {
-                  // Navigator.push logic
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        currentProduct.fields.title,  // Using the title from fields
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Text("Description: ${currentProduct.fields.description}"),  // Using the description from fields
-                      const SizedBox(height: 10),
-                      Text("Author: ${currentProduct.fields.author}")  // Using the author from fields
-                    ],
-                  ),
+  void updateCategories() {
+    Set<String> uniqueCategories = {'All Categories'};
+    for (var product in allProducts) {
+      uniqueCategories.add(product.fields.category);
+    }
+    setState(() {
+      categories = uniqueCategories.toList();
+      categories.sort(); // Sort the categories
+    });
+  }
+
+  void sortProductsByTitle() {
+    allProducts.sort((a, b) => a.fields.title.compareTo(b.fields.title));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Catalogue Buku'),
+      ),
+      drawer: const LeftDrawer(),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              onChanged: filterSearchResults,
+              decoration: InputDecoration(
+                hintText: "Search...",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
                 ),
-              );
-            },
-          ) : const Center(
-            child: Text(
-              "No products found.",
-              style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+          const SizedBox(height: 8.0),
+          Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DropdownButton<String>(
+                  value: selectedSort,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedSort = newValue!;
+                      sortProducts(); // Sort products by rating
+                    });
+                  },
+                  items: sortOptions.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(width: 16.0),
+                DropdownButton<String>(
+                  value: selectedCategory,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedCategory = newValue!;
+                      filterByCategory(); // Filter products by category
+                    });
+                  },
+                  items: categories.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () async {
+                // Navigate to add product page
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ShopFormPage()),
+                );
+                // Fetch products again after adding a product
+                await fetchProduct().then((products) {
+                  setState(() {
+                    allProducts = products;
+                    sortProductsByTitle(); // Sort products by title
+                    filteredProducts = allProducts;
+                    updateCategories(); // Update the category list
+                  });
+                });
+              },
+              child: Text("Add Product"),
+            ),
+          ),
+          Expanded(
+            child: filteredProducts.isNotEmpty
+                ? ListView.builder(
+                    itemCount: filteredProducts.length,
+                    itemBuilder: (_, index) {
+                      Product currentProduct = filteredProducts[index];
+                      return InkWell(
+                        onTap: () {
+                          // Navigator.push logic
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currentProduct.fields.title,
+                                style: const TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text("Description: ${currentProduct.fields.description}"),
+                              const SizedBox(height: 10),
+                              Text("Author: ${currentProduct.fields.author}"),
+                              const SizedBox(height: 10),
+                              Text("Category: ${currentProduct.fields.category}"),
+                              const SizedBox(height: 10),
+                              Text("Rating: ${currentProduct.fields.rating}"),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : const Center(
+                    child: Text(
+                      "No products found.",
+                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                    ),
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void filterByCategory() {
+    if (selectedCategory == 'All Categories') {
+      setState(() {
+        filteredProducts = allProducts;
+      });
+    } else {
+      List<Product> categoryProducts = allProducts
+          .where((product) => product.fields.category == selectedCategory)
+          .toList();
+      setState(() {
+        filteredProducts = categoryProducts;
+      });
+    }
+  }
+
+  void sortProducts() {
+    if (selectedSort == 'Rating (Lowest)') {
+      filteredProducts.sort((a, b) => a.fields.rating.compareTo(b.fields.rating));
+    } else {
+      filteredProducts.sort((a, b) => b.fields.rating.compareTo(a.fields.rating));
+    }
+    setState(() {});
+  }
 
   @override
   void dispose() {
@@ -142,5 +254,3 @@ Widget build(BuildContext context) {
     super.dispose();
   }
 }
-
-// Ensure to adjust the Product model according to your actual model's fields.

@@ -4,62 +4,60 @@
 
 import 'dart:convert';
 
-List<Product> productFromJson(String str) =>
-    List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
+List<Product> productFromJson(String str) => List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
 
-String productToJson(List<Product> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String productToJson(List<Product> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Product {
-  Model model;
-  int pk;
-  Fields fields;
+    Model model;
+    int pk;
+    Fields fields;
 
-  Product({
-    required this.model,
-    required this.pk,
-    required this.fields,
-  });
+    Product({
+        required this.model,
+        required this.pk,
+        required this.fields,
+    });
 
-  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    factory Product.fromJson(Map<String, dynamic> json) => Product(
         model: modelValues.map[json["model"]]!,
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),
-      );
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "model": modelValues.reverse[model],
         "pk": pk,
         "fields": fields.toJson(),
-      };
+    };
 }
 
 class Fields {
-  String title;
-  String description;
-  String author;
-  String isbn10;
-  String isbn13;
-  String publishDate;
-  int edition;
-  BestSeller bestSeller;
-  int rating;
-  Category category;
+    String title;
+    String description;
+    String author;
+    String isbn10;
+    String isbn13;
+    String publishDate;
+    int edition;
+    String bestSeller;
+    int rating;
+    String category;
 
-  Fields({
-    required this.title,
-    required this.description,
-    required this.author,
-    required this.isbn10,
-    required this.isbn13,
-    required this.publishDate,
-    required this.edition,
-    required this.bestSeller,
-    required this.rating,
-    required this.category,
-  });
+    Fields({
+        required this.title,
+        required this.description,
+        required this.author,
+        required this.isbn10,
+        required this.isbn13,
+        required this.publishDate,
+        required this.edition,
+        required this.bestSeller,
+        required this.rating,
+        required this.category,
+    });
 
-  factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
         title: json["title"],
         description: json["description"],
         author: json["author"],
@@ -67,12 +65,12 @@ class Fields {
         isbn13: json["isbn13"],
         publishDate: json["publish_date"],
         edition: json["edition"],
-        bestSeller: bestSellerValues.map[json["best_seller"]]!,
+        bestSeller: json["best_seller"],
         rating: json["rating"],
-        category: categoryValues.map[json["category"]]!,
-      );
+        category: json["category"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "title": title,
         "description": description,
         "author": author,
@@ -80,45 +78,28 @@ class Fields {
         "isbn13": isbn13,
         "publish_date": publishDate,
         "edition": edition,
-        "best_seller": bestSellerValues.reverse[bestSeller],
+        "best_seller": bestSeller,
         "rating": rating,
-        "category": categoryValues.reverse[category],
-      };
+        "category": category,
+    };
 }
 
-enum BestSeller { NO, YES }
-
-final bestSellerValues =
-    EnumValues({"No": BestSeller.NO, "Yes": BestSeller.YES});
-
-enum Category {
-  DATABASE,
-  MACHINE_LEARNING,
-  POETRY,
-  PROGRAMMING,
-  SOFTWARE_ENGINEERING
+enum Model {
+    BOOK_BOOK
 }
 
-final categoryValues = EnumValues({
-  "Database": Category.DATABASE,
-  "Machine Learning": Category.MACHINE_LEARNING,
-  "Poetry": Category.POETRY,
-  "Programming": Category.PROGRAMMING,
-  "Software Engineering": Category.SOFTWARE_ENGINEERING
+final modelValues = EnumValues({
+    "book.book": Model.BOOK_BOOK
 });
 
-enum Model { BOOK_BOOK }
-
-final modelValues = EnumValues({"book.book": Model.BOOK_BOOK});
-
 class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
+    Map<String, T> map;
+    late Map<T, String> reverseMap;
 
-  EnumValues(this.map);
+    EnumValues(this.map);
 
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
+    Map<T, String> get reverse {
+        reverseMap = map.map((k, v) => MapEntry(v, k));
+        return reverseMap;
+    }
 }
