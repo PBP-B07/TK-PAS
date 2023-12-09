@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:ulasbuku/catalogue/models/product.dart';
+import 'package:ulasbuku/catalogue/screen/add_form.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
 
 class ProductPage extends StatefulWidget {
@@ -126,7 +127,8 @@ class _ProductPageState extends State<ProductPage> {
                       sortProducts(); // Sort products by rating
                     });
                   },
-                  items: sortOptions.map<DropdownMenuItem<String>>((String value) {
+                  items:
+                      sortOptions.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -142,7 +144,8 @@ class _ProductPageState extends State<ProductPage> {
                       filterByCategory(); // Filter products by category
                     });
                   },
-                  items: categories.map<DropdownMenuItem<String>>((String value) {
+                  items:
+                      categories.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -185,7 +188,8 @@ class _ProductPageState extends State<ProductPage> {
                           // Navigator.push logic
                         },
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           padding: const EdgeInsets.all(20.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -199,11 +203,13 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Text("Description: ${currentProduct.fields.description}"),
+                              Text(
+                                  "Description: ${currentProduct.fields.description}"),
                               const SizedBox(height: 10),
                               Text("Author: ${currentProduct.fields.author}"),
                               const SizedBox(height: 10),
-                              Text("Category: ${currentProduct.fields.category}"),
+                              Text(
+                                  "Category: ${currentProduct.fields.category}"),
                               const SizedBox(height: 10),
                               Text("Rating: ${currentProduct.fields.rating}"),
                             ],
@@ -241,9 +247,11 @@ class _ProductPageState extends State<ProductPage> {
 
   void sortProducts() {
     if (selectedSort == 'Rating (Lowest)') {
-      filteredProducts.sort((a, b) => a.fields.rating.compareTo(b.fields.rating));
+      filteredProducts
+          .sort((a, b) => a.fields.rating.compareTo(b.fields.rating));
     } else {
-      filteredProducts.sort((a, b) => b.fields.rating.compareTo(a.fields.rating));
+      filteredProducts
+          .sort((a, b) => b.fields.rating.compareTo(a.fields.rating));
     }
     setState(() {});
   }
