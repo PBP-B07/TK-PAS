@@ -1,3 +1,9 @@
+import 'package:ulasbuku/homepage/screens/busiest_forum.dart';
+import 'package:ulasbuku/homepage/screens/event_page.dart';
+import 'package:ulasbuku/homepage/screens/latest_forum_page.dart';
+import 'package:ulasbuku/homepage/screens/not_recomended_forum.dart';
+import 'package:ulasbuku/homepage/screens/recomended_forum.dart';
+import 'package:ulasbuku/homepage/screens/review_page.dart';
 import 'package:ulasbuku/login/login.dart';
 // import 'package:ulasbuku/screens/list_product.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +46,24 @@ class ShopCard extends StatelessWidget {
           if (item.name == "Lihat Buku") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProductPage()));
+          }  if (item.name == "Top Latest Reviews") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ReviewPage()));
+          } if (item.name == "Latest Event") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const EventPage()));
+          } if (item.name == "Latest Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LatestForumPage()));
+          } if (item.name == "Busiest Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const BusiestForumPage()));
+          } if (item.name == "Recomended Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const RecomendedForumPage()));
+          } if (item.name == "Not Recomended Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const NotRecomendedForumPage()));
           } 
       //   final response = await request.logout(
       //       // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
