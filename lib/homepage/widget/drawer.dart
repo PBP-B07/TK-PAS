@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:ulasbuku/catalogue/screen/catalogue.dart';
+import 'package:ulasbuku/homepage/screens/event_page.dart';
+import 'package:ulasbuku/homepage/screens/homepage.dart';
+import 'package:ulasbuku/homepage/screens/review_page.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -41,31 +43,31 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Homepage'),
 
             //Ketika diklik akan ke homepage
-            // onTap: () {
-            //   Navigator.pushReplacement(context,
-            //       MaterialPageRoute(builder: (context) => MyHomePage()));
-            // },
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.add_shopping_cart),
             title: const Text("Catalogue"),
 
-            // ketika diklik akan ke forms add_item
-            // onTap: () {
-            //   Navigator.push(context,
-            //       MaterialPageRoute(builder: (context) => const AddItemForm()));
-            // },
+            //ketika diklik akan ke forms add_item
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ProductPage()));
+            },
           ),
           // ListTile(
           //   leading: const Icon(Icons.shopping_bag_outlined),
-          //   title: const Text("Lihat Item"),
+          //   title: const Text("Review"),
 
           //   // ketika diklik akan ke list item
           //   onTap: () {
           //     Navigator.push(
           //         context,
           //         MaterialPageRoute(
-          //             builder: (context) => const ItemPage()));
+          //             builder: (context) => const ReviewPage()));
           //   },
           // ),
           ListTile(
@@ -79,6 +81,18 @@ class LeftDrawer extends StatelessWidget {
             //   );
             // },
           ),
+          // ListTile(
+          //   leading: const Icon(Icons.logout_outlined),
+          //   title: const Text('Logout'),
+          //   // onTap: () {
+          //   //     // Route menu ke halaman produk
+          //   //     Navigator.push(
+          //   //     context,
+          //   //     MaterialPageRoute(builder: (context) => const EventPage()),
+          //   //   );
+          //   // },
+          // )
+          
         ],
       ),
     );
