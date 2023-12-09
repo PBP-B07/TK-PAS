@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ulasbuku/homepage/screens/drawer.dart';
-import 'package:ulasbuku/homepage/screens/item_card.dart';
+import 'package:ulasbuku/homepage/widget/drawer.dart';
+import 'package:ulasbuku/homepage/widget/item_card.dart';
 import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 
 
@@ -10,8 +10,14 @@ class MyHomePage extends StatelessWidget {
   final List<ShopItem> items = [
     ShopItem("Lihat Buku", Icons.checklist, Color.fromARGB(255, 244, 163, 63)),
     // ShopItem("Daftar Produk", Icons.add_shopping_cart,Color.fromARGB(255, 239, 124, 191)),
-    ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.lightGreen),
-    ShopItem("Logout", Icons.logout, Colors.lightBlue),
+    // ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.lightGreen),
+    //ShopItem("Logout", Icons.logout, Colors.lightBlue),
+    ShopItem("Top Latest Reviews", Icons.reviews_outlined, Color.fromARGB(255, 92, 39, 171)),
+    ShopItem("Latest Event", Icons.event_note_outlined, Color.fromARGB(255, 229, 218, 11)),
+    ShopItem("Latest Forum", Icons.forum_rounded, Color.fromARGB(255, 106, 204, 206)),
+    ShopItem("Busiest Forum", Icons.add_shopping_cart, Color.fromARGB(255, 87, 135, 116)),
+    ShopItem("Recomended Forum", Icons.recommend_outlined, Color.fromARGB(255, 194, 49, 24)),
+    ShopItem("Not Recomended Forum", Icons.not_interested, Color.fromARGB(255, 182, 38, 136)),
   ];
 
   @override

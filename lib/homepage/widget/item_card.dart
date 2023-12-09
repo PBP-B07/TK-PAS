@@ -1,9 +1,16 @@
+import 'package:ulasbuku/homepage/screens/busiest_forum.dart';
+import 'package:ulasbuku/homepage/screens/event_page.dart';
+import 'package:ulasbuku/homepage/screens/latest_forum_page.dart';
+import 'package:ulasbuku/homepage/screens/recomended_forum.dart';
+import 'package:ulasbuku/homepage/screens/review_page.dart';
 import 'package:ulasbuku/login/login.dart';
 // import 'package:ulasbuku/screens/list_product.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:ulasbuku/catalogue/screen/catalogue.dart';
+
+import '../screens/not_recomended_forum.dart';
 // import 'package:ulasbuku/screens/item_list_page.dart';
 // import 'package:ulasbuku/screens/login.dart';
 // import 'package:ulasbuku/screens/menu.dart';
@@ -40,6 +47,24 @@ class ShopCard extends StatelessWidget {
           if (item.name == "Lihat Buku") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProductPage()));
+          } if (item.name == "Top Latest Reviews") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ReviewPage()));
+          } if (item.name == "Latest Event") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const EventPage()));
+          } if (item.name == "Latest Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LatestForumPage()));
+          } if (item.name == "Busiest Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const BusiestForumPage()));
+          } if (item.name == "Recomended Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const RecomendedForumPage()));
+          } if (item.name == "Not Recomended Forum") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const NotRecomendedForumPage()));
           } 
       //   final response = await request.logout(
       //       // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
@@ -64,6 +89,8 @@ class ShopCard extends StatelessWidget {
         child: Container(
           // Container untuk menyimpan Icon dan Text
           padding: const EdgeInsets.all(8),
+          width: 80, // Atur lebar kontainer sesuai keinginan Anda
+          height: 80, // Atur tinggi kontainer sesuai keinginan Anda
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -71,9 +98,9 @@ class ShopCard extends StatelessWidget {
                 Icon(
                   item.icon,
                   color: Colors.white,
-                  size: 100.0,
+                   size: 40.0, // Ubah ukuran ikon menjadi lebih kecil
                 ),
-                const Padding(padding: EdgeInsets.all(3)),
+                const Padding(padding: EdgeInsets.all(2)),
                 Text(
                   item.name,
                   textAlign: TextAlign.center,
