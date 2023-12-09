@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:ulasbuku/forum/screens/forum.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -78,6 +77,17 @@ class LeftDrawer extends StatelessWidget {
             //     MaterialPageRoute(builder: (context) => const ProductPage()),
             //   );
             // },
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_circle_rounded),
+            title: const Text('Forum'),
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ForumPage()),
+              );
+            },
           ),
         ],
       ),
