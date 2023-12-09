@@ -5,7 +5,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 // import 'package:ulasbuku/screens/item_list_page.dart';
-// import 'package:ulasbuku/screens/login.dart';
+// import 'package:ulasbuku/login/login.dart';
 // import 'package:ulasbuku/screens/menu.dart';
 // import '../screens/add_item_form.dart';
 
@@ -34,32 +34,36 @@ class ShopCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
-      //     if (item.name == "Homepage") {
-      //       Navigator.push(context,
-      //           MaterialPageRoute(builder: (context) => const AddItemForm()));
+          // Navigate ke route yang sesuai (tergantung jenis tombol)
+          // if (item.name == "Tambah Mobil") {
+          //   Navigator.push(context,
+          //       MaterialPageRoute(builder: (context) => const ShopFormPage()));
+          // }
           if (item.name == "Lihat Buku") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProductPage()));
-          } 
-      //   final response = await request.logout(
-      //       // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-      //       "http://localhost:8000/auth/logout/");
-      //   String message = response["message"];
-      //   if (response['status']) {
-      //     String uname = response["username"];
-      //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //       content: Text("$message Sampai jumpa, $uname."),
-      //     ));
-      //     Navigator.pushReplacement(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => const LoginPage()),
-      //     );
-      //   } else {
-      //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //       content: Text("$message"),
-      //     ));
-      //   }
-      // }
+          }
+          else if (item.name == "Logout") {
+            final response = await request.logout(
+              // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                //"https://muhammad-farrel21-tugas.pbp.cs.ui.ac.id/auth/logout/");
+                 "http://localhost:8000/auth/logout/");
+            String message = response["message"];
+            if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message Sampai jumpa, $uname."),
+              ));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message"),
+              ));
+            }
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
@@ -71,7 +75,7 @@ class ShopCard extends StatelessWidget {
                 Icon(
                   item.icon,
                   color: Colors.white,
-                  size: 100.0,
+                  size: 30.0,
                 ),
                 const Padding(padding: EdgeInsets.all(3)),
                 Text(
