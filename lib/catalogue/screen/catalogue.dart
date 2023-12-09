@@ -17,7 +17,9 @@ class _ProductPageState extends State<ProductPage> {
   List<Product> allProducts = [];
   List<Product> filteredProducts = [];
   String selectedCategory = 'All Categories';
+  String selectedSort = 'Rating (Lowest)';
   List<String> categories = ['All Categories'];
+  List<String> sortOptions = ['Rating (Lowest)', 'Rating (Highest)'];
 
   @override
   void initState() {
@@ -25,7 +27,8 @@ class _ProductPageState extends State<ProductPage> {
     fetchProduct().then((products) {
       setState(() {
         allProducts = products;
-        filteredProducts = products;
+        sortProductsByTitle(); // Sort products by title initially
+        filteredProducts = allProducts;
         updateCategories(); // Update the category list
       });
     });
@@ -81,6 +84,10 @@ class _ProductPageState extends State<ProductPage> {
     });
   }
 
+  void sortProductsByTitle() {
+    allProducts.sort((a, b) => a.fields.title.compareTo(b.fields.title));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,23 +99,40 @@ class _ProductPageState extends State<ProductPage> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              onChanged: filterSearchResults,
+              decoration: InputDecoration(
+                hintText: "Search...",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8.0),
+          Center(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Expanded(
-                  child: TextField(
-                    controller: searchController,
-                    onChanged: filterSearchResults,
-                    decoration: InputDecoration(
-                      hintText: "Search...",
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                    ),
-                  ),
+                DropdownButton<String>(
+                  value: selectedSort,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedSort = newValue!;
+                      sortProducts(); // Sort products by rating
+                    });
+                  },
+                  items: sortOptions.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
                 ),
                 const SizedBox(width: 16.0),
                 DropdownButton<String>(
@@ -142,7 +166,8 @@ class _ProductPageState extends State<ProductPage> {
                 await fetchProduct().then((products) {
                   setState(() {
                     allProducts = products;
-                    filteredProducts = products;
+                    sortProductsByTitle(); // Sort products by title
+                    filteredProducts = allProducts;
                     updateCategories(); // Update the category list
                   });
                 });
@@ -180,6 +205,8 @@ class _ProductPageState extends State<ProductPage> {
                               Text("Author: ${currentProduct.fields.author}"),
                               const SizedBox(height: 10),
                               Text("Category: ${currentProduct.fields.category}"),
+                              const SizedBox(height: 10),
+                              Text("Rating: ${currentProduct.fields.rating}"),
                             ],
                           ),
                         ),
@@ -211,6 +238,15 @@ class _ProductPageState extends State<ProductPage> {
         filteredProducts = categoryProducts;
       });
     }
+  }
+
+  void sortProducts() {
+    if (selectedSort == 'Rating (Lowest)') {
+      filteredProducts.sort((a, b) => a.fields.rating.compareTo(b.fields.rating));
+    } else {
+      filteredProducts.sort((a, b) => b.fields.rating.compareTo(a.fields.rating));
+    }
+    setState(() {});
   }
 
   @override

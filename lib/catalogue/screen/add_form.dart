@@ -233,32 +233,32 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Rating",
-                    labelText: "Rating",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _rating = double.parse(value!);
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return "Rating tidak boleh kosong!";
-                    }
-                    if (double.tryParse(value) == null) {
-                      return "Rating harus berupa angka!";
-                    }
-                    return null;
-                  },
-                ),
-              ),
+            //   Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: TextFormField(
+            //       decoration: InputDecoration(
+            //         hintText: "Rating",
+            //         labelText: "Rating",
+            //         border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(5.0),
+            //         ),
+            //       ),
+            //       onChanged: (String? value) {
+            //         setState(() {
+            //           _rating = double.parse(value!);
+            //         });
+            //       },
+            //       validator: (String? value) {
+            //         if (value == null || value.isEmpty) {
+            //           return "Rating tidak boleh kosong!";
+            //         }
+            //         if (double.tryParse(value) == null) {
+            //           return "Rating harus berupa angka!";
+            //         }
+            //         return null;
+            //       },
+            //     ),
+            //   ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
