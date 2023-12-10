@@ -3,6 +3,7 @@ import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 import 'package:ulasbuku/homepage/screens/event_page.dart';
 import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
+import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -81,6 +82,16 @@ class LeftDrawer extends StatelessWidget {
             //   );
             // },
           ),
+          ListTile(
+            leading: const Icon(Icons.add_reaction_outlined),
+            title: const Text('Reviews and Rates'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BookReviewPage()),
+              );
+            },
+          )
           // ListTile(
           //   leading: const Icon(Icons.logout_outlined),
           //   title: const Text('Logout'),
