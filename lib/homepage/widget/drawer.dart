@@ -3,6 +3,7 @@ import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 import 'package:ulasbuku/homepage/screens/event_page.dart';
 import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
+import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 
 
 class LeftDrawer extends StatelessWidget {
@@ -68,6 +69,16 @@ class LeftDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const ProductPage()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.library_books_rounded),
+            title: const Text("Reviews"),
+
+            //ketika diklik akan ke forms add_item
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const BookReviewPage()));
             },
           ),
 

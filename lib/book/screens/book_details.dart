@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:ulasbuku/forum/screens/forum.dart';
+import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 
 class BookDetailsPage extends StatefulWidget {
   final int bookId;
@@ -82,10 +83,10 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                   ElevatedButton(
                     onPressed: () {
                       // Add logic to navigate to the full reviews screen
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => FullReviewsPage()),
-                      // );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => BookReviewPage()),
+                      );
                     },
                     child: const Text('View Full Reviews'),
                   ),
