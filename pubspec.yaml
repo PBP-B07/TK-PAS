@@ -38,6 +38,8 @@ dependencies:
   pbp_django_auth: ^0.4.0
   pelaicons: ^0.0.1
   http: 1.1.0
+  flutter_rating_bar: ^4.0.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
