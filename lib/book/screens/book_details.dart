@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:ulasbuku/forum/screens/forum.dart';
+
 class BookDetailsPage extends StatefulWidget {
   final int bookId;
 
@@ -75,6 +77,28 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                       // Add logic to navigate to the edit screen
                     },
                     child: const Text('Edit Book'),
+                  ),
+                  const SizedBox(height: 10.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add logic to navigate to the full reviews screen
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => FullReviewsPage()),
+                      // );
+                    },
+                    child: const Text('View Full Reviews'),
+                  ),
+                  const SizedBox(height: 10.0), // Add space between buttons
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add logic to navigate to the full forums screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ForumPage()),
+                      );
+                    },
+                    child: const Text('View Full Forums'),
                   ),
                   // Add widgets to display reviews and forums if needed
                 ],
