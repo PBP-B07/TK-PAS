@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ulasbuku/book/screens/book_details.dart';
 import 'dart:convert';
 import 'package:ulasbuku/catalogue/models/product.dart';
+import 'package:ulasbuku/catalogue/screen/add_form.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
 
 class ProductPage extends StatefulWidget {
@@ -181,8 +183,9 @@ class _ProductPageState extends State<ProductPage> {
                     itemBuilder: (_, index) {
                       Product currentProduct = filteredProducts[index];
                       return InkWell(
-                        onTap: () {
-                          // Navigator.push logic
+                        onTap: () async {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.pk,)));
                         },
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
