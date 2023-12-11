@@ -14,8 +14,8 @@ class LatestForumPage extends StatefulWidget {
 
 class _LatestForumPageState extends State<LatestForumPage> {
   Future<List<Product>> fetchProduct() async {
-   var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
-    //var url = Uri.parse('http://localhost:8000/get_event/');
+   //var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
+  var url = Uri.parse('http://localhost:8000/get_forum/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -80,6 +80,8 @@ class _LatestForumPageState extends State<LatestForumPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(height: 10),
+                        Text("User: ${currentProduct.userUsername}"),
                         const SizedBox(height: 10),
                         Text("Subject: ${currentProduct.subject}"),
                         const SizedBox(height: 10),

@@ -15,8 +15,8 @@ class EventPage extends StatefulWidget {
 
 class _EventPageState extends State<EventPage> {
   Future<List<Product>> fetchProduct() async {
-   var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_event/');
-    //var url = Uri.parse('http://localhost:8000/get_event/');
+  //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_event/');
+    var url = Uri.parse('http://localhost:8000/get_event/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

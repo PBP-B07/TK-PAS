@@ -30,7 +30,10 @@ class ShopCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    return Material(
+    return  SizedBox(
+      width: 80, // Lebar card
+      height: 40, // Tinggi card
+    child: Material(
       color: item.color,
       child: InkWell(
         // Area responsive terhadap sentuhan
@@ -95,7 +98,7 @@ class ShopCard extends StatelessWidget {
                 Icon(
                   item.icon,
                   color: Colors.white,
-                  size: 100.0,
+                  size: 50.0,
                 ),
                 const Padding(padding: EdgeInsets.all(3)),
                 Text(
@@ -106,6 +109,7 @@ class ShopCard extends StatelessWidget {
               ],
             ),
           ),
+        ),
         ),
       ),
     );
