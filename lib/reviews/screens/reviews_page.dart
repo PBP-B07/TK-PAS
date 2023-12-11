@@ -5,7 +5,9 @@ import 'package:ulasbuku/homepage/widget/drawer.dart';
 import 'package:ulasbuku/reviews/models/product.dart';
 
 class BookReviewPage extends StatefulWidget {
-  const BookReviewPage({Key? key}) : super(key: key);
+  final int bookId;
+
+  const BookReviewPage({Key? key, required this.bookId}) : super(key: key);
 
   @override
   _BookReviewPageState createState() => _BookReviewPageState();
@@ -13,9 +15,9 @@ class BookReviewPage extends StatefulWidget {
 
 class _BookReviewPageState extends State<BookReviewPage> {
   Future<List<Product>> fetchProduct() async {
-    
     // var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/review/get-reviews-json/14/');
-    var url = Uri.parse('http://localhost:8000/review/get-reviews-json/14/');
+    var url = Uri.parse(
+        'http://localhost:8000/review/get-reviews-json/${widget.bookId}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -44,7 +46,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (!snapshot.hasData) {
+          } else if (!(snapshot.hasData && snapshot.data!.isNotEmpty)) {
             return const Center(
               child: Text(
                 "Tidak ada review untuk buku ini.",
@@ -57,7 +59,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: const EdgeInsets.only(top: 20, bottom: 20, left: 20, right: 20),
+                  margin: const EdgeInsets.only(
+                      top: 20, bottom: 20, left: 20, right: 20),
                   child: Center(
                     child: Text(
                       "Reviews of ${firstProduct.bookTitle}",
@@ -76,11 +79,14 @@ class _BookReviewPageState extends State<BookReviewPage> {
                       return InkWell(
                         child: Container(
                           // color: Colors.white,
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           padding: const EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
-                            color: Colors.white, // Set the background color to white
-                            borderRadius: BorderRadius.circular(20.0), // Set the border radius
+                            color: Colors
+                                .white, // Set the background color to white
+                            borderRadius: BorderRadius.circular(
+                                20.0), // Set the border radius
                           ),
                           // decoration: (borderRadius = BorderRadius.all(Radius.circular(20))),
                           // // BorderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -97,7 +103,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
                                     currentProduct.star,
                                     (index) => const Icon(
                                       Icons.star,
-                                      color: Colors.yellow, // Set the color for colored stars
+                                      color: Colors
+                                          .yellow, // Set the color for colored stars
                                     ),
                                   ),
                                   // Display uncolored star icons for the remaining stars
@@ -105,21 +112,25 @@ class _BookReviewPageState extends State<BookReviewPage> {
                                     5 - currentProduct.star,
                                     (index) => const Icon(
                                       Icons.star_border,
-                                      color: Colors.grey, // Set the color for uncolored stars
+                                      color: Colors
+                                          .grey, // Set the color for uncolored stars
                                     ),
                                   ),
                                   Text(
                                     " (${currentProduct.star} stars)",
-                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
                                   )
                                 ],
                               ),
                               const SizedBox(height: 10),
-                              Text("by ${currentProduct.profileName} | posted on ${currentProduct.dateAdded}"),
+                              Text(
+                                  "by ${currentProduct.profileName} | posted on ${currentProduct.dateAdded}"),
                               const SizedBox(height: 10),
                               Text(
                                 "\"${currentProduct.description}\"",
-                                style: const TextStyle(fontStyle: FontStyle.italic),
+                                style: const TextStyle(
+                                    fontStyle: FontStyle.italic),
                               )
                             ],
                           ),
@@ -136,44 +147,3 @@ class _BookReviewPageState extends State<BookReviewPage> {
     );
   }
 }
-
-            
-//             return ListView.builder(
-//               itemCount: snapshot.data!.length,
-//               itemBuilder: (_, index) {
-//                 Product currentProduct = snapshot.data![index];
-//                 return InkWell(
-//                   child: Container(
-//                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-//                     padding: const EdgeInsets.all(20.0),
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.start,
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         const SizedBox(height: 10),
-//                         Text(
-//                           "⭐⭐⭐⭐⭐ (${currentProduct.star} stars)",
-//                           style: const TextStyle(
-//                             fontSize: 18.0,
-//                             fontWeight: FontWeight.bold,
-//                           ),
-//                         ),
-//                         const SizedBox(height: 10),
-//                         Text("by ${currentProduct.profileName} | posted on ${currentProduct.dateAdded}"),
-//                         const SizedBox(height: 10),
-//                         Text(
-//                           "\"${currentProduct.description}\"",
-//                           style: const TextStyle(fontStyle: FontStyle.italic),
-//                         )
-//                       ],
-//                     ),
-//                   ),
-//                 );
-//               },
-//             );
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }

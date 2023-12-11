@@ -5,7 +5,6 @@ import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
 import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 
-
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
@@ -71,16 +70,6 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const ProductPage()));
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.library_books_rounded),
-            title: const Text("Reviews"),
-
-            //ketika diklik akan ke forms add_item
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const BookReviewPage()));
-            },
-          ),
 
           ListTile(
             leading: const Icon(Icons.book_outlined),
@@ -91,18 +80,21 @@ class LeftDrawer extends StatelessWidget {
                 builder: (BuildContext context) {
                   return Dialog(
                     shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20), // Sudut tumpul
-          ),
+                      borderRadius: BorderRadius.circular(20), // Sudut tumpul
+                    ),
                     child: Container(
                       padding: EdgeInsets.all(20),
-                      width: MediaQuery.of(context).size.width * 0.6, // 60% dari lebar layar
-                      height: MediaQuery.of(context).size.height * 0.4, // 40% dari tinggi layar
+                      width: MediaQuery.of(context).size.width *
+                          0.6, // 60% dari lebar layar
+                      height: MediaQuery.of(context).size.height *
+                          0.4, // 40% dari tinggi layar
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
                             'About UlasBuku',
-                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 15),
                           RichText(
@@ -110,14 +102,16 @@ class LeftDrawer extends StatelessWidget {
                             text: TextSpan(
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.black, // Sesuaikan warna sesuai tema Anda
+                                color: Colors
+                                    .black, // Sesuaikan warna sesuai tema Anda
                               ),
-                              text: 'UlasBuku adalah platform online di mana para pecinta Computer Science '
-                                    'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
-                                    'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
-                                    'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
-                                    'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
-                                    'bertukar perspektif, dan bantuan dalam topik sulit.',
+                              text:
+                                  'UlasBuku adalah platform online di mana para pecinta Computer Science '
+                                  'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
+                                  'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
+                                  'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
+                                  'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
+                                  'bertukar perspektif, dan bantuan dalam topik sulit.',
                             ),
                           ),
                           SizedBox(height: 20),
@@ -125,10 +119,11 @@ class LeftDrawer extends StatelessWidget {
                             child: Text('Tutup'),
                             onPressed: () {
                               //Navigator.of(context).pop(); // Tutup dialog
-                               // Navigasi ke homepage
+                              // Navigasi ke homepage
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => MyHomePage()),
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()),
                               );
                             },
                           ),

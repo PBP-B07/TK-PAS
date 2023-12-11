@@ -87,7 +87,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                       // Add logic to navigate to the full reviews screen
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => BookReviewPage()),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                BookReviewPage(bookId: widget.bookId)),
                       );
                     },
                     child: const Text('View Full Reviews'),
@@ -98,7 +100,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                       // Add logic to navigate to the full forums screen
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ForumPage()),
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ForumPage(bookId: widget.bookId)),
                       );
                     },
                     child: const Text('View Full Forums'),

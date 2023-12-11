@@ -64,7 +64,7 @@ class _ForumPageState extends State<ForumPage> {
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (!snapshot.hasData) {
+          } else if (!(snapshot.hasData && snapshot.data!.isNotEmpty)) {
             return const Center(
               child: Text(
                 "Tidak ada data produk.",
