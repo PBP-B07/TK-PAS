@@ -31,6 +31,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       headers: {"Content-Type": "application/json"},
     );
 
+    print(url);
+
     if (response.statusCode == 200) {
       setState(() {
         bookData = jsonDecode(utf8.decode(response.bodyBytes));
