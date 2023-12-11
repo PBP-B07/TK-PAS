@@ -14,8 +14,8 @@ class BusiestForumPage extends StatefulWidget {
 
 class _BusiestForumPageState extends State<BusiestForumPage> {
   Future<List<Product>> fetchProduct() async {
-   var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
-    //var url = Uri.parse('http://localhost:8000/get_event/');
+  //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
+    var url = Uri.parse('http://localhost:8000/get_busiest_forum/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -80,6 +80,8 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(height: 10),
+                        Text("User: ${currentProduct.userUsername}"),
                         const SizedBox(height: 10),
                         Text("Subject: ${currentProduct.subject}"),
                         const SizedBox(height: 10),

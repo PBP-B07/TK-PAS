@@ -23,15 +23,26 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'UlasBuku',
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+     appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Center(
+          child: RichText(
+            text: TextSpan(
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                  text: 'Ulas',
+                  style: TextStyle(color: Color(0xFF0919CD)),
+                ),
+                TextSpan(
+                  text: 'Buku',
+                  style: TextStyle(color: Color(0xFFC51605)),
+                ),
+              ],
+            ),
           ),
         ),
-        backgroundColor: Color.fromARGB(221, 68, 128, 202),
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white, // Example color, change as needed
       ),
       drawer: const LeftDrawer(),
       body: SingleChildScrollView(
