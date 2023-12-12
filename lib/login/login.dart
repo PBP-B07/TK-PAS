@@ -71,34 +71,36 @@ class _LoginPageState extends State<LoginPage> {
 
                 // Untuk menyambungkan Android emulator dengan Django pada localhost,
                 // gunakan URL http://10.0.2.2/
-                final response = await request.login("http://localhost:8000/auth/login/", {
-                  'username': username,
-                  'password': password,
-                });
-
-                // final response = await request.login("https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/login/", {
+                // final response =
+                //     await request.login("http://localhost:8000/auth/login/", {
                 //   'username': username,
                 //   'password': password,
                 // });
 
+                final response = await request.login(
+                    "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/login/", {
+                  'username': username,
+                  'password': password,
+                });
+
                 if (request.loggedIn) {
                   String message = response['message'];
                   String uname = response['username'];
+                  LoginPage.uname = uname;
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => MyHomePage()),
                   );
                   ScaffoldMessenger.of(context)
                     ..hideCurrentSnackBar()
-                    ..showSnackBar(
-                        SnackBar(content: Text("$message Selamat datang, $uname.")));
+                    ..showSnackBar(SnackBar(
+                        content: Text("$message Selamat datang, $uname.")));
                 } else {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
                       title: const Text('Login Gagal'),
-                      content:
-                          Text(response['message']),
+                      content: Text(response['message']),
                       actions: [
                         TextButton(
                           child: const Text('OK'),

@@ -3,6 +3,7 @@ import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 import 'package:ulasbuku/homepage/screens/event_page.dart';
 import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
+import 'package:ulasbuku/user_profile/screens/profile.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -73,13 +74,13 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.account_circle_rounded),
             title: const Text('Profile'),
-            // onTap: () {
-            //     // Route menu ke halaman produk
-            //     Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const ProductPage()),
-            //   );
-            // },
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+            },
           ),
           // ListTile(
           //   leading: const Icon(Icons.logout_outlined),
