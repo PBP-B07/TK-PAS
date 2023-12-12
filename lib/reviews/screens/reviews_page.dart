@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:ulasbuku/reviews/models/product.dart';
 import 'package:ulasbuku/reviews/screens/reviews_form_page.dart';
 import 'package:intl/intl.dart';
@@ -15,18 +17,12 @@ class BookReviewPage extends StatefulWidget {
 }
 
 class _BookReviewPageState extends State<BookReviewPage> {
-  Future<List<Product>> fetchProduct() async {
-    // var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/review/get-reviews-json/14/');
-    var url = Uri.parse(
-        'http://localhost:8000/review/get-reviews-json/${widget.bookId}/');
-    var response = await http.get(
-      url,
-      headers: {"Content-Type": "application/json"},
-    );
+  Future<List<Product>> fetchProduct(request) async {
+    var response = await request.get('http://localhost:8000/review/get-reviews-json/${widget.bookId}/');
+    print(response);
 
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
     List<Product> list_product = [];
-    for (var d in data) {
+    for (var d in response) {
       if (d != null) {
         list_product.add(Product.fromJson(d));
       }
@@ -34,32 +30,24 @@ class _BookReviewPageState extends State<BookReviewPage> {
     return list_product;
   }
 
-  Future<bool> hasUserReviewed() async {
-    //TODO MASI GABISAAAAAAAAAAAAAAA
-  print("WOI HALOOOOOOOOOOO");
-  var userReviewUrl = Uri.parse('http://localhost:8000/review/get-user-reviews/${widget.bookId}/');
-  var response = await http.get(
-    userReviewUrl,
-    headers: {"Content-Type": "application/json"},
-  );
+  Future<bool> hasUserReviewed(request) async {
+  var response = await request.get('http://localhost:8000/review/get-user-reviews/${widget.bookId}/');
+  print(response);
 
-  var data = jsonDecode(utf8.decode(response.bodyBytes));
-  print(data);
-  // Periksa apakah data tidak kosong atau sesuai dengan kondisi lain yang Anda tentukan
-  return data.isNotEmpty; // Gantilah dengan kondisi yang sesuai
+  return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai
 }
 
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reviews'),
       ),
-      // drawer: const LeftDrawer(),
       backgroundColor: const Color(0xFFCFFAFE),
       body: FutureBuilder(
-        future: fetchProduct(),
+        future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -82,7 +70,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
                     : "No reviews available",
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 30,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -152,7 +140,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
                   ),
                 ),
                 FutureBuilder(
-                  future: hasUserReviewed(),
+                  future: hasUserReviewed(request),
                   builder: (context, AsyncSnapshot<bool> userReviewSnapshot) {
                     if (userReviewSnapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
@@ -183,24 +171,6 @@ class _BookReviewPageState extends State<BookReviewPage> {
                     }
                   },
                 ),
-                // Align(
-                //   alignment: Alignment.bottomCenter,
-                //   child: Container(
-                //     margin: const EdgeInsets.only(bottom: 50.0),
-                //     child: ElevatedButton(
-                //       onPressed: () {
-                //         // Add logic to navigate to the full reviews screen
-                //         Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) =>
-                //                   ReviewFormPage(bookId: widget.bookId)),
-                //         );
-                //       },
-                //       child: const Text('Add Your Review'),
-                //     ),
-                //   ),
-                // ),
               ],
             );
           }
