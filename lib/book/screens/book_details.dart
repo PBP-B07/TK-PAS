@@ -24,19 +24,19 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   }
 
   Future<void> fetchBookDetails() async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/books/get-book/${widget.bookId}/');
+    var url = Uri.parse('http://127.0.0.1:8000/books/get-book/${widget.bookId}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
     );
 
-    print(url);
-
     if (response.statusCode == 200) {
       setState(() {
         bookData = jsonDecode(utf8.decode(response.bodyBytes));
       });
+
+      // print({bookData!['rating']});
+
     } else {
       throw Exception('Failed to load book details');
     }
@@ -74,6 +74,15 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                   Text('Edition: ${bookData!['edition']}'),
                   Text('Best Seller: ${bookData!['best_seller']}'),
                   Text('Category: ${bookData!['category']}'),
+                  Row(
+                    children: [
+                      const Text('Average Rating: ', style: TextStyle(fontSize: 16.0)),
+                      _buildStarRating(bookData!['rating']),
+                      Text(' (${bookData!['rating'].toDouble()} Stars)',
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 20.0),
                   ElevatedButton(
                     onPressed: () {
@@ -116,4 +125,16 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
             ),
     );
   }
+}
+
+Widget _buildStarRating(double rating) {
+  return Row(
+    children: List.generate(
+      5,
+      (index) => Icon(
+        index < rating ? Icons.star : Icons.star_border,
+        color: index < rating ? Colors.yellow : Colors.grey,
+      ),
+    ),
+  );
 }

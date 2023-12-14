@@ -41,7 +41,7 @@ class Fields {
     String publishDate;
     int edition;
     String bestSeller;
-    int rating;
+    double rating;
     String category;
 
     Fields({
