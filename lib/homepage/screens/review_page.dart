@@ -16,8 +16,8 @@ class ReviewPage extends StatefulWidget {
 
 class _ReviewPageState extends State<ReviewPage> {
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_review/');
-    //var url = Uri.parse('http://localhost:8000/books/');
+    //var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_review/');
+    var url = Uri.parse('http://localhost:8000/get_review/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -83,7 +83,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         const SizedBox(height: 10),
                         Text("User: ${currentProduct.profileName}"),
                         const SizedBox(height: 10),
-                        Text("Rate: ${currentProduct.star}"),
+                        Text("Rate: ${currentProduct.star}/5"),
                         const SizedBox(height: 10),
                         Text("Description: ${currentProduct.description}")
                       ],

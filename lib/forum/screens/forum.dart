@@ -5,7 +5,9 @@ import 'package:ulasbuku/forum/models/product_forum.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
 
 class ForumPage extends StatefulWidget {
-  const ForumPage({Key? key}) : super(key: key);
+  final int bookId;
+
+  const ForumPage({Key? key, required this.bookId}) : super(key: key);
 
   @override
   _ForumPageState createState() => _ForumPageState();
@@ -13,9 +15,10 @@ class ForumPage extends StatefulWidget {
 
 class _ForumPageState extends State<ForumPage> {
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse(
-        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/14/');
-    //var url = Uri.parse('http://localhost:8000/books/');
+    var url =
+        Uri.parse('http://localhost:8000/forum/get-forum/${widget.bookId}/');
+    //'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/14/');
+
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -61,11 +64,11 @@ class _ForumPageState extends State<ForumPage> {
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
-          } else if (!snapshot.hasData) {
+          } else if (!(snapshot.hasData && snapshot.data!.isNotEmpty)) {
             return const Center(
               child: Text(
                 "Tidak ada data produk.",
-                style: TextStyle(color: Colors.blueAccent, fontSize: 20),
+                style: TextStyle(color: Color(0xFF0919CD), fontSize: 20),
               ),
             );
           } else {
@@ -98,7 +101,7 @@ class _ForumPageState extends State<ForumPage> {
           // Action to add new forum
         },
         label: const Text('Add New Forum'),
-        backgroundColor: Colors.teal, // Example color, change as needed
+        backgroundColor: Color(0xFF5038BC), // Example color, change as needed
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(

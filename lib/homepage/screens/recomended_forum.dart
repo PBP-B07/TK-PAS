@@ -16,8 +16,8 @@ class RecomendedForumPage extends StatefulWidget {
 class _RecomendedForumPageState extends State<RecomendedForumPage> {
 
   Future<List<Product>> fetchProduct() async {
-   var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_recomended_forum/');
-    //var url = Uri.parse('http://localhost:8000/get_event/');
+   //var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_recomended_forum/');
+    var url = Uri.parse('http://localhost:8000/get_recomended_forum/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -77,7 +77,22 @@ class _RecomendedForumPageState extends State<RecomendedForumPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+        //                 GestureDetector(
+        // onTap: () {
+        //   // Ganti dengan perintah navigasi ke halaman detail buku
+        //   // Misalnya, Navigator.push() untuk berpindah ke halaman detail
+        //   // buku dengan data buku yang sesuai.
+        //   // Anda perlu menggantinya sesuai dengan implementasi Anda.
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => DetailBookPage(currentProduct),
+        //     ),
+        //   );
+        // },
+        // child:
+          Text(
+    
                           currentProduct.bookTitle,
                           style: const TextStyle(
                             fontSize: 18.0,

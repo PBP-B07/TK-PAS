@@ -14,8 +14,8 @@ class NotRecomendedForumPage extends StatefulWidget {
 
 class _NotRecomendedForumPageState extends State<NotRecomendedForumPage> {
   Future<List<Product>> fetchProduct() async {
-   var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_not_recomended_forum/');
-    //var url = Uri.parse('http://localhost:8000/get_event/');
+   //var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_not_recomended_forum/');
+    var url = Uri.parse('http://localhost:8000/get_not_recomended_forum/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

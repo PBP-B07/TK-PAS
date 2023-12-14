@@ -3,6 +3,7 @@ import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 import 'package:ulasbuku/homepage/screens/event_page.dart';
 import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
+import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 import 'package:ulasbuku/user_profile/screens/profile.dart';
 
 class LeftDrawer extends StatelessWidget {
@@ -50,7 +51,18 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
+            leading: const Icon(Icons.account_circle_rounded),
+            title: const Text('Profile'),
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.library_books_rounded),
             title: const Text("Catalogue"),
 
             //ketika diklik akan ke forms add_item
@@ -59,26 +71,68 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const ProductPage()));
             },
           ),
-          // ListTile(
-          //   leading: const Icon(Icons.shopping_bag_outlined),
-          //   title: const Text("Review"),
 
-          //   // ketika diklik akan ke list item
-          //   onTap: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //             builder: (context) => const ReviewPage()));
-          //   },
-          // ),
           ListTile(
-            leading: const Icon(Icons.account_circle_rounded),
-            title: const Text('Profile'),
+            leading: const Icon(Icons.book_outlined),
+            title: const Text("About UlasBuku"),
             onTap: () {
-              // Route menu ke halaman produk
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20), // Sudut tumpul
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      width: MediaQuery.of(context).size.width *
+                          0.6, // 60% dari lebar layar
+                      height: MediaQuery.of(context).size.height *
+                          0.4, // 40% dari tinggi layar
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            'About UlasBuku',
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 15),
+                          RichText(
+                            textAlign: TextAlign.justify,
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors
+                                    .black, // Sesuaikan warna sesuai tema Anda
+                              ),
+                              text:
+                                  'UlasBuku adalah platform online di mana para pecinta Computer Science '
+                                  'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
+                                  'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
+                                  'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
+                                  'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
+                                  'bertukar perspektif, dan bantuan dalam topik sulit.',
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          TextButton(
+                            child: Text('Tutup'),
+                            onPressed: () {
+                              //Navigator.of(context).pop(); // Tutup dialog
+                              // Navigasi ke homepage
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
               );
             },
           ),
