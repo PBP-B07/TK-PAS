@@ -67,6 +67,8 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
+                      filled: true, // Mengaktifkan pengisian warna latar belakang
+                      fillColor: Colors.white, // Menentukan warna latar belakang
                     ),
                     onChanged: (String? value) {
                       setState(() {
