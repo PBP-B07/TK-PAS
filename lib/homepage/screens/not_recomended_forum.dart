@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ulasbuku/book/screens/book_details.dart';
 import 'dart:convert';
 import 'package:ulasbuku/homepage/models/get_forum.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
@@ -37,9 +38,9 @@ class _NotRecomendedForumPageState extends State<NotRecomendedForumPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Not Recomended Forum'),
+        title: const Text('NOT RECOMENDED FORUM'),
       ),
-      drawer: const LeftDrawer(),
+      //drawer: const LeftDrawer(),
       body: FutureBuilder(
         future: fetchProduct(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -58,14 +59,11 @@ class _NotRecomendedForumPageState extends State<NotRecomendedForumPage> {
               itemBuilder: (_, index) {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => ProductDetailPage(Product: currentProduct),
-                //       ),
-                //     );
-                //   },
+                  onTap: () async {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.pk,)));
+                        },
+                
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
