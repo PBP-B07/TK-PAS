@@ -43,9 +43,6 @@ class ShopCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
-      //     if (item.name == "Homepage") {
-      //       Navigator.push(context,
-      //           MaterialPageRoute(builder: (context) => const AddItemForm()));
           if (item.name == "Lihat Buku") {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProductPage()));
@@ -68,26 +65,7 @@ class ShopCard extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const NotRecomendedForumPage()));
           } 
-      //   final response = await request.logout(
-      //       // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-      //       "http://localhost:8000/auth/logout/");
-      //   String message = response["message"];
-      //   if (response['status']) {
-      //     String uname = response["username"];
-      //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //       content: Text("$message Sampai jumpa, $uname."),
-      //     ));
-      //     Navigator.pushReplacement(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => const LoginPage()),
-      //     );
-      //   } else {
-      //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //       content: Text("$message"),
-      //     ));
-      //   }
-      // }
-        },
+      },
         child: Container(
           // Container untuk menyimpan Icon dan Text
           padding: const EdgeInsets.all(8),
