@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:ulasbuku/book/screens/book_details.dart';
 import 'dart:convert';
 import 'package:ulasbuku/homepage/models/get_busiest_forum.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
@@ -12,20 +15,36 @@ class BusiestForumPage extends StatefulWidget {
   _BusiestForumPageState createState() => _BusiestForumPageState();
 }
 
-class _BusiestForumPageState extends State<BusiestForumPage> {
-  Future<List<Product>> fetchProduct() async {
-  //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
-    var url = Uri.parse('http://localhost:8000/get_busiest_forum/');
-    var response = await http.get(
-      url,
-      headers: {"Content-Type": "application/json"},
-    );
+// class _BusiestForumPageState extends State<BusiestForumPage> {
+//   Future<List<Product>> fetchProduct() async {
+//   //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
+//     var url = Uri.parse('http://localhost:8000/get_busiest_forum/');
+//     var response = await http.get(
+//       url,
+//       headers: {"Content-Type": "application/json"},
+//     );
     
 
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-    print(data);
+//     var data = jsonDecode(utf8.decode(response.bodyBytes));
+//     print(data);
+//     List<Product> list_product = [];
+//     for (var d in data) {
+//       if (d != null) {
+//         list_product.add(Product.fromJson(d));
+//       }
+//     }
+//     return list_product;
+//   }
+
+
+class _BusiestForumPageState  extends State<BusiestForumPage> {
+  Future<List<Product>> fetchProduct(request) async {
+    //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
+    var response = await request.get('http://localhost:8000/get_busiest_forum/');
+    print(response);
+
     List<Product> list_product = [];
-    for (var d in data) {
+    for (var d in response) {
       if (d != null) {
         list_product.add(Product.fromJson(d));
       }
@@ -33,15 +52,26 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
     return list_product;
   }
 
+  Future<bool> hasUserReviewed(request) async {
+  //  var response = await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
+  var response = await request.get('http://localhost:8000/get_busiest_forum/');
+  print(response);
+
+  return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai
+}
+
+  
+
   @override
   Widget build(BuildContext context) {
+     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Busiest Forum'),
+        title: const Text('BUSIEST FORUM'),
       ),
-      drawer: const LeftDrawer(),
+      //drawer: const LeftDrawer(),
       body: FutureBuilder(
-        future: fetchProduct(),
+        future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -58,14 +88,10 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
               itemBuilder: (_, index) {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => ProductDetailPage(Product: currentProduct),
-                //       ),
-                //     );
-                //   },
+                onTap: () async {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.pk,)));
+                        },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
@@ -80,6 +106,7 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        
                         const SizedBox(height: 10),
                         Text("User: ${currentProduct.userUsername}"),
                         const SizedBox(height: 10),
