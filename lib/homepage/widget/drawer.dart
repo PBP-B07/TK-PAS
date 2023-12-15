@@ -143,7 +143,6 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.logout_outlined),
             title: const Text('Logout'),
             onTap: () async {
-              
                  final response = await request.logout(
             // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
             "http://localhost:8000/auth/logout/");
