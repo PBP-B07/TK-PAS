@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ulasbuku/book/screens/book_details.dart';
 import 'dart:convert';
 import 'package:ulasbuku/homepage/models/get_review.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
-// import 'package:carrel/screens/detail_Product_carrel.dart';
 // Tambahkan import untuk halaman detail
 
 
@@ -37,9 +37,9 @@ class _ReviewPageState extends State<ReviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Review Terbaru'),
+        title: const Text('TOP LATEST REVIEW'),
       ),
-      drawer: const LeftDrawer(),
+      //drawer: const LeftDrawer(),
       body: FutureBuilder(
         future: fetchProduct(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -58,18 +58,14 @@ class _ReviewPageState extends State<ReviewPage> {
               itemBuilder: (_, index) {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => ProductDetailPage(Product: currentProduct),
-                //       ),
-                //     );
-                //   },
+                  onTap: () async {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
+                        },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
-                    child: Column(
+                    child: Column( 
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

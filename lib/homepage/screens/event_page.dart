@@ -4,9 +4,12 @@ import 'dart:convert';
 import 'package:ulasbuku/homepage/models/get_event.dart';
 import 'package:ulasbuku/homepage/screens/event_form.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
+
+import '../../book/screens/book_details.dart';
 // Tambahkan import untuk halaman detail
 
 class EventPage extends StatefulWidget {
+  
   const EventPage({Key? key}) : super(key: key);
 
   @override
@@ -40,7 +43,7 @@ class _EventPageState extends State<EventPage> {
       appBar: AppBar(
         title: const Text('Event yang Anda Buat'),
       ),
-      drawer: const LeftDrawer(),
+      //drawer: const LeftDrawer(),
       body: FutureBuilder(
         future: fetchProduct(),
         builder: (context, AsyncSnapshot snapshot) {
@@ -59,14 +62,10 @@ class _EventPageState extends State<EventPage> {
               itemBuilder: (_, index) {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
-                //   onTap: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) => ProductDetailPage(Product: currentProduct),
-                //       ),
-                //     );
-                //   },
+                        onTap: () async {
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
+                        },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),

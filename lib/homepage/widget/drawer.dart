@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 import 'package:ulasbuku/homepage/screens/event_page.dart';
 import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
-
+import 'package:ulasbuku/login/login.dart';
+import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Drawer(
       child: ListView(
         children: [
@@ -80,18 +84,21 @@ class LeftDrawer extends StatelessWidget {
                 builder: (BuildContext context) {
                   return Dialog(
                     shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20), // Sudut tumpul
-          ),
+                      borderRadius: BorderRadius.circular(20), // Sudut tumpul
+                    ),
                     child: Container(
                       padding: EdgeInsets.all(20),
-                      width: MediaQuery.of(context).size.width * 0.6, // 60% dari lebar layar
-                      height: MediaQuery.of(context).size.height * 0.4, // 40% dari tinggi layar
+                      width: MediaQuery.of(context).size.width *
+                          0.6, // 60% dari lebar layar
+                      height: MediaQuery.of(context).size.height *
+                          0.4, // 40% dari tinggi layar
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
                             'About UlasBuku',
-                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 15),
                           RichText(
@@ -99,14 +106,16 @@ class LeftDrawer extends StatelessWidget {
                             text: TextSpan(
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors.black, // Sesuaikan warna sesuai tema Anda
+                                color: Colors
+                                    .black, // Sesuaikan warna sesuai tema Anda
                               ),
-                              text: 'UlasBuku adalah platform online di mana para pecinta Computer Science '
-                                    'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
-                                    'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
-                                    'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
-                                    'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
-                                    'bertukar perspektif, dan bantuan dalam topik sulit.',
+                              text:
+                                  'UlasBuku adalah platform online di mana para pecinta Computer Science '
+                                  'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
+                                  'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
+                                  'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
+                                  'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
+                                  'bertukar perspektif, dan bantuan dalam topik sulit.',
                             ),
                           ),
                           SizedBox(height: 20),
@@ -114,10 +123,11 @@ class LeftDrawer extends StatelessWidget {
                             child: Text('Tutup'),
                             onPressed: () {
                               //Navigator.of(context).pop(); // Tutup dialog
-                               // Navigasi ke homepage
+                              // Navigasi ke homepage
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => MyHomePage()),
+                                MaterialPageRoute(
+                                    builder: (context) => MyHomePage()),
                               );
                             },
                           ),
@@ -129,17 +139,30 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
-          // ListTile(
-          //   leading: const Icon(Icons.logout_outlined),
-          //   title: const Text('Logout'),
-          //   // onTap: () {
-          //   //     // Route menu ke halaman produk
-          //   //     Navigator.push(
-          //   //     context,
-          //   //     MaterialPageRoute(builder: (context) => const EventPage()),
-          //   //   );
-          //   // },
-          // )
+          ListTile(
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text('Logout'),
+            onTap: () async {
+              final response = await request.logout(
+                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                "http://localhost:8000/auth/logout/");
+            String message = response["message"];
+            if (response['status']) {
+              String uname = response["username"];
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message Sampai jumpa, $uname."),
+              ));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const LoginPage()),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("$message"),
+              ));
+            };
+            }
+          )
         ],
       ),
     );
