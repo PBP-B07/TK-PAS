@@ -41,7 +41,7 @@ class Fields {
     String publishDate;
     int edition;
     String bestSeller;
-    double rating;  // Changed from int to double
+    double rating;
     String category;
 
     Fields({

@@ -38,12 +38,12 @@ class Fields {
   String title;
   String description;
   String author;
-  int isbn10;
+  String isbn10;
   String isbn13;
   String publishDate;
   int edition;
   BestSeller bestSeller;
-  int rating;
+  double rating;
   Category category;
 
   Fields({
