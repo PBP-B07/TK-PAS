@@ -41,7 +41,7 @@ class Fields {
     String publishDate;
     int edition;
     String bestSeller;
-    int rating;
+    double rating;  // Changed from int to double
     String category;
 
     Fields({
@@ -53,7 +53,7 @@ class Fields {
         required this.publishDate,
         required this.edition,
         required this.bestSeller,
-        required this.rating,
+        required this.rating,  // Changed from int to double
         required this.category,
     });
 
@@ -66,7 +66,7 @@ class Fields {
         publishDate: json["publish_date"],
         edition: json["edition"],
         bestSeller: json["best_seller"],
-        rating: json["rating"],
+        rating: json["rating"].toDouble(),  // Parsing as double
         category: json["category"],
     );
 
@@ -79,10 +79,11 @@ class Fields {
         "publish_date": publishDate,
         "edition": edition,
         "best_seller": bestSeller,
-        "rating": rating,
+        "rating": rating,  // No change needed for serialization
         "category": category,
     };
 }
+
 
 enum Model {
     BOOK_BOOK
