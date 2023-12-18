@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ulasbuku/user_profile/screens/edit_your_reviews.dart';
 import 'package:http/http.dart' as http;
-import 'package:ulasbuku/user_profile/screens/your_reviews.dart';
 
 class YourReviewsItem {
   final double bookRating;
@@ -29,7 +28,7 @@ class YourReviewsCard extends StatelessWidget {
 
   final Function() onDelete;
 
-  YourReviewsCard(this.item, {Key? key, required this.onDelete})
+  const YourReviewsCard(this.item, {Key? key, required this.onDelete})
       : super(key: key);
 
   @override

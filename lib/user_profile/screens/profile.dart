@@ -50,8 +50,16 @@ class _ProfilePageState extends State<ProfilePage> {
               FutureBuilder(
                 future: fetchProduct(request),
                 builder: (context, AsyncSnapshot snapshot) {
-                  if (snapshot.data == null) {
-                    return const CircularProgressIndicator();
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "Error: ${snapshot.error}",
+                        style:
+                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                      ),
+                    );
                   } else {
                     if (!snapshot.hasData) {
                       return const Column(
@@ -79,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 16.0), // Add vertical space
                           NavigatorCard(
-                            NavigatorItem('63025', 'Your Reviews', 5),
+                            NavigatorItem('63025', 'Your Reviews'),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -90,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                           ),
                           NavigatorCard(
-                            NavigatorItem('58618', 'Your Forums', 5),
+                            NavigatorItem('58618', 'Your Forums'),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -101,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                           ),
                           NavigatorCard(
-                            NavigatorItem('983294', 'Your Replies', 5),
+                            NavigatorItem('983294', 'Your Replies'),
                             onPressed: () {
                               Navigator.push(
                                 context,

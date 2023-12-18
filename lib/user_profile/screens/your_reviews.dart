@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:ulasbuku/user_profile/models/get-reviews.dart';
-import 'package:ulasbuku/homepage/widget/drawer.dart';
 
 import 'package:ulasbuku/user_profile/widgets/your_reviews_card.dart';
 
@@ -38,13 +37,11 @@ class _YourReviewsPageState extends State<YourReviewsPage> {
         title: const Text('Your Reviews'),
         backgroundColor: Colors.blue,
       ),
-      drawer: const LeftDrawer(),
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            YourReviewsRow(),
             // Use Expanded to allow the ListView to take remaining space
             Expanded(
               child: FutureBuilder(
@@ -52,20 +49,22 @@ class _YourReviewsPageState extends State<YourReviewsPage> {
                 builder: (context, AsyncSnapshot<List<Product>> snapshot) {
                   // Check for loading state
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
-                  }
-                  // Check for errors
-                  if (snapshot.hasError) {
-                    return Text(
-                      "Error loading data: ${snapshot.error}",
-                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "Error: ${snapshot.error}",
+                        style:
+                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                      ),
                     );
-                  }
-                  // Check if data is empty
-                  if (snapshot.data!.isEmpty) {
-                    return Text(
-                      "Tidak ada data profile.",
-                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        "Tidak ada data review.",
+                        style:
+                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                      ),
                     );
                   }
                   // Display the data in a ListView
@@ -97,44 +96,6 @@ class _YourReviewsPageState extends State<YourReviewsPage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class YourReviewsRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            'Your Reviews',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-            ),
-          ),
-          Row(
-            children: [
-              Icon(Icons.arrow_drop_down),
-              SizedBox(width: 8.0),
-              DropdownButton<String>(
-                items: ['Sort by Latest', 'Sort by Newest']
-                    .map((String value) => DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        ))
-                    .toList(),
-                onChanged: (String? newValue) {
-                  // Handle dropdown selection (not implemented yet)
-                },
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

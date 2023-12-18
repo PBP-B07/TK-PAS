@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:ulasbuku/user_profile/models/get-reviews.dart';
-import 'package:ulasbuku/homepage/widget/drawer.dart';
-import 'package:ulasbuku/login/login.dart';
+import 'package:ulasbuku/user_profile/models/get-forum.dart';
 
-import 'package:ulasbuku/user_profile/widgets/your_reviews_card.dart';
+import 'package:ulasbuku/user_profile/widgets/your_forums_card.dart';
 
 class YourForumsPage extends StatefulWidget {
   const YourForumsPage({Key? key}) : super(key: key);
@@ -34,14 +30,46 @@ class _YourForumsPageState extends State<YourForumsPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Forums'),
         backgroundColor: Colors.blue,
       ),
-      drawer: const LeftDrawer(),
-      body: Container(),
+      body: FutureBuilder(
+        future: fetchProduct(request),
+        builder: (context, AsyncSnapshot<List<Product>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(
+                "Error: ${snapshot.error}",
+                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+              ),
+            );
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text(
+                "Tidak ada data forum",
+                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+              ),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (_, index) => YourForumsCard(
+                YourForumsItem(
+                  snapshot.data![index].bookTitle,
+                  snapshot.data![index].pk,
+                  snapshot.data![index].subject,
+                  snapshot.data![index].description,
+                  snapshot.data![index].dateAdded,
+                ),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }
