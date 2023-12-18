@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: RichText(
                     text: const TextSpan(
-                      style: TextStyle(fontSize: 38, fontWeight: FontWeight.bold,),
+                      style: TextStyle(fontFamily: 'Poppins', fontSize: 38, fontWeight: FontWeight.w700,),
                       children: [
                         TextSpan(
                           text: 'Ulas',
@@ -100,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                 Text(
                   "Let's Login!",
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontFamily: 'Poppins',),
                 ),
               ],
             ),
@@ -108,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 children: [
                   TextField(
+                    style: const TextStyle(fontFamily: 'Poppins',),
                     controller: _usernameController,
                     decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -126,6 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 12.0),
                   TextField(
+                    style: const TextStyle(fontFamily: 'Poppins',),
                     controller: _passwordController,
                     decoration: const InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -206,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: const Text(
                       'Login',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
                   const SizedBox(height: 12.0),
@@ -227,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: const Text(
                       'Register',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontFamily: 'Poppins', fontSize: 16, fontWeight: FontWeight.w700),
                     ),
                   ),
                 ]
