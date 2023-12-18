@@ -61,11 +61,16 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       hintText: "Deskripsi",
                       labelText: "Deskripsi",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
+                        borderRadius: BorderRadius.all(Radius.circular(50))
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color.fromARGB(255, 1, 51, 168)),
+                        borderRadius: BorderRadius.all(Radius.circular(50))
                       ),
                       filled: true, // Mengaktifkan pengisian warna latar belakang
                       fillColor: Colors.white, // Menentukan warna latar belakang
