@@ -5,6 +5,8 @@ import 'dart:convert';
 import 'package:ulasbuku/catalogue/models/product.dart';
 import 'package:ulasbuku/catalogue/screen/add_form.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -21,6 +23,7 @@ class _ProductPageState extends State<ProductPage> {
   String selectedSort = 'Rating (Lowest)';
   List<String> categories = ['All Categories'];
   List<String> sortOptions = ['Rating (Lowest)', 'Rating (Highest)'];
+  bool isAdmin = false;
 
   @override
   void initState() {
@@ -28,11 +31,19 @@ class _ProductPageState extends State<ProductPage> {
     fetchProduct().then((products) {
       setState(() {
         allProducts = products;
-        sortProductsByTitle(); // Sort products by title initially
+        sortProductsByTitle();
         filteredProducts = allProducts;
-        updateCategories(); // Update the category list
+        updateCategories();
       });
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    print('here');
+    super.didChangeDependencies();
+    final request = context.watch<CookieRequest>();
+    fetchAdminStatus(request);
   }
 
   Future<List<Product>> fetchProduct() async {
@@ -53,6 +64,31 @@ class _ProductPageState extends State<ProductPage> {
       throw Exception('Failed to load products');
     }
   }
+
+  Future<void> fetchAdminStatus(request) async {
+  var url = 'http://localhost:8000/catalogue/is-admin/';
+  print('Status admin sebelum fetch: $isAdmin');
+
+  try {
+    var response = await request.get(url);
+    print('Response: $response');
+
+    // Directly using the response assuming it is already a JSON object
+    if (response['is_admin'] != null) {
+      setState(() {
+        isAdmin = response['is_admin'];
+        print('Status admin setelah fetch: $isAdmin');
+      });
+    } else {
+      print('Invalid response format');
+    }
+  } catch (e) {
+    print('Error fetching admin status: $e');
+  }
+}
+
+
+
 
   void filterSearchResults(String query) {
     if (query.isEmpty) {
@@ -156,26 +192,29 @@ class _ProductPageState extends State<ProductPage> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () async {
-                // Navigate to add product page
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ShopFormPage()),
-                );
-                // Fetch products again after adding a product
-                await fetchProduct().then((products) {
-                  setState(() {
-                    allProducts = products;
-                    sortProductsByTitle(); // Sort products by title
-                    filteredProducts = allProducts;
-                    updateCategories(); // Update the category list
+          Visibility(
+            visible: isAdmin,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  // Navigate to add product page
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ShopFormPage()),
+                  );
+                  // Fetch products again after adding a product
+                  await fetchProduct().then((products) {
+                    setState(() {
+                      allProducts = products;
+                      sortProductsByTitle();
+                      filteredProducts = allProducts;
+                      updateCategories();
+                    });
                   });
-                });
-              },
-              child: Text("Add Product"),
+                },
+                child: Text("Add Product"),
+              ),
             ),
           ),
           Expanded(
