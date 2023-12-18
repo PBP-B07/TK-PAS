@@ -13,53 +13,43 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      elevation: 5,
-      margin: const EdgeInsets.all(16),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.blue, // Avatar background color
-              child: Icon(
-                Icons.person,
-                color: Colors.white, // Icon color
-                size: 50.0,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              item.name,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Username: ${item.username}",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Description: ${item.description}",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-              ),
-            ),
-          ],
+    return Column(
+      children: [
+        CircleAvatar(
+          radius: 50,
+          backgroundColor: Color(0xFF102542), // Avatar background color
+          child: Icon(
+            Icons.person,
+            color: Colors.white, // Icon color
+            size: 50.0,
+          ),
         ),
-      ),
+        const SizedBox(height: 16),
+        Text(
+          item.name,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "Username: ${item.username}",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          "Description: ${item.description}",
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 16,
+          ),
+        ),
+      ],
     );
   }
 }

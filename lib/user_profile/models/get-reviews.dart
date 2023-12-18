@@ -11,7 +11,7 @@ String productToJson(List<Product> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Product {
-  int bookRating;
+  double bookRating;
   String bookTitle;
   int bookPk;
   int pk;
