@@ -1,27 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:ulasbuku/forum/models/product_forum.dart';
+import 'package:ulasbuku/forum/models/product_reply.dart';
 import 'package:ulasbuku/forum/screens/forum_form.dart';
 import 'package:ulasbuku/forum/screens/reply.dart';
+import 'package:ulasbuku/forum/screens/reply_form.dart';
 
-class ForumPage extends StatefulWidget {
+class ReplyPage extends StatefulWidget {
   final int bookId;
+  final int forumId;
   final String bookTitle;
+  final String forumTitle;
 
-  const ForumPage({Key? key, required this.bookId, required this.bookTitle})
+  const ReplyPage(
+      {Key? key,
+      required this.bookId,
+      required this.forumId,
+      required this.bookTitle,
+      required this.forumTitle})
       : super(key: key);
 
   @override
-  _ForumPageState createState() => _ForumPageState();
+  _ReplyPageState createState() => _ReplyPageState();
 }
 
-class _ForumPageState extends State<ForumPage> {
+class _ReplyPageState extends State<ReplyPage> {
   get bookId => widget.bookId;
 
   Future<List<Product>> fetchProduct() async {
-    var url =
-        Uri.parse('http://localhost:8000/forum/get-forum/${widget.bookId}/');
+    var url = Uri.parse(
+        'http://localhost:8000/forum/${widget.bookId}/get-reply/${widget.forumId}/');
     //'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/14/');
 
     var response = await http.get(
@@ -36,7 +44,6 @@ class _ForumPageState extends State<ForumPage> {
         list_product.add(Product.fromJson(d));
       }
     }
-    list_product.sort((a, b) => b.pk.compareTo(a.pk));
     return list_product;
   }
 
@@ -85,8 +92,8 @@ class _ForumPageState extends State<ForumPage> {
                   child: Center(
                     child: Text(
                       firstProduct != null
-                          ? "Forums of ${widget.bookTitle}"
-                          : "No forum available",
+                          ? "Replies of ${widget.forumTitle}"
+                          : "No reply available",
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: 'Poppins',
@@ -102,67 +109,42 @@ class _ForumPageState extends State<ForumPage> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (_, index) {
                       Product currentProduct = snapshot.data![index];
-                      return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReplyPage(
-                                      bookId: bookId,
-                                      forumId: currentProduct.pk,
-                                      bookTitle: widget.bookTitle,
-                                      forumTitle: currentProduct.subject)),
-                            );
-                          },
-                          child: Card(
-                            elevation: 4.0,
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20.0), // Adjust the radius value as needed
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
+                      return Card(
+                        elevation: 4.0,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              20.0), // Adjust the radius value as needed
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '${currentProduct.subject}',
-                                        style: const TextStyle(
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Poppins'),
-                                      ),
-                                    ],
-                                  ),
-                                  Text('by ${currentProduct.userUsername}',
-                                      style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: 'Poppins')),
-                                  const SizedBox(height: 10.0),
                                   Text(
-                                    '"${currentProduct.description}"',
+                                    '${currentProduct.message}',
                                     style: const TextStyle(
-                                        fontStyle: FontStyle.italic,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold,
                                         fontFamily: 'Poppins'),
                                   ),
-                                  const SizedBox(height: 10.0),
-                                  Text(
-                                      'Last Replied: ${currentProduct.dateAdded}',
-                                      style: const TextStyle(
-                                          color: Colors.grey,
-                                          fontFamily: 'Poppins')),
-                                  const SizedBox(height: 8.0),
                                 ],
                               ),
-                            ),
-                          ));
+                              Text('by ${currentProduct.userUsername}',
+                                  style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontFamily: 'Poppins')),
+                              const SizedBox(height: 10.0),
+                            ],
+                          ),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -176,15 +158,15 @@ class _ForumPageState extends State<ForumPage> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => ForumFormPage(
-                bookId: widget.bookId,
-                bookTitle: widget.bookTitle,
-              ),
+              builder: (context) => ReplyFormPage(
+                  bookId: widget.bookId,
+                  forumId: widget.forumId,
+                  bookTitle: widget.bookTitle),
             ),
           );
         },
         label: const Text(
-          'Add New Forum',
+          'Add New Reply',
           style: TextStyle(
             color: Colors.white,
             fontFamily: 'Poppins',
