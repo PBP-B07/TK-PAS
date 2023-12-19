@@ -35,13 +35,26 @@ class _ShopFormPageState extends State<ShopFormPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Tambahkan Mobilmu!'),
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
       ),
-      drawer: const LeftDrawer(), // Add the pre-made drawer here
+      //drawer: const LeftDrawer(), // Add the pre-made drawer here
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -57,6 +70,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the hint
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -80,6 +95,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -103,6 +120,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -126,6 +145,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -149,6 +170,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -172,6 +195,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -195,6 +220,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -221,6 +248,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -270,6 +299,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
+                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -333,7 +364,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     },
                     child: const Text(
                       "Save",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
                     ),
                   ),
                 ),

@@ -1,14 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
-import 'package:ulasbuku/homepage/screens/homepage.dart';
+import 'package:ulasbuku/forum/screens/forum.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:ulasbuku/homepage/widget/drawer.dart';
 
 class ForumFormPage extends StatefulWidget {
-  const ForumFormPage({super.key});
+  final int bookId;
+  final String bookTitle;
+
+  const ForumFormPage({Key? key, required this.bookId, required this.bookTitle})
+      : super(key: key);
 
   @override
   State<ForumFormPage> createState() => _ForumFormPageState();
@@ -18,146 +20,207 @@ class _ForumFormPageState extends State<ForumFormPage> {
   final _formKey = GlobalKey<FormState>();
   String _subject = "";
   String _description = "";
-  DateTime _dateAdded = DateTime.now();
+
+  get bookId => widget.bookId;
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Tambahkan Forummu!'),
-        ),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
-      ),
-      drawer: const LeftDrawer(), // Add the pre-made drawer here
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Judul Forum",
-                    labelText: "Judul Forum",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _subject = value!;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return "Judul Forum tidak boleh kosong!";
-                    }
-                    return null;
-                  },
-                ),
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    hintText: "Deskripsi",
-                    labelText: "Deskripsi",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      _description = value!;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return "Deskripsi tidak boleh kosong!";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                    ),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // Kirim ke Django dan tunggu respons
-                        // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                        final response = await request.postJson(
-                          //"https://muhammad-farrel21-tugas.pbp.cs.ui.ac.id/create-flutter/"
-                          "http://localhost:8000/forum/create-flutter/",
-                          jsonEncode(<String, String>{
-                            'subject': _subject,
-                            'description': _description,
-                          }),
-                        );
-                        if (response['status'] == 'success') {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Produk baru berhasil disimpan!"),
-                          ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MyHomePage()),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content:
-                                Text("Terdapat kesalahan, silakan coba lagi."),
-                          ));
-                        }
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Forum berhasil tersimpan'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Subject: $_subject'),
-                                    Text('Description: $_description'),
-                                    // Text('Posted on: $_dateAdded'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
               ),
             ],
+          ),
+        ),
+      ),
+      backgroundColor: const Color(0xFFCFFAFE),
+      body: Form(
+        key: _formKey,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(
+                      255, 255, 255, 255), // Set the background color
+                  borderRadius: BorderRadius.circular(20.0),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x19000000),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                        ),
+                        decoration: const InputDecoration(
+                          labelText: "Subject",
+                          floatingLabelAlignment: FloatingLabelAlignment.center,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 25, horizontal: 10),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 1, 51, 168)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          filled:
+                              true, // Mengaktifkan pengisian warna latar belakang
+                          fillColor: Color.fromARGB(255, 236, 236,
+                              236), // Menentukan warna latar belakang
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _subject = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Subject tidak boleh kosong!";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 17,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                        ),
+                        decoration: const InputDecoration(
+                          labelText: "Deskripsi",
+                          floatingLabelAlignment: FloatingLabelAlignment.center,
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 25, horizontal: 10),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 1, 51, 168)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          filled:
+                              true, // Mengaktifkan pengisian warna latar belakang
+                          fillColor: Color.fromARGB(255, 236, 236,
+                              236), // Menentukan warna latar belakang
+                        ),
+                        onChanged: (String? value) {
+                          setState(() {
+                            _description = value!;
+                          });
+                        },
+                        validator: (String? value) {
+                          if (value == null || value.isEmpty) {
+                            return "Deskripsi tidak boleh kosong!";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 17,
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(const Color(0xFF5038BC)),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          // Kirim ke Django dan tunggu respons
+                          final response = await request.postJson(
+                            "http://localhost:8000/forum/create-flutter/${widget.bookId}/",
+                            jsonEncode(<String, String>{
+                              'subject': _subject,
+                              'description': _description,
+                            }),
+                          );
+                          if (response['status'] == 'success') {
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Forum berhasil ditambahkan!"),
+                              ),
+                            );
+                            // ignore: use_build_context_synchronously
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForumPage(
+                                    bookId: bookId,
+                                    bookTitle: widget.bookTitle),
+                              ),
+                            );
+                          } else {
+                            // ignore: use_build_context_synchronously
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    "Terdapat kesalahan, silakan coba lagi."),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      child: const Text(
+                        "Save",
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ),

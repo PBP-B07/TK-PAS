@@ -45,44 +45,60 @@ class _EventPageState extends State<EventPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-  var url = 'http://localhost:8000/is-admin/';
-  print('Status admin sebelum fetch: $isAdmin');
+    var url = 'http://localhost:8000/is-admin/';
+    print('Status admin sebelum fetch: $isAdmin');
 
-  try {
-    var response = await request.get(url);
-    print('Response: $response');
+    try {
+      var response = await request.get(url);
+      print('Response: $response');
 
-    // Directly using the response assuming it is already a JSON object
-    if (response['is_admin'] != null) {
-      setState(() {
-        isAdmin = response['is_admin'];
-        print('Status admin setelah fetch: $isAdmin');
-      });
-    } else {
-      print('Invalid response format');
+      // Directly using the response assuming it is already a JSON object
+      if (response['is_admin'] != null) {
+        setState(() {
+          isAdmin = response['is_admin'];
+          print('Status admin setelah fetch: $isAdmin');
+        });
+      } else {
+        print('Invalid response format');
+      }
+    } catch (e) {
+      print('Error fetching admin status: $e');
     }
-  } catch (e) {
-    print('Error fetching admin status: $e');
   }
-}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Event yang Anda Buat'),
+     appBar: AppBar(
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
-      //drawer: const LeftDrawer(), // Uncomment this if you have a LeftDrawer widget
+      backgroundColor: const Color(0xFFCFFAFE),
       body: FutureBuilder(
         future: fetchProduct(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (!snapshot.hasData) {
-            return const Center(
+            return Center(
               child: Text(
                 "Tidak ada data event.",
-                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                style: TextStyle(fontFamily: 'Poppins', color: Color(0xff59A5D8), fontSize: 20),
               ),
             );
           } else {
@@ -105,14 +121,15 @@ class _EventPageState extends State<EventPage> {
                         Text(
                           currentProduct.title,
                           style: const TextStyle(
+                            fontFamily: 'Poppins',
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}"),  // Using the description from fields
+                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Book Title: ${currentProduct.bookTitle}")
+                        Text("Book Title: ${currentProduct.bookTitle}", style: TextStyle(fontFamily: 'Poppins'))
                       ],
                     ),
                   ),
