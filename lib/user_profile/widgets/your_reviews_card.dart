@@ -174,7 +174,7 @@ class YourReviewsCard extends StatelessWidget {
                 // Implementasikan aksi sesuai pilihan yang dipilih
                 if (value == 'edit') {
                   // Aksi untuk edit
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ReviewEditPage(
