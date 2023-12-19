@@ -3,15 +3,11 @@ import 'package:ulasbuku/homepage/widget/drawer.dart';
 import 'package:ulasbuku/homepage/widget/item_card.dart';
 import 'package:ulasbuku/catalogue/screen/catalogue.dart';
 
-
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   final List<ShopItem> items = [
     ShopItem("Lihat Buku", Icons.checklist, Color.fromARGB(255, 244, 163, 63)),
-    // ShopItem("Daftar Produk", Icons.add_shopping_cart,Color.fromARGB(255, 239, 124, 191)),
-    // ShopItem("Tambah Item", Icons.add_shopping_cart, Colors.lightGreen),
-    //ShopItem("Logout", Icons.logout, Colors.lightBlue),
     ShopItem("Top Latest Reviews", Icons.reviews_outlined, Color.fromARGB(255, 92, 39, 171)),
     ShopItem("Latest Event", Icons.event_note_outlined, Color.fromARGB(255, 229, 218, 11)),
     ShopItem("Latest Forum", Icons.forum_rounded, Color.fromARGB(255, 106, 204, 206)),
@@ -23,28 +19,28 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Center(
-          child: RichText(
-            text: TextSpan(
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-              children: [
-                TextSpan(
-                  text: 'Ulas',
-                  style: TextStyle(color: Color(0xFF0919CD)),
-                ),
-                TextSpan(
-                  text: 'Buku',
-                  style: TextStyle(color: Color(0xFFC51605)),
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
           ),
         ),
-        backgroundColor: Colors.white, // Example color, change as needed
       ),
       drawer: const LeftDrawer(),
+      backgroundColor: const Color(0xFFCFFAFE),
       body: SingleChildScrollView(
         // Widget wrapper yang dapat discroll
         child: Padding(
@@ -59,25 +55,21 @@ class MyHomePage extends StatelessWidget {
                   'Welcome to UlasBuku', // Text yang menandakan toko
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              // Grid layout
-              GridView.count(
-                // Container pada card kita.
-                primary: true,
-                padding: const EdgeInsets.all(20),
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                children: items.map((ShopItem item) {
-                  // Iterasi untuk setiap item
-                  return ShopCard(item);
-                }).toList(),
-              ),
+              // Display ShopItems vertically without GridView
+              for (ShopItem item in items)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    //height: 100,
+                    child: ShopCard(item),
+                  ),
+                ),
             ],
           ),
         ),
@@ -85,4 +77,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-

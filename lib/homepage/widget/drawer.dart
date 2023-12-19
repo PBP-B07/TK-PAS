@@ -10,7 +10,7 @@ import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 import 'package:ulasbuku/user_profile/screens/profile.dart';
 
 class LeftDrawer extends StatelessWidget {
-  const LeftDrawer({super.key});
+  const LeftDrawer({Key? key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +19,17 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(color: Color.fromARGB(255, 212, 237, 52)),
+            decoration: BoxDecoration(color:   Color(0xFFCFFAFE)),
             child: Column(
               children: [
                 Text(
-                  "This Is  UlasBuku",
+                  "This Is UlasBuku",
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color:  Color(0xFF0919CD),
                   ),
                 ),
                 Padding(padding: EdgeInsets.all(10)),
@@ -36,9 +37,10 @@ class LeftDrawer extends StatelessWidget {
                   "Cari Buku yang Anda Butuhkan!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 15,
                     fontWeight: FontWeight.normal,
-                    color: Colors.white,
+                    color: Color(0xFFC51605),
                   ),
                 ),
               ],
@@ -46,19 +48,22 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
-            title: const Text('Homepage'),
-
-            //Ketika diklik akan ke homepage
+            title: const Text(
+              'Homepage',
+              style: TextStyle(fontFamily: 'Poppins'),
+            ),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => MyHomePage()));
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => MyHomePage()));
             },
           ),
           ListTile(
             leading: const Icon(Icons.account_circle_rounded),
-            title: const Text('Profile'),
+            title: const Text(
+              'Profile',
+              style: TextStyle(fontFamily: 'Poppins'),
+            ),
             onTap: () {
-              // Route menu ke halaman produk
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const ProfilePage()),
@@ -67,9 +72,10 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.library_books_rounded),
-            title: const Text("Catalogue"),
-
-            //ketika diklik akan ke forms add_item
+            title: const Text(
+              "Catalogue",
+              style: TextStyle(fontFamily: 'Poppins'),
+            ),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const ProductPage()));
@@ -77,28 +83,30 @@ class LeftDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.book_outlined),
-            title: const Text("About UlasBuku"),
+            title: const Text(
+              "About UlasBuku",
+              style: TextStyle(fontFamily: 'Poppins'),
+            ),
             onTap: () {
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
                   return Dialog(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20), // Sudut tumpul
+                      borderRadius: BorderRadius.circular(20),
                     ),
                     child: Container(
                       padding: EdgeInsets.all(20),
-                      width: MediaQuery.of(context).size.width *
-                          0.6, // 60% dari lebar layar
-                      // height: MediaQuery.of(context).size.height *
-                      //     0.4, // 40% dari tinggi layar
+                      width: MediaQuery.of(context).size.width * 0.6,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
                             'About UlasBuku',
                             style: TextStyle(
-                                fontFamily: 'Poppins', fontSize: 24, fontWeight: FontWeight.bold),
+                                fontFamily: 'Poppins',
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 15),
                           RichText(
@@ -107,8 +115,7 @@ class LeftDrawer extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 16,
-                                color: Colors
-                                    .black, // Sesuaikan warna sesuai tema Anda
+                                color: Colors.black,
                               ),
                               text:
                                   'UlasBuku adalah platform online di mana para pecinta Computer Science '
@@ -121,10 +128,8 @@ class LeftDrawer extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           TextButton(
-                            child: Text('Tutup'),
+                            child: Text('Tutup', style: TextStyle(fontFamily: 'Poppins')),
                             onPressed: () {
-                              //Navigator.of(context).pop(); // Tutup dialog
-                              // Navigasi ke homepage
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -141,29 +146,31 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-              leading: const Icon(Icons.logout_outlined),
-              title: const Text('Logout'),
-              onTap: () async {
-                final response = await request.logout(
-                    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                    "http://localhost:8000/auth/logout/");
-                String message = response["message"];
-                if (response['status']) {
-                  String uname = response["username"];
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("$message Sampai jumpa, $uname."),
-                  ));
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("$message"),
-                  ));
-                }
-                ;
-              })
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text(
+              'Logout',
+              style: TextStyle(fontFamily: 'Poppins'),
+            ),
+            onTap: () async {
+              final response = await request.logout(
+                  "http://localhost:8000/auth/logout/"); // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+              String message = response["message"];
+              if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message Sampai jumpa, $uname."),
+                ));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message"),
+                ));
+              }
+            },
+          ),
         ],
       ),
     );
