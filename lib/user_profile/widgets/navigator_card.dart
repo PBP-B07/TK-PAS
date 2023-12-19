@@ -19,6 +19,20 @@ class NavigatorCard extends StatefulWidget {
 class _NavigatorCardState extends State<NavigatorCard> {
   bool isHovered = false;
 
+  IconData _getIconData(String icon) {
+    switch (icon) {
+      case 'replies':
+        return Icons.reply_rounded;
+      case 'reviews':
+        return Icons.chat_rounded;
+      case 'forums':
+        return Icons.forum_rounded;
+      default:
+        // Return a default icon in case the specified icon is not recognized
+        return Icons.error;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -29,7 +43,7 @@ class _NavigatorCardState extends State<NavigatorCard> {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
-            color: Colors.white, // Set background color to white
+            color: Colors.white,
             border: Border.all(
               color: Color.fromARGB(255, 1, 51, 168),
               width: 2.0,
@@ -38,8 +52,7 @@ class _NavigatorCardState extends State<NavigatorCard> {
           ),
           child: ListTile(
             leading: Icon(
-              IconData(int.parse(widget.item.icon),
-                  fontFamily: 'MaterialIcons'),
+              _getIconData(widget.item.icon),
               size: 48.0,
               color: Color.fromARGB(255, 1, 51, 168),
             ),
