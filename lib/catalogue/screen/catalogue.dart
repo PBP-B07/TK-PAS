@@ -149,6 +149,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
       ),
       drawer: const LeftDrawer(),
+      backgroundColor: const Color(0xFFCFFAFE),
       body: Column(
         children: [
           Padding(
@@ -170,7 +171,7 @@ class _ProductPageState extends State<ProductPage> {
                   borderSide: BorderSide.none,
                 ),
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: Colors.white,
               ),
             ),
           ),
@@ -253,49 +254,84 @@ class _ProductPageState extends State<ProductPage> {
                     itemBuilder: (_, index) {
                       Product currentProduct = filteredProducts[index];
                       return InkWell(
-                        onTap: () async {
-                          Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.pk,)));
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookDetailsPage(bookId: currentProduct.pk),
+                            ),
+                          );
                         },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                currentProduct.fields.title,
-                                style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                        child: Card(
+                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          elevation: 4, // adds shadow under the card
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20), // card corner radius
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  currentProduct.fields.title,
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF333333), // Dark text for title
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                  "Description: ${currentProduct.fields.description}"),
-                              const SizedBox(height: 10),
-                              Text("Author: ${currentProduct.fields.author}"),
-                              const SizedBox(height: 10),
-                              Text(
-                                  "Category: ${currentProduct.fields.category}"),
-                              const SizedBox(height: 10),
-                              Text("Rating: ${currentProduct.fields.rating}"),
-                            ],
+                                Text(
+                                  "Author: ${currentProduct.fields.author}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Color(0xFF666666), // Grey text for author
+                                  ),
+                                ),
+                                Text(
+                                  "Publish Date: ${currentProduct.fields.publishDate}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Color(0xFF666666), // Grey text for publish date
+                                  ),
+                                ),
+                                Text(
+                                  "Category: ${currentProduct.fields.category}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Color(0xFF666666), // Grey text for category
+                                  ),
+                                ),
+                                Text(
+                                  "Rating: ${currentProduct.fields.rating}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Color(0xFF666666), // Grey text for rating
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
                     },
                   )
-                : const Center(
+                : Center(
                     child: Text(
                       "No products found.",
-                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        color: Color(0xff59A5D8),
+                        fontSize: 20,
+                      ),
                     ),
                   ),
-          ),
+          )
         ],
       ),
     );
