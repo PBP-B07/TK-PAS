@@ -122,7 +122,9 @@ class _AddItemState extends State<AddItemEventForm> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
+              // child: Container(
+              //   width: 500, // Set a maximum width for the dropdown menu
                 child: DropdownButtonFormField<String>(
                   value: _selectedBookTitle,
                   style: TextStyle(fontFamily: 'Poppins'), // Use Poppins font
@@ -133,16 +135,17 @@ class _AddItemState extends State<AddItemEventForm> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
+                  isExpanded: true, // Make the dropdown button take up the full width
                   items: bookTitles.isNotEmpty
                       ? bookTitles
                           .toSet()
                           .toList()
                           .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList()
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList()
                       : [], // Set to null if bookTitles is empty
                   onChanged: (String? newValue) {
                     setState(() {
@@ -157,6 +160,7 @@ class _AddItemState extends State<AddItemEventForm> {
                   },
                 ),
               ),
+// ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
