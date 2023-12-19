@@ -65,7 +65,7 @@ class ShopCard extends StatelessWidget {
         ),
       ),
       child: SizedBox(
-        width: screenWidth * 0.25, // Adjust the multiplier as needed
+        // width: screenWidth * 0.25, // Adjust the multiplier as needed
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
