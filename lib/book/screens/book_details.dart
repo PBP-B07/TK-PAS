@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:ulasbuku/book/screens/edit_form.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
+import 'package:ulasbuku/book/screens/edit_form.dart';
 import 'package:ulasbuku/reviews/screens/reviews_page.dart';
 import 'package:ulasbuku/forum/screens/forum.dart';
 import 'package:ulasbuku/reviews/models/product.dart' as review_product;
@@ -21,6 +23,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   Map<String, dynamic>? bookData;
   List<review_product.Product> recentReviews = [];
   List<forum_product.Product> recentForums = [];
+  bool isAdmin = false;
 
   @override
   void initState() {
@@ -29,6 +32,36 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
     fetchRecentReviews();
     fetchRecentForums();
   }
+
+  @override
+  void didChangeDependencies() {
+    // print('here');
+    super.didChangeDependencies();
+    final request = context.watch<CookieRequest>();
+    fetchAdminStatus(request);
+  }
+
+  Future<void> fetchAdminStatus(request) async {
+  var url = 'http://localhost:8000/catalogue/is-admin/';
+  print('Status admin sebelum fetch: $isAdmin');
+
+  try {
+    var response = await request.get(url);
+    print('Response: $response');
+
+    // Directly using the response assuming it is already a JSON object
+    if (response['is_admin'] != null) {
+      setState(() {
+        isAdmin = response['is_admin'];
+        print('Status admin setelah fetch: $isAdmin');
+      });
+    } else {
+      print('Invalid response format');
+    }
+  } catch (e) {
+    // print('Error fetching admin status: $e');
+  }
+}
 
   Future<void> fetchBookDetails() async {
     var url =
@@ -95,7 +128,24 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Book Details'),
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
       body: bookData != null
           ? ListView(
@@ -113,47 +163,50 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Center(
-                            // Menengahkan judul
                             child: Text(
                               bookData!['title'],
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
+                                fontFamily: 'Poppins'
                               ),
                             ),
                           ),
                           const SizedBox(height: 10.0),
                           Center(
-                            // Menengahkan deskripsi
                             child: Text(
                               bookData!['description'],
-                              style: const TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins', fontStyle: FontStyle.italic),
                             ),
                           ),
                           const SizedBox(height: 20.0),
-                          Text('Author: ${bookData!['author']}'),
-                          Text('ISBN-10: ${bookData!['isbn10']}'),
-                          Text('ISBN-13: ${bookData!['isbn13']}'),
-                          Text('Publish Date: ${bookData!['publish_date']}'),
-                          Text('Edition: ${bookData!['edition']}'),
-                          Text('Best Seller: ${bookData!['best_seller']}'),
-                          Text('Category: ${bookData!['category']}'),
+                          // <---Book Details Section
+                          _buildDetailItem('Author', bookData!['author']),
+                          _buildDetailItem('ISBN-10', bookData!['isbn10']),
+                          _buildDetailItem('ISBN-13', bookData!['isbn13']),
+                          _buildDetailItem('Publish Date', bookData!['publish_date']),
+                          _buildDetailItem('Edition', bookData!['edition'].toString()),
+                          _buildDetailItem('Best Seller', bookData!['best_seller']),
+                          _buildDetailItem('Category', bookData!['category']),
+                          // Book Details Section--->
                           const SizedBox(height: 20.0),
                           Center(
                             child: Wrap(
                               alignment: WrapAlignment.center,
                               children: [
-                                const Text('Average Rating: ', style: TextStyle(fontSize: 20.0)),
+                                const Text('Average Rating: ',
+                                    style: TextStyle(fontSize: 20.0, fontFamily: 'Poppins')),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     _buildStarRating(bookData!['rating']),
                                     Text(
-                                      ' (${bookData!['rating'].toDouble()} Stars)',
+                                      ' (${bookData!['rating'].toDouble().toStringAsFixed(2)} Stars)',
                                       style: const TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: 'Poppins'
                                       ),
                                     ),
                                   ],
@@ -168,7 +221,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           const SizedBox(height: 10.0),
                           Center(
                             child:
-                                Text('Total Reviews: ${recentReviews.length}'),
+                                Text('Total Reviews: ${recentReviews.length}', style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
                           ),
                           if (recentReviews.isNotEmpty)
                             Column(
@@ -192,7 +245,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                                           bookId: widget.bookId)),
                                 );
                               },
-                              child: const Text('View Full Reviews'),
+                              child: const Text('View Full Reviews', style: TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
                             ),
                           ),
                           const SizedBox(height: 30.0),
@@ -201,7 +254,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           ),
                           const SizedBox(height: 10.0),
                           Center(
-                            child: Text('Total Forums: ${recentForums.length}'),
+                            child: Text('Total Forums: ${recentForums.length}', style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
                           ),
                           if (recentForums.isNotEmpty)
                             Column(
@@ -225,30 +278,33 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                                           ForumPage(bookId: widget.bookId)),
                                 );
                               },
-                              child: const Text('View Full Forums'),
+                              child: const Text('View Full Forums', style: TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
                             ),
                           ),
                           const SizedBox(height: 20.0),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        EditFormPage(bookId: widget.bookId),
-                                  ),
-                                ).then((updatedData) {
-                                  if (updatedData != null) {
-                                    setState(() {
-                                      bookData = updatedData;
-                                    });
-                                  }
-                                });
-                              },
-                              child: const Text('Edit Book'),
+                          Visibility(
+                            visible: isAdmin,
+                            child: Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          EditFormPage(bookId: widget.bookId),
+                                    ),
+                                  ).then((updatedData) {
+                                    if (updatedData != null) {
+                                      setState(() {
+                                        bookData = updatedData;
+                                      });
+                                    }
+                                  });
+                                },
+                                child: const Text('Edit Book', style: TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
@@ -259,6 +315,25 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           : const Center(
               child: CircularProgressIndicator(),
             ),
+    );
+  }
+
+  Widget _buildDetailItem(String label, String value) {
+    return RichText(
+      text: TextSpan(
+        style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins'),
+        children: [
+          TextSpan(
+            text: '$label: ',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          TextSpan(
+            text: value,
+          ),
+        ],
+      ),
     );
   }
 
@@ -280,6 +355,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       style: const TextStyle(
         fontSize: 20.0,
         fontWeight: FontWeight.bold,
+        fontFamily: 'Poppins'
       ),
     );
   }
@@ -299,13 +375,19 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                 _buildStarRating(review.star as double),
                 Text(
                   ' (${review.star.toDouble()} Stars)',
-                  style: const TextStyle(fontSize: 16.0),
+                  style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins'),
                 ),
               ],
             ),
-            Text('by ${review.profileName}', style: const TextStyle(color: Colors.grey),),
+            Text(
+              'by ${review.profileName}',
+              style: const TextStyle(color: Colors.grey, fontFamily: 'Poppins'),
+            ),
             const SizedBox(height: 10.0),
-            Text(review.description),
+            Text(
+              '"${review.description}"',
+              style: const TextStyle(fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
+            ),
             const SizedBox(height: 8.0),
           ],
         ),
@@ -328,15 +410,21 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
               children: [
                 Text(
                   forum.subject,
-                  style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16.0, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
                 ),
               ],
             ),
-            Text('by ${forum.userUsername}', style: const TextStyle(color: Colors.grey)),
+            Text('by ${forum.userUsername}',
+                style: const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
             const SizedBox(height: 10.0),
-            Text(forum.description),
+            Text(
+              '"${forum.description}"',
+              style: const TextStyle(fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
+            ),
             const SizedBox(height: 10.0),
-            Text('Posted on: ${forum.dateAdded.toLocal()}', style: const TextStyle(color: Colors.grey)),
+            Text('Posted on: ${forum.dateAdded.toLocal()}',
+                style: const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
             const SizedBox(height: 8.0),
           ],
         ),
