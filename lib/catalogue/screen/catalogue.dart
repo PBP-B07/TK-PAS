@@ -67,23 +67,23 @@ class _ProductPageState extends State<ProductPage> {
 
   Future<void> fetchAdminStatus(request) async {
   var url = 'http://localhost:8000/catalogue/is-admin/';
-  print('Status admin sebelum fetch: $isAdmin');
+  //print('Status admin sebelum fetch: $isAdmin');
 
   try {
     var response = await request.get(url);
-    print('Response: $response');
+    //print('Response: $response');
 
     // Directly using the response assuming it is already a JSON object
     if (response['is_admin'] != null) {
       setState(() {
         isAdmin = response['is_admin'];
-        print('Status admin setelah fetch: $isAdmin');
+        //print('Status admin setelah fetch: $isAdmin');
       });
     } else {
-      print('Invalid response format');
+      //print('Invalid response format');
     }
   } catch (e) {
-    print('Error fetching admin status: $e');
+    //print('Error fetching admin status: $e');
   }
 }
 
@@ -129,7 +129,24 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Catalogue Buku'),
+       centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
       drawer: const LeftDrawer(),
       body: Column(
@@ -139,9 +156,15 @@ class _ProductPageState extends State<ProductPage> {
             child: TextField(
               controller: searchController,
               onChanged: filterSearchResults,
+              style: const TextStyle(
+                fontFamily: 'Poppins', // Apply Poppins font to text
+              ),
               decoration: InputDecoration(
                 hintText: "Search...",
-                prefixIcon: Icon(Icons.search),
+                hintStyle: const TextStyle(
+                  fontFamily: 'Poppins', // Apply Poppins font to hint text
+                ),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none,
@@ -168,7 +191,10 @@ class _ProductPageState extends State<ProductPage> {
                       sortOptions.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value,
+                        style: const TextStyle(fontFamily: 'Poppins'), // Apply Poppins font here
+                      ),
                     );
                   }).toList(),
                 ),
@@ -185,7 +211,10 @@ class _ProductPageState extends State<ProductPage> {
                       categories.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(
+                        value,
+                        style: const TextStyle(fontFamily: 'Poppins'), // Apply Poppins font here
+                      ),
                     );
                   }).toList(),
                 ),
@@ -213,7 +242,7 @@ class _ProductPageState extends State<ProductPage> {
                     });
                   });
                 },
-                child: Text("Add Product"),
+                child: Text("Add Buku", style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
               ),
             ),
           ),
@@ -239,6 +268,7 @@ class _ProductPageState extends State<ProductPage> {
                               Text(
                                 currentProduct.fields.title,
                                 style: const TextStyle(
+                                  fontFamily: 'Poppins',
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                 ),
