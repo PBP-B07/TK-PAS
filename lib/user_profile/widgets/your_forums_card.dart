@@ -68,7 +68,7 @@ class YourForumsCard extends StatelessWidget {
 
             // Date
             Text(
-              "Created forum on ${item.formattedDateAdded}",
+              "Last replied on ${item.formattedDateAdded}",
               style: TextStyle(
                 fontFamily: 'Poppins',
                 color: Colors.grey,
