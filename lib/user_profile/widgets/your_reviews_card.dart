@@ -57,6 +57,7 @@ class YourReviewsCard extends StatelessWidget {
                       Text(
                         "NO PHOTOS",
                         style: TextStyle(
+                          fontFamily: 'Poppins',
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white, // Tulisan putih
@@ -80,6 +81,7 @@ class YourReviewsCard extends StatelessWidget {
                                 Text(
                                   item.bookRating.toString(), // Rating buku
                                   style: TextStyle(
+                                    fontFamily: 'Poppins',
                                     fontSize: 12.0,
                                     color: Colors.white, // Tulisan rating putih
                                   ),
@@ -113,6 +115,7 @@ class YourReviewsCard extends StatelessWidget {
                   Text(
                     item.bookTitle,
                     style: TextStyle(
+                      fontFamily: 'Poppins',
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -159,7 +162,7 @@ class YourReviewsCard extends StatelessWidget {
 
                   Text(
                     item.formattedDateAdded, // Ubah sesuai property date pada objek item
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(fontFamily: 'Poppins', color: Colors.grey),
                   ),
                 ],
               ),
@@ -197,7 +200,8 @@ class YourReviewsCard extends StatelessWidget {
                             },
                             child: Text(
                               "Cancel",
-                              style: TextStyle(color: Colors.grey),
+                              style: TextStyle(
+                                  fontFamily: 'Poppins', color: Colors.grey),
                             ),
                           ),
                           TextButton(

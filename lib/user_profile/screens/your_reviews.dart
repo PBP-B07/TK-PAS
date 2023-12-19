@@ -34,68 +34,99 @@ class _YourReviewsPageState extends State<YourReviewsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Your Reviews'),
-        backgroundColor: Colors.blue,
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Use Expanded to allow the ListView to take remaining space
-            Expanded(
-              child: FutureBuilder(
-                future: fetchProduct(request),
-                builder: (context, AsyncSnapshot<List<Product>> snapshot) {
-                  // Check for loading state
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        "Error: ${snapshot.error}",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
-                      ),
-                    );
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(
-                      child: Text(
-                        "Tidak ada data review.",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
-                      ),
-                    );
-                  }
-                  // Display the data in a ListView
-                  return ListView.builder(
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (_, index) => YourReviewsCard(
-                      YourReviewsItem(
-                        snapshot.data![index].bookRating,
-                        snapshot.data![index].bookTitle,
-                        snapshot.data![index].bookPk,
-                        snapshot.data![index].pk,
-                        snapshot.data![index].description,
-                        snapshot.data![index].star,
-                        snapshot.data![index].dateAdded,
-                      ),
-                      // Pass the onDelete callback
-                      onDelete: () {
-                        // Reload data when onDelete is invoked
-                        fetchProduct(request).then((updatedData) {
-                          setState(() {
-                            yourReviews = updatedData;
-                          });
-                        });
-                      },
-                    ),
-                  );
-                },
+      backgroundColor: const Color(0xFFCFFAFE),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Your Reviews',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
               ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: fetchProduct(request),
+              builder: (context, AsyncSnapshot<List<Product>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(
+                    child: Text(
+                      "Error: ${snapshot.error}",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color(0xff59A5D8),
+                          fontSize: 20),
+                    ),
+                  );
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      "No review data.",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color(0xff59A5D8),
+                          fontSize: 20),
+                    ),
+                  );
+                }
+                // Display the data in a ListView
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (_, index) => YourReviewsCard(
+                    YourReviewsItem(
+                      snapshot.data![index].bookRating,
+                      snapshot.data![index].bookTitle,
+                      snapshot.data![index].bookPk,
+                      snapshot.data![index].pk,
+                      snapshot.data![index].description,
+                      snapshot.data![index].star,
+                      snapshot.data![index].dateAdded,
+                    ),
+                    // Pass the onDelete callback
+                    onDelete: () {
+                      // Reload data when onDelete is invoked
+                      fetchProduct(request).then((updatedData) {
+                        setState(() {
+                          yourReviews = updatedData;
+                        });
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

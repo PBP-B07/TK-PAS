@@ -40,6 +40,7 @@ class YourRepliesCard extends StatelessWidget {
             Text(
               'You replied "${item.message}"',
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
@@ -50,6 +51,7 @@ class YourRepliesCard extends StatelessWidget {
             Text(
               'on forum "${item.forumSubject}" created by ${item.forumUserUsername}',
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontSize: 16,
                 color: Colors.grey,
               ),

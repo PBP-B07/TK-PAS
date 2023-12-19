@@ -17,7 +17,8 @@ class ProfileCard extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 50,
-          backgroundColor: Color(0xFF102542), // Avatar background color
+          backgroundColor:
+              Color.fromARGB(255, 1, 51, 168), // Avatar background color
           child: Icon(
             Icons.person,
             color: Colors.white, // Icon color
@@ -28,6 +29,7 @@ class ProfileCard extends StatelessWidget {
         Text(
           item.name,
           style: TextStyle(
+            fontFamily: 'Poppins',
             color: Colors.black,
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -37,6 +39,7 @@ class ProfileCard extends StatelessWidget {
         Text(
           "Username: ${item.username}",
           style: TextStyle(
+            fontFamily: 'Poppins',
             color: Colors.grey,
             fontSize: 16,
           ),
@@ -45,6 +48,7 @@ class ProfileCard extends StatelessWidget {
         Text(
           "Description: ${item.description}",
           style: TextStyle(
+            fontFamily: 'Poppins',
             color: Colors.grey,
             fontSize: 16,
           ),

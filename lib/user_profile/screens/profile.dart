@@ -38,8 +38,29 @@ class _ProfilePageState extends State<ProfilePage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
+      backgroundColor: const Color(0xFFCFFAFE),
       drawer: const LeftDrawer(),
       body: Center(
         child: ConstrainedBox(
@@ -47,6 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
+              const SizedBox(height: 8),
               FutureBuilder(
                 future: fetchProduct(request),
                 builder: (context, AsyncSnapshot snapshot) {
@@ -56,8 +78,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     return Center(
                       child: Text(
                         "Error: ${snapshot.error}",
-                        style:
-                            TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xff59A5D8),
+                            fontSize: 20),
                       ),
                     );
                   } else {
@@ -67,7 +91,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text(
                             "Tidak ada data profile.",
                             style: TextStyle(
-                                color: Color(0xff59A5D8), fontSize: 20),
+                                fontFamily: 'Poppins',
+                                color: Color(0xff59A5D8),
+                                fontSize: 20),
                           ),
                           SizedBox(height: 8),
                         ],

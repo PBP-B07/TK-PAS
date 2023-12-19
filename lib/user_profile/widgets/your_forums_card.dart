@@ -29,6 +29,7 @@ class YourForumsCard extends StatelessWidget {
             Text(
               "Subject: ${item.subject}",
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -42,8 +43,9 @@ class YourForumsCard extends StatelessWidget {
                     color: Colors.grey), // Adjusted color
                 SizedBox(width: 4.0),
                 Text(
-                  'You in book titled "${item.bookTitle}"',
+                  'You',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     color: Colors.grey, // Adjusted color
                   ),
                 ),
@@ -56,6 +58,7 @@ class YourForumsCard extends StatelessWidget {
             Text(
               "Description: ${item.description}",
               style: TextStyle(
+                fontFamily: 'Poppins',
                 fontStyle: FontStyle.italic,
                 color: Colors.black, // Adjusted color
               ),
@@ -67,6 +70,19 @@ class YourForumsCard extends StatelessWidget {
             Text(
               "Created forum on ${item.formattedDateAdded}",
               style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+
+            SizedBox(height: 12.0),
+
+            // Date
+            Text(
+              'in book titled "${item.bookTitle}"',
+              style: TextStyle(
+                fontFamily: 'Poppins',
                 color: Colors.grey,
                 fontStyle: FontStyle.italic,
               ),

@@ -33,8 +33,26 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Edit Your Review',
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
         ),
       ),
       backgroundColor: const Color(0xFFCFFAFE),
@@ -117,7 +135,7 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
                           ),
                         );
                         // ignore: use_build_context_synchronously
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const YourReviewsPage(),
@@ -136,7 +154,8 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
                   },
                   child: const Text(
                     "Save",
-                    style: TextStyle(color: Colors.white),
+                    style:
+                        TextStyle(fontFamily: 'Poppins', color: Colors.white),
                   ),
                 ),
               ],

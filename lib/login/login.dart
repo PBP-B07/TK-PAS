@@ -41,211 +41,232 @@ class _LoginPageState extends State<LoginPage> {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       backgroundColor: const Color(0xFFCFFAFE),
-      body: Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 237,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 237,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  shadows: const [
+                    BoxShadow(
+                      color: Color(0x19000000),
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
-                shadows: const [
-                  BoxShadow(
-                    color: Color(0x19000000),
-                    blurRadius: 10,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  )
+                child: Center(
+                  // atau Align(alignment: Alignment.center, ...)
+                  child: Container(
+                    width: 188,
+                    height: 165,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      image: const DecorationImage(
+                        image: AssetImage("panda.png"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Center(
+                    child: RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 38,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Ulas',
+                            style: TextStyle(color: Color(0xFF0919CD)),
+                          ),
+                          TextSpan(
+                            text: 'Buku',
+                            style: TextStyle(color: Color(0xFFC51605)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Let's Login!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
                 ],
               ),
-              child: Center(
-                // atau Align(alignment: Alignment.center, ...)
-                child: Container(
-                  width: 188,
-                  height: 165,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    image: const DecorationImage(
-                      image: AssetImage("panda.png"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: RichText(
-                    text: const TextSpan(
-                      style: TextStyle(
-                        fontSize: 38,
-                        fontWeight: FontWeight.bold,
+              Container(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Column(children: [
+                    TextField(
+                      style: const TextStyle(
+                        fontFamily: 'Poppins',
                       ),
-                      children: [
-                        TextSpan(
-                          text: 'Ulas',
-                          style: TextStyle(color: Color(0xFF0919CD)),
+                      controller: _usernameController,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 1, 51, 168)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        labelText: 'Username',
+                        fillColor: Colors.white,
+                        filled: true,
+                        // floatingLabelAlignment: FloatingLabelAlignment.center
+                      ),
+                    ),
+                    const SizedBox(height: 12.0),
+                    TextField(
+                      style: const TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 1, 51, 168)),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        labelText: 'Password',
+                        fillColor: Colors.white,
+                        filled: true,
+                        // floatingLabelAlignment: FloatingLabelAlignment.center
+                      ),
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 15),
+                    ElevatedButton(
+                      onPressed: () async {
+                        String username = _usernameController.text;
+                        String password = _passwordController.text;
+
+                        // Cek kredensial
+
+                        // Untuk menyambungkan Android emulator dengan Django pada localhost,
+                        // gunakan URL http://10.0.2.2/
+                        final response = await request
+                            .login("http://localhost:8000/auth/login/", {
+                          'username': username,
+                          'password': password,
+                        });
+
+                        // final response = await request.login("https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/login/", {
+                        //   'username': username,
+                        //   'password': password,
+                        // });
+
+                        if (request.loggedIn) {
+                          String message = response['message'];
+                          LoginPage.uname = response['username'];
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyHomePage()),
+                          );
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context)
+                            ..hideCurrentSnackBar()
+                            ..showSnackBar(SnackBar(
+                                content: Text(
+                                    "$message Selamat datang, $LoginPage.uname.")));
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Login Gagal'),
+                              content: Text(response['message']),
+                              actions: [
+                                TextButton(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF5038BC),
+                        minimumSize: const Size.fromHeight(50),
+                        padding: const EdgeInsets.all(
+                            20.0), // Mengatur padding tombol
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              40.0), // Mengatur radius tombol
                         ),
-                        TextSpan(
-                          text: 'Buku',
-                          style: TextStyle(color: Color(0xFFC51605)),
-                        ),
-                      ],
+                      ),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Let's Login!",
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            Container(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(children: [
-                  TextField(
-                    controller: _usernameController,
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 1, 51, 168)),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      labelText: 'Username',
-                      fillColor: Colors.white,
-                      filled: true,
-                      // floatingLabelAlignment: FloatingLabelAlignment.center
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255)),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 1, 51, 168)),
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      labelText: 'Password',
-                      fillColor: Colors.white,
-                      filled: true,
-                      // floatingLabelAlignment: FloatingLabelAlignment.center
-                    ),
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 15),
-                  ElevatedButton(
-                    onPressed: () async {
-                      String username = _usernameController.text;
-                      String password = _passwordController.text;
-
-                      // Cek kredensial
-
-                      // Untuk menyambungkan Android emulator dengan Django pada localhost,
-                      // gunakan URL http://10.0.2.2/
-                      final response = await request
-                          .login("http://localhost:8000/auth/login/", {
-                        'username': username,
-                        'password': password,
-                      });
-
-                      // final response = await request.login("https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/login/", {
-                      //   'username': username,
-                      //   'password': password,
-                      // });
-
-                      if (request.loggedIn) {
-                        String message = response['message'];
-                        String uname = response['username'];
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushReplacement(
+                    const SizedBox(height: 12.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MyHomePage()),
+                          MaterialPageRoute(
+                              builder: (context) => const RegistrationPage()),
                         );
-                        // ignore: use_build_context_synchronously
-                        ScaffoldMessenger.of(context)
-                          ..hideCurrentSnackBar()
-                          ..showSnackBar(SnackBar(
-                              content:
-                                  Text("$message Selamat datang, $uname.")));
-                      } else {
-                        // ignore: use_build_context_synchronously
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Login Gagal'),
-                            content: Text(response['message']),
-                            actions: [
-                              TextButton(
-                                child: const Text('OK'),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF5038BC),
-                      minimumSize: const Size.fromHeight(50),
-                      padding:
-                          const EdgeInsets.all(20.0), // Mengatur padding tombol
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            40.0), // Mengatur radius tombol
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF5038BC),
+                        minimumSize: const Size.fromHeight(50),
+                        padding: const EdgeInsets.all(
+                            20.0), // Mengatur padding tombol
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              40.0), // Mengatur radius tombol
+                        ),
+                      ),
+                      child: const Text(
+                        'Register',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700),
                       ),
                     ),
-                    child: const Text(
-                      'Login',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RegistrationPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF5038BC),
-                      minimumSize: const Size.fromHeight(50),
-                      padding:
-                          const EdgeInsets.all(20.0), // Mengatur padding tombol
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            40.0), // Mengatur radius tombol
-                      ),
-                    ),
-                    child: const Text(
-                      'Register',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ])),
-            // const SizedBox(height: 12.0),
-          ],
+                  ])),
+              // const SizedBox(height: 12.0),
+            ],
+          ),
         ),
       ),
     );

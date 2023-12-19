@@ -79,7 +79,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -118,8 +118,9 @@ class _BookReviewPageState extends State<BookReviewPage> {
                     : "No reviews available",
                       textAlign: TextAlign.center,
                       style: const TextStyle(
+                        fontFamily: 'Poppins',
                         fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
@@ -141,7 +142,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
                             sortOptions.map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(value, style: const TextStyle(fontFamily: 'Poppins',),),
                           );
                         }).toList(),
                       ),
@@ -192,7 +193,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
                                   Text(
                                     " (${currentProduct.star} stars)",
                                     style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w700,
                                       fontSize: 14
                                     ),
                                   )
@@ -200,12 +202,16 @@ class _BookReviewPageState extends State<BookReviewPage> {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                  "by ${currentProduct.profileName} | posted on ${DateFormat('yyyy-MM-dd').format(currentProduct.dateAdded)}"),
+                                "by ${currentProduct.profileName} | posted on ${DateFormat('yyyy-MM-dd').format(currentProduct.dateAdded)}",
+                                style: const TextStyle(fontFamily: 'Poppins',)
+                              ),
                               const SizedBox(height: 10),
                               Text(
                                 "\"${currentProduct.description}\"",
                                 style: const TextStyle(
-                                    fontStyle: FontStyle.italic),
+                                  fontFamily: 'Poppins',
+                                  fontStyle: FontStyle.italic
+                                ),
                               )
                             ],
                           ),
@@ -225,7 +231,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
                         return Align(
                           alignment: Alignment.bottomCenter,
                           child: Container(
-                            margin: const EdgeInsets.only(bottom: 80.0),
+                            margin: const EdgeInsets.only(bottom: 60.0),
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.pushReplacement(

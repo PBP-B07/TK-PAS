@@ -90,21 +90,22 @@ class LeftDrawer extends StatelessWidget {
                       padding: EdgeInsets.all(20),
                       width: MediaQuery.of(context).size.width *
                           0.6, // 60% dari lebar layar
-                      height: MediaQuery.of(context).size.height *
-                          0.4, // 40% dari tinggi layar
+                      // height: MediaQuery.of(context).size.height *
+                      //     0.4, // 40% dari tinggi layar
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
                             'About UlasBuku',
                             style: TextStyle(
-                                fontSize: 24, fontWeight: FontWeight.bold),
+                                fontFamily: 'Poppins', fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 15),
                           RichText(
                             textAlign: TextAlign.justify,
                             text: TextSpan(
                               style: TextStyle(
+                                fontFamily: 'Poppins',
                                 fontSize: 16,
                                 color: Colors
                                     .black, // Sesuaikan warna sesuai tema Anda

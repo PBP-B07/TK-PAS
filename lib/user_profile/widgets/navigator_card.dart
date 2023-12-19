@@ -29,8 +29,9 @@ class _NavigatorCardState extends State<NavigatorCard> {
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           decoration: BoxDecoration(
+            color: Colors.white, // Set background color to white
             border: Border.all(
-              color: isHovered ? Colors.white : Color(0xFF102542),
+              color: Color.fromARGB(255, 1, 51, 168),
               width: 2.0,
             ),
             borderRadius: BorderRadius.circular(12.0),
@@ -40,7 +41,7 @@ class _NavigatorCardState extends State<NavigatorCard> {
               IconData(int.parse(widget.item.icon),
                   fontFamily: 'MaterialIcons'),
               size: 48.0,
-              color: isHovered ? Colors.white : Color(0xFF102542),
+              color: Color.fromARGB(255, 1, 51, 168),
             ),
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,8 +49,9 @@ class _NavigatorCardState extends State<NavigatorCard> {
                 Text(
                   widget.item.title,
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 20.0,
-                    color: isHovered ? Colors.white : Colors.black,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -57,13 +59,13 @@ class _NavigatorCardState extends State<NavigatorCard> {
                 Text(
                   'See items',
                   style: TextStyle(
+                    fontFamily: 'Poppins',
                     fontSize: 16.0,
                     color: Colors.grey,
                   ),
                 ),
               ],
             ),
-            tileColor: isHovered ? Color(0xFF102542) : null,
             onTap: widget.onPressed,
           ),
         ),
