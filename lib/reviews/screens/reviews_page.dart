@@ -19,12 +19,21 @@ class _BookReviewPageState extends State<BookReviewPage> {
   List<Product> allProducts = [];
   List<Product> filteredProducts = [];
   String selectedSort = 'Date Added (Newest-Oldest)';
-  List<String> sortOptions = ['Date Added (Newest-Oldest)', '5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star', '0 Star'];
-  
+  List<String> sortOptions = [
+    'Date Added (Newest-Oldest)',
+    '5 Stars',
+    '4 Stars',
+    '3 Stars',
+    '2 Stars',
+    '1 Star',
+    '0 Star'
+  ];
+
   get request => context.watch<CookieRequest>();
 
   Future<List<Product>> fetchProduct(request) async {
-    var response = await request.get('http://localhost:8000/review/get-reviews-json/${widget.bookId}/');
+    var response = await request
+        .get('http://localhost:8000/review/get-reviews-json/${widget.bookId}/');
     // print(response);
 
     List<Product> list_product = [];
@@ -41,7 +50,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
   }
 
   Future<bool> hasUserReviewed(request) async {
-    var response = await request.get('http://localhost:8000/review/get-user-reviews/${widget.bookId}/');
+    var response = await request
+        .get('http://localhost:8000/review/get-user-reviews/${widget.bookId}/');
     // print(response);
 
     return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai
@@ -50,7 +60,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
   @override
   void initState() {
     super.initState();
-    
+
     // Menggunakan Provider.of
     CookieRequest request = Provider.of<CookieRequest>(context, listen: false);
     fetchAndSortProducts(request);
@@ -79,7 +89,10 @@ class _BookReviewPageState extends State<BookReviewPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -114,8 +127,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
                   child: Center(
                     child: Text(
                       firstProduct != null
-                    ? "Reviews of ${firstProduct.bookTitle}"
-                    : "No reviews available",
+                          ? "Reviews of ${firstProduct.bookTitle}"
+                          : "No reviews available",
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         fontFamily: 'Poppins',
@@ -138,11 +151,16 @@ class _BookReviewPageState extends State<BookReviewPage> {
                             sortProducts(); // Sort products by date or rating
                           });
                         },
-                        items:
-                            sortOptions.map<DropdownMenuItem<String>>((String value) {
+                        items: sortOptions
+                            .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value, style: const TextStyle(fontFamily: 'Poppins',),),
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
                           );
                         }).toList(),
                       ),
@@ -159,11 +177,14 @@ class _BookReviewPageState extends State<BookReviewPage> {
                       Product currentProduct = filteredProducts[index];
                       return InkWell(
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
                           padding: const EdgeInsets.all(20.0),
                           decoration: BoxDecoration(
-                            color: Colors.white, // Set the background color to white
-                            borderRadius: BorderRadius.circular(20.0), // Set the border radius
+                            color: Colors
+                                .white, // Set the background color to white
+                            borderRadius: BorderRadius.circular(
+                                20.0), // Set the border radius
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -193,25 +214,24 @@ class _BookReviewPageState extends State<BookReviewPage> {
                                   Text(
                                     " (${currentProduct.star} stars)",
                                     style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14
-                                    ),
+                                        fontFamily: 'Poppins',
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14),
                                   )
                                 ],
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                "by ${currentProduct.profileName} | posted on ${DateFormat('yyyy-MM-dd').format(currentProduct.dateAdded)}",
-                                style: const TextStyle(fontFamily: 'Poppins',)
-                              ),
+                                  "by ${currentProduct.profileName} | posted on ${DateFormat('yyyy-MM-dd').format(currentProduct.dateAdded)}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                  )),
                               const SizedBox(height: 10),
                               Text(
                                 "\"${currentProduct.description}\"",
                                 style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontStyle: FontStyle.italic
-                                ),
+                                    fontFamily: 'Poppins',
+                                    fontStyle: FontStyle.italic),
                               )
                             ],
                           ),
@@ -223,7 +243,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
                 FutureBuilder(
                   future: hasUserReviewed(request),
                   builder: (context, AsyncSnapshot<bool> userReviewSnapshot) {
-                    if (userReviewSnapshot.connectionState == ConnectionState.waiting) {
+                    if (userReviewSnapshot.connectionState ==
+                        ConnectionState.waiting) {
                       return const CircularProgressIndicator();
                     } else {
                       bool hasUserReviewed = userReviewSnapshot.data ?? false;
@@ -238,15 +259,17 @@ class _BookReviewPageState extends State<BookReviewPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                      ReviewFormPage(bookId: widget.bookId),
+                                        ReviewFormPage(bookId: widget.bookId),
                                   ),
                                 );
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF5038BC),
-                                padding: const EdgeInsets.all(20.0), // Mengatur padding tombol
+                                padding: const EdgeInsets.all(
+                                    20.0), // Mengatur padding tombol
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0), // Mengatur radius tombol
+                                  borderRadius: BorderRadius.circular(
+                                      10.0), // Mengatur radius tombol
                                 ),
                                 textStyle: const TextStyle(
                                   fontSize: 18.0, // Mengatur ukuran teks tombol
@@ -286,30 +309,24 @@ class _BookReviewPageState extends State<BookReviewPage> {
       filteredProducts = List.from(allProducts);
       // Sort filteredProducts by dateAdded
       filteredProducts.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
-    } else if (selectedSort == '5 Stars'){
-      filteredProducts = allProducts
-          .where((product) => product.star == 5)
-          .toList();
-    } else if (selectedSort == '4 Stars'){
-      filteredProducts = allProducts
-          .where((product) => product.star == 4)
-          .toList();
-    } else if (selectedSort == '3 Stars'){
-      filteredProducts = allProducts
-          .where((product) => product.star == 3)
-          .toList();
-    } else if (selectedSort == '2 Stars'){
-      filteredProducts = allProducts
-          .where((product) => product.star == 2)
-          .toList();
-    } else if (selectedSort == '1 Star'){
-      filteredProducts = allProducts
-          .where((product) => product.star == 1)
-          .toList();
-    } else if (selectedSort == '0 Star'){
-      filteredProducts = allProducts
-          .where((product) => product.star == 0)
-          .toList();
+    } else if (selectedSort == '5 Stars') {
+      filteredProducts =
+          allProducts.where((product) => product.star == 5).toList();
+    } else if (selectedSort == '4 Stars') {
+      filteredProducts =
+          allProducts.where((product) => product.star == 4).toList();
+    } else if (selectedSort == '3 Stars') {
+      filteredProducts =
+          allProducts.where((product) => product.star == 3).toList();
+    } else if (selectedSort == '2 Stars') {
+      filteredProducts =
+          allProducts.where((product) => product.star == 2).toList();
+    } else if (selectedSort == '1 Star') {
+      filteredProducts =
+          allProducts.where((product) => product.star == 1).toList();
+    } else if (selectedSort == '0 Star') {
+      filteredProducts =
+          allProducts.where((product) => product.star == 0).toList();
     }
     setState(() {});
   }
