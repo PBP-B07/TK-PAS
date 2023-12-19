@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -43,20 +45,20 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
 
   Future<void> fetchAdminStatus(request) async {
     var url = 'http://localhost:8000/catalogue/is-admin/';
-    print('Status admin sebelum fetch: $isAdmin');
+    // print('Status admin sebelum fetch: $isAdmin');
 
     try {
       var response = await request.get(url);
-      print('Response: $response');
+      // print('Response: $response');
 
       // Directly using the response assuming it is already a JSON object
       if (response['is_admin'] != null) {
         setState(() {
           isAdmin = response['is_admin'];
-          print('Status admin setelah fetch: $isAdmin');
+          // print('Status admin setelah fetch: $isAdmin');
         });
       } else {
-        print('Invalid response format');
+        // print('Invalid response format');
       }
     } catch (e) {
       // print('Error fetching admin status: $e');
@@ -93,9 +95,12 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           (jsonDecode(utf8.decode(response.bodyBytes)) as List)
               .map((review) => review_product.Product.fromJson(review))
               .toList();
+      
+      reviews.sort((a, b) => b.pk.compareTo(a.pk)); // Sort reviews by PK in descending order
 
+      List<review_product.Product> selectedReviews = reviews.sublist(0, min(3, reviews.length));
       setState(() {
-        recentReviews = reviews;
+        recentReviews = selectedReviews;
       });
     } else {
       throw Exception('Failed to load recent reviews');
@@ -115,14 +120,19 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           (jsonDecode(utf8.decode(response.bodyBytes)) as List)
               .map((forum) => forum_product.Product.fromJson(forum))
               .toList();
+      
+      forums.sort((a, b) => b.pk.compareTo(a.pk)); // Sort forums by PK in descending order
+
+      List<forum_product.Product> selectedForums = forums.sublist(0, min(3, forums.length));
 
       setState(() {
-        recentForums = forums;
+        recentForums = selectedForums;
       });
     } else {
       throw Exception('Failed to load recent forums');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

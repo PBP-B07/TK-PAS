@@ -161,7 +161,8 @@ class _ReplyPageState extends State<ReplyPage> {
               builder: (context) => ReplyFormPage(
                   bookId: widget.bookId,
                   forumId: widget.forumId,
-                  bookTitle: widget.bookTitle),
+                  bookTitle: widget.bookTitle,
+                  forumTitle: widget.forumTitle),
             ),
           );
         },

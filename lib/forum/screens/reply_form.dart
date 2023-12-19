@@ -1,20 +1,22 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ulasbuku/forum/screens/forum.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:ulasbuku/forum/screens/reply.dart';
 
 class ReplyFormPage extends StatefulWidget {
   final int bookId;
   final int forumId;
   final String bookTitle;
+  final String forumTitle;
 
   const ReplyFormPage(
       {Key? key,
       required this.bookId,
       required this.forumId,
-      required this.bookTitle})
+      required this.bookTitle,
+      required this.forumTitle})
       : super(key: key);
 
   @override
@@ -151,9 +153,12 @@ class _ReplyFormPageState extends State<ReplyFormPage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ForumPage(
-                                    bookId: bookId,
-                                    bookTitle: widget.bookTitle),
+                                builder: (context) => ReplyPage(
+                                  bookId: bookId,
+                                  forumId: forumId,
+                                  bookTitle: widget.bookTitle,
+                                  forumTitle: widget.forumTitle,
+                                ),
                               ),
                             );
                           } else {

@@ -54,7 +54,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
           ),
         ),
       ),
-      drawer: const LeftDrawer(), // Add the pre-made drawer here
+      //drawer: const LeftDrawer(), // Add the pre-made drawer here
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
