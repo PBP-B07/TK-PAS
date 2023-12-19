@@ -1,13 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-// import 'package:pbp_django_auth/pbp_django_auth.dart';
-// import 'package:provider/provider.dart';
-// import 'package:ulasbuku/book/screens/book_details.dart';
-// import 'package:ulasbuku/book/models/product.dart' as product;
 
 class EditFormPage extends StatefulWidget {
-  // final Map<String, dynamic> bookData;
   final int bookId;
 
   const EditFormPage({Key? key, required this.bookId}) : super(key: key);
@@ -29,27 +24,6 @@ class _EditFormPageState extends State<EditFormPage> {
   late TextEditingController _categoryController;
 
   double? _rating;
-
-  // Future<Map<String, dynamic>> sendEditedDataToDjango(
-  //     Map<String, dynamic> editedData) async {
-  //   final response = await http.post(
-  //     Uri.parse(
-  //         'http://127.0.0.1:8000/books/edit_book_flutter/${widget.bookData['id']}/'), // Replace with your Django API endpoint
-  //     body: jsonEncode(editedData),
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   );
-
-  //   print(widget.bookData['id']);
-  //   if (response.statusCode == 200) {
-  //     print('Data updated successfully');
-  //     return {'status': 'success'};
-  //   } else {
-  //     print('Failed to update data. Status code: ${response.statusCode}');
-  //     return {'status': 'error'};
-  //   }
-  // }
 
   @override
   void initState() {
@@ -81,14 +55,29 @@ class _EditFormPageState extends State<EditFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final request = context.watch<CookieRequest>();
     return Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text('Edit Book'),
+          centerTitle: true, // Menempatkan judul di tengah
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
+          title: RichText(
+            text: const TextSpan(
+              style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 32,
+                  fontWeight: FontWeight.w700),
+              children: [
+                TextSpan(
+                  text: 'Ulas',
+                  style: TextStyle(color: Color(0xFF0919CD)),
+                ),
+                TextSpan(
+                  text: 'Buku',
+                  style: TextStyle(color: Color(0xFFC51605)),
+                ),
+              ],
+            ),
           ),
-          backgroundColor: Colors.indigo,
-          foregroundColor: Colors.white,
         ),
         body: FutureBuilder(
             future: fetchBookDetails(widget.bookId),
@@ -109,8 +98,17 @@ class _EditFormPageState extends State<EditFormPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Similar form fields as in ShopFormPage, but use controllers instead of onChanged
-                        // ...
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Edit Book',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TextFormField(
@@ -121,6 +119,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -140,6 +140,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -159,6 +161,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -178,6 +182,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -197,6 +203,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -216,6 +224,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -235,6 +245,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -254,6 +266,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -273,6 +287,8 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
+                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
@@ -287,55 +303,36 @@ class _EditFormPageState extends State<EditFormPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.indigo),
-                              ),
-                              // onPressed: () async {
-                              //   if (_formKey.currentState!.validate()) {
-                              //     // Send data to Django and wait for the response
-                              //     // Map<String, dynamic> response = await sendEditedDataToDjango(widget.bookData);
-
-                              //     widget.bookData['title'] = _titleController.text;
-                              //     widget.bookData['description'] = _descriptionController.text;
-                              //     widget.bookData['author'] = _authorController.text;
-                              //     widget.bookData['isbn10'] = _isbn10Controller.text;
-                              //     widget.bookData['isbn13'] = _isbn13Controller.text;
-                              //     widget.bookData['publish_date'] = _publishDateController.text;
-                              //     widget.bookData['edition'] = _editionController.text;
-                              //     widget.bookData['best_seller'] = _bestSellerController.text;
-                              //     widget.bookData['category'] = _categoryController.text;
-
-                              //     // Update the book details page with the new data
-                              //     Navigator.pop(context, widget.bookData);
-                              //     Map<String, dynamic> response = await sendEditedDataToDjango(widget.bookData);
-
-                              //     if (response['status'] == 'success') {
-                              //       ScaffoldMessenger.of(context)
-                              //           .showSnackBar(const SnackBar(
-                              //         content: Text("Detail buku berhasil diubah!"),
-                              //       ));
-                              //       Navigator.pop(context);
-                              //     } else {
-                              //       ScaffoldMessenger.of(context)
-                              //           .showSnackBar(const SnackBar(
-                              //         content:
-                              //             Text("Terdapat kesalahan, silakan coba lagi."),
-                              //       ));
-                              //     }
-                              //   }
-                              // },
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
                                   await editBook(widget.bookId);
-                                  // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: widget.bookId,)));
-                                  Navigator.pop(context,
-                                      getUpdatedBookData()); // Pass true back to BookDetailsPage
+                                  // ignore: use_build_context_synchronously
+                                  Navigator.pop(
+                                    context,
+                                    getUpdatedBookData(),
+                                  );
                                 }
                               },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF5038BC),
+                                padding: const EdgeInsets.all(20.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                textStyle: const TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                               child: const Text(
-                                "Save Changes",
-                                style: TextStyle(color: Colors.white),
+                                'Save Changes',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
