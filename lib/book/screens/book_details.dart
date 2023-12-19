@@ -154,6 +154,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Card(
                     elevation: 8.0,
+                    color: const Color(0xFFCFFAFE),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0),
                     ),
@@ -182,27 +183,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           ),
                           const SizedBox(height: 20.0),
                           // <---Book Details Section
-                          Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center, // Align contents to the start
-                              children: [
-                                _buildDetailItem('Author :', bookData!['author']),
-                                _buildDetailItem('ISBN-10 :', bookData!['isbn10']),
-                                _buildDetailItem('ISBN-13 :', bookData!['isbn13']),
-                                _buildDetailItem('Publish Date :', bookData!['publish_date']),
-                                _buildDetailItem('Edition :', bookData!['edition'].toString()),
-                                _buildDetailItem('Best Seller :', bookData!['best_seller']),
-                                _buildDetailItem('Category :', bookData!['category']),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 30.0),
-                          Center(
-                            child: Column(
-                              children: [
-                                _buildAverageRating(bookData!['rating']),
-                              ],
-                            ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: _buildBookDetailsSection(),
                           ),
                           const SizedBox(height: 30.0),
                           Center(
@@ -231,11 +214,32 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => BookReviewPage(
-                                          bookId: widget.bookId)),
+                                    builder: (context) =>
+                                        BookReviewPage(bookId: widget.bookId),
+                                  ),
                                 );
                               },
-                              child: const Text('View Full Reviews', style: TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF5038BC),
+                                padding: const EdgeInsets.all(20.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                textStyle: const TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              child: const Text(
+                                'View Full Reviews',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 30.0),
@@ -264,11 +268,32 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          ForumPage(bookId: widget.bookId)),
+                                    builder: (context) =>
+                                        ForumPage(bookId: widget.bookId),
+                                  ),
                                 );
                               },
-                              child: const Text('View Full Forums', style: TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF5038BC),
+                                padding: const EdgeInsets.all(20.0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                textStyle: const TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              child: const Text(
+                                'View Full Forums',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
                           const SizedBox(height: 20.0),
@@ -291,10 +316,29 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                                     }
                                   });
                                 },
-                                child: const Text('Edit Book', style: TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF5038BC),
+                                  padding: const EdgeInsets.all(20.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  textStyle: const TextStyle(
+                                    fontSize: 18.0,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Edit Book',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -305,6 +349,82 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           : const Center(
               child: CircularProgressIndicator(),
             ),
+    );
+  }
+
+  Widget _buildBookDetailsSection() {
+    return Card(
+      elevation: 8.0,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Center(
+              child: Text(
+                'Book Details',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+            const Divider(
+              height: 20,
+              thickness: 2,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDetailItem('Author :', bookData!['author']),
+                _buildDetailItem('ISBN-10 :', bookData!['isbn10']),
+                _buildDetailItem('ISBN-13 :', bookData!['isbn13']),
+                _buildDetailItem('Publish Date :', bookData!['publish_date']),
+                _buildDetailItem('Edition :', bookData!['edition'].toString()),
+                _buildDetailItem('Best Seller :', bookData!['best_seller']),
+                _buildDetailItem('Category :', bookData!['category']),
+              ],
+            ),
+            const Divider(
+              height: 20,
+              thickness: 2,
+            ),
+            const Center(
+              child: Text(
+                'Rating :',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+            const SizedBox(width: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildStarRating(bookData!['rating']),
+                const SizedBox(width: 8.0),
+                Flexible(
+                  child: Text(
+                    '(${bookData!['rating'].toDouble().toStringAsFixed(2)})',
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -321,7 +441,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           ),
           const WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: SizedBox(width: 10), 
+            child: SizedBox(width: 5), 
           ),
           TextSpan(
             text: value,
@@ -344,39 +464,6 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
     );
   }
 
-  Widget _buildAverageRating(double rating) {
-    return Column(
-      children: [
-        const Text(
-          'Average Rating',
-          style: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
-          ),
-        ),
-        const SizedBox(height: 8.0),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _buildStarRating(rating),
-            const SizedBox(width: 8.0),
-            Text(
-              '(${rating.toDouble().toStringAsFixed(2)})',
-              style: const TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins',
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-
   Widget _buildSectionHeader(String title) {
     return Text(
       title,
@@ -391,6 +478,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   Widget _buildReviewCard(review_product.Product review) {
     return Card(
       elevation: 4.0,
+      color: Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -427,6 +515,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   Widget _buildForumCard(forum_product.Product forum) {
     return Card(
       elevation: 4.0,
+      color: Colors.white,
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
