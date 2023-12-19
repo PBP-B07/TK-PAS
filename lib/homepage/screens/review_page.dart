@@ -36,20 +36,38 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('TOP LATEST REVIEW'),
+    appBar: AppBar(
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
       //drawer: const LeftDrawer(),
+      backgroundColor: const Color(0xFFCFFAFE),
       body: FutureBuilder(
         future: fetchProduct(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (!snapshot.hasData) {
-            return const Center(
+            return Center(
               child: Text(
                 "Tidak ada data produk.",
-                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20, fontFamily: 'Poppins'),
               ),
             );
           } else {
@@ -59,9 +77,9 @@ class _ReviewPageState extends State<ReviewPage> {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
                   onTap: () async {
-                          Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
-                        },
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
+                  },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
@@ -74,14 +92,15 @@ class _ReviewPageState extends State<ReviewPage> {
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins',
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("User: ${currentProduct.profileName}"),
+                        Text("User: ${currentProduct.profileName}", style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Rate: ${currentProduct.star}/5"),
+                        Text("Rate: ${currentProduct.star}/5", style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}")
+                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
                       ],
                     ),
                   ),
@@ -93,4 +112,4 @@ class _ReviewPageState extends State<ReviewPage> {
       ),
     );
   }
-} 
+}

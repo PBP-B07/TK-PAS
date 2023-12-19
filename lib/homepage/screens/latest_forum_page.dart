@@ -6,7 +6,6 @@ import 'package:ulasbuku/book/screens/book_details.dart';
 import 'dart:convert';
 import 'package:ulasbuku/homepage/models/get_forum.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
-// Tambahkan import untuk halaman detail
 
 class LatestForumPage extends StatefulWidget {
   const LatestForumPage({Key? key}) : super(key: key);
@@ -15,31 +14,8 @@ class LatestForumPage extends StatefulWidget {
   _LatestForumPageState createState() => _LatestForumPageState();
 }
 
-// class _LatestForumPageState extends State<LatestForumPage> {
-//   Future<List<Product>> fetchProduct() async {
-//    //var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
-//   var url = Uri.parse('http://localhost:8000/get_forum/');
-//     var response = await http.get(
-//       url,
-//       headers: {"Content-Type": "application/json"},
-//     );
-    
-
-//     var data = jsonDecode(utf8.decode(response.bodyBytes));
-//     print(data);
-//     List<Product> list_product = [];
-//     for (var d in data) {
-//       if (d != null) {
-//         list_product.add(Product.fromJson(d));
-//       }
-//     }
-//     return list_product;
-//   }
-
-
-class _LatestForumPageState  extends State<LatestForumPage> {
+class _LatestForumPageState extends State<LatestForumPage> {
   Future<List<Product>> fetchProduct(request) async {
-    //var response = await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
     var response = await request.get('http://localhost:8000/get_forum/');
     print(response);
 
@@ -53,21 +29,37 @@ class _LatestForumPageState  extends State<LatestForumPage> {
   }
 
   Future<bool> hasUserReviewed(request) async {
-  //  var response = await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
-  var response = await request.get('http://localhost:8000/get_forum/');
-  print(response);
+    var response = await request.get('http://localhost:8000/get_forum/');
+    print(response);
 
-  return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai
-}
+    return response.isNotEmpty; // Replace with the appropriate condition
+  }
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('LATEST FORUM'),
+        centerTitle: true, // Menempatkan judul di tengah
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: RichText(
+          text: const TextSpan(
+            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            children: [
+              TextSpan(
+                text: 'Ulas',
+                style: TextStyle(color: Color(0xFF0919CD)),
+              ),
+              TextSpan(
+                text: 'Buku',
+                style: TextStyle(color: Color(0xFFC51605)),
+              ),
+            ],
+          ),
+        ),
       ),
-      //drawer: const LeftDrawer(),
+      backgroundColor: const Color(0xFFCFFAFE),
       body: FutureBuilder(
         future: fetchProduct(request),
         builder: (context, AsyncSnapshot snapshot) {
@@ -77,7 +69,7 @@ class _LatestForumPageState  extends State<LatestForumPage> {
             return const Center(
               child: Text(
                 "Tidak ada forum terbaru.",
-                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                style: TextStyle(fontFamily: 'Poppins', color: Color(0xff59A5D8), fontSize: 20),
               ),
             );
           } else {
@@ -87,9 +79,11 @@ class _LatestForumPageState  extends State<LatestForumPage> {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
                   onTap: () async {
-                          Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.pk,)));
-                        },
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk)),
+                    );
+                  },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
@@ -100,16 +94,17 @@ class _LatestForumPageState  extends State<LatestForumPage> {
                         Text(
                           currentProduct.bookTitle,
                           style: const TextStyle(
+                            fontFamily: 'Poppins',
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("User: ${currentProduct.userUsername}"),
+                        Text("User: ${currentProduct.userUsername}", style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Subject: ${currentProduct.subject}"),
+                        Text("Subject: ${currentProduct.subject}", style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}"),  // Using the description from fields
+                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
                       ],
                     ),
                   ),
@@ -121,4 +116,4 @@ class _LatestForumPageState  extends State<LatestForumPage> {
       ),
     );
   }
-} 
+}
