@@ -114,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SizedBox(height: 16.0), // Add vertical space
                           NavigatorCard(
-                            NavigatorItem('63025', 'Your Reviews'),
+                            NavigatorItem('reviews', 'Your Reviews'),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -125,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                           ),
                           NavigatorCard(
-                            NavigatorItem('58618', 'Your Forums'),
+                            NavigatorItem('forums', 'Your Forums'),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -136,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                           ),
                           NavigatorCard(
-                            NavigatorItem('983294', 'Your Replies'),
+                            NavigatorItem('replies', 'Your Replies'),
                             onPressed: () {
                               Navigator.push(
                                 context,
