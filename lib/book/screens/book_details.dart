@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
@@ -93,9 +95,12 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           (jsonDecode(utf8.decode(response.bodyBytes)) as List)
               .map((review) => review_product.Product.fromJson(review))
               .toList();
+      
+      reviews.sort((a, b) => b.pk.compareTo(a.pk)); // Sort reviews by PK in descending order
 
+      List<review_product.Product> selectedReviews = reviews.sublist(0, min(3, reviews.length));
       setState(() {
-        recentReviews = reviews;
+        recentReviews = selectedReviews;
       });
     } else {
       throw Exception('Failed to load recent reviews');
@@ -115,14 +120,19 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           (jsonDecode(utf8.decode(response.bodyBytes)) as List)
               .map((forum) => forum_product.Product.fromJson(forum))
               .toList();
+      
+      forums.sort((a, b) => b.pk.compareTo(a.pk)); // Sort forums by PK in descending order
+
+      List<forum_product.Product> selectedForums = forums.sublist(0, min(3, forums.length));
 
       setState(() {
-        recentForums = forums;
+        recentForums = selectedForums;
       });
     } else {
       throw Exception('Failed to load recent forums');
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
