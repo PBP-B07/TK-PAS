@@ -33,10 +33,11 @@ class ShopCard extends StatelessWidget {
           ..showSnackBar(SnackBar(
               content: Text("Kamu telah menekan tombol ${item.name}!")));
 
-        if (item.name == "Lihat Buku") {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const ProductPage()));
-        } else if (item.name == "Top Latest Reviews") {
+        // if (item.name == "Lihat Buku") {
+        //   Navigator.push(
+        //       context, MaterialPageRoute(builder: (context) => const ProductPage()));
+        // }
+        if (item.name == "Top Latest Reviews") {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => const ReviewPage()));
         } else if (item.name == "Latest Event") {
