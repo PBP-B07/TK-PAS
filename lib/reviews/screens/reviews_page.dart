@@ -43,7 +43,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
       }
     }
 
-    list_product.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
+    list_product.sort((a, b) => b.pk.compareTo(a.pk));
     allProducts = list_product;
 
     return list_product;
@@ -308,7 +308,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
       // Copy allProducts to filteredProducts
       filteredProducts = List.from(allProducts);
       // Sort filteredProducts by dateAdded
-      filteredProducts.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
+      filteredProducts.sort((a, b) => b.pk.compareTo(a.pk));
     } else if (selectedSort == '5 Stars') {
       filteredProducts =
           allProducts.where((product) => product.star == 5).toList();
