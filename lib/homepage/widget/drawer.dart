@@ -7,6 +7,7 @@ import 'package:ulasbuku/homepage/screens/homepage.dart';
 import 'package:ulasbuku/homepage/screens/review_page.dart';
 import 'package:ulasbuku/login/login.dart';
 import 'package:ulasbuku/reviews/screens/reviews_page.dart';
+import 'package:ulasbuku/user_profile/screens/profile.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -56,13 +57,13 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.account_circle_rounded),
             title: const Text('Profile'),
-            // onTap: () {
-            //     // Route menu ke halaman produk
-            //     Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const ProductPage()),
-            //   );
-            // },
+            onTap: () {
+              // Route menu ke halaman produk
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProfilePage()),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.library_books_rounded),
@@ -74,7 +75,6 @@ class LeftDrawer extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => const ProductPage()));
             },
           ),
-
           ListTile(
             leading: const Icon(Icons.book_outlined),
             title: const Text("About UlasBuku"),
@@ -141,29 +141,29 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.logout_outlined),
-            title: const Text('Logout'),
-            onTap: () async {
-              final response = await request.logout(
-                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                "http://localhost:8000/auth/logout/");
-            String message = response["message"];
-            if (response['status']) {
-              String uname = response["username"];
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("$message Sampai jumpa, $uname."),
-              ));
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content: Text("$message"),
-              ));
-            };
-            }
-          )
+              leading: const Icon(Icons.logout_outlined),
+              title: const Text('Logout'),
+              onTap: () async {
+                final response = await request.logout(
+                    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                    "http://localhost:8000/auth/logout/");
+                String message = response["message"];
+                if (response['status']) {
+                  String uname = response["username"];
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("$message Sampai jumpa, $uname."),
+                  ));
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("$message"),
+                  ));
+                }
+                ;
+              })
         ],
       ),
     );
