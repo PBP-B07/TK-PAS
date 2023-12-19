@@ -58,10 +58,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
     } else {
       // print('Invalid response format');
     }
-  } catch (e) {
-    // print('Error fetching admin status: $e');
   }
-}
 
   Future<void> fetchBookDetails() async {
     var url =
@@ -133,7 +130,10 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -167,17 +167,19 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                             child: Text(
                               bookData!['title'],
                               style: const TextStyle(
-                                fontSize: 24.0,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Poppins'
-                              ),
+                                  fontSize: 24.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Poppins'),
                             ),
                           ),
                           const SizedBox(height: 10.0),
                           Center(
                             child: Text(
                               '"${bookData!['description']}"',
-                              style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins', fontStyle: FontStyle.italic),
+                              style: const TextStyle(
+                                  fontSize: 16.0,
+                                  fontFamily: 'Poppins',
+                                  fontStyle: FontStyle.italic),
                               textAlign: TextAlign.justify,
                             ),
                           ),
@@ -193,8 +195,10 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           ),
                           const SizedBox(height: 10.0),
                           Center(
-                            child:
-                                Text('Total Reviews: ${recentReviews.length}', style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                            child: Text(
+                                'Total Reviews: ${recentReviews.length}',
+                                style: const TextStyle(
+                                    fontSize: 16.0, fontFamily: 'Poppins')),
                           ),
                           if (recentReviews.isNotEmpty)
                             Column(
@@ -248,7 +252,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           ),
                           const SizedBox(height: 10.0),
                           Center(
-                            child: Text('Total Forums: ${recentForums.length}', style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                            child: Text('Total Forums: ${recentForums.length}',
+                                style: const TextStyle(
+                                    fontSize: 16.0, fontFamily: 'Poppins')),
                           ),
                           if (recentForums.isNotEmpty)
                             Column(
@@ -268,8 +274,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        ForumPage(bookId: widget.bookId),
+                                    builder: (context) => ForumPage(
+                                        bookId: widget.bookId,
+                                        bookTitle: bookData!['title']),
                                   ),
                                 );
                               },
@@ -441,7 +448,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           ),
           const WidgetSpan(
             alignment: PlaceholderAlignment.middle,
-            child: SizedBox(width: 5), 
+            child: SizedBox(width: 5),
           ),
           TextSpan(
             text: value,
@@ -468,10 +475,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
     return Text(
       title,
       style: const TextStyle(
-        fontSize: 20.0,
-        fontWeight: FontWeight.bold,
-        fontFamily: 'Poppins'
-      ),
+          fontSize: 20.0, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
     );
   }
 
@@ -491,7 +495,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                 Flexible(
                   child: Text(
                     ' (${review.star.toDouble()} Stars)',
-                    style: const TextStyle(fontSize: 14.0, fontFamily: 'Poppins'),
+                    style:
+                        const TextStyle(fontSize: 14.0, fontFamily: 'Poppins'),
                   ),
                 )
               ],
@@ -503,7 +508,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
             const SizedBox(height: 10.0),
             Text(
               '"${review.description}"',
-              style: const TextStyle(fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
+              style: const TextStyle(
+                  fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
             ),
             const SizedBox(height: 8.0),
           ],
@@ -529,16 +535,20 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                 Text(
                   forum.subject,
                   style: const TextStyle(
-                      fontSize: 16.0, fontWeight: FontWeight.bold, fontFamily: 'Poppins'),
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins'),
                 ),
               ],
             ),
             Text('by ${forum.userUsername}',
-                style: const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
+                style:
+                    const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
             const SizedBox(height: 10.0),
             Text(
               '"${forum.description}"',
-              style: const TextStyle(fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
+              style: const TextStyle(
+                  fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
             ),
             const SizedBox(height: 10.0),
             Text('Last Replied: ${forum.dateAdded.toLocal()}',

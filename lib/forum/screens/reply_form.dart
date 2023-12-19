@@ -5,23 +5,28 @@ import 'package:ulasbuku/forum/screens/forum.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
-class ForumFormPage extends StatefulWidget {
+class ReplyFormPage extends StatefulWidget {
   final int bookId;
+  final int forumId;
   final String bookTitle;
 
-  const ForumFormPage({Key? key, required this.bookId, required this.bookTitle})
+  const ReplyFormPage(
+      {Key? key,
+      required this.bookId,
+      required this.forumId,
+      required this.bookTitle})
       : super(key: key);
 
   @override
-  State<ForumFormPage> createState() => _ForumFormPageState();
+  State<ReplyFormPage> createState() => _ReplyFormPageState();
 }
 
-class _ForumFormPageState extends State<ForumFormPage> {
+class _ReplyFormPageState extends State<ReplyFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _subject = "";
-  String _description = "";
+  String _message = "";
 
   get bookId => widget.bookId;
+  get forumId => widget.forumId;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +90,7 @@ class _ForumFormPageState extends State<ForumFormPage> {
                           fontFamily: 'Poppins',
                         ),
                         decoration: const InputDecoration(
-                          labelText: "Subject",
+                          labelText: "Message",
                           floatingLabelAlignment: FloatingLabelAlignment.center,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
                           contentPadding: EdgeInsets.symmetric(
@@ -107,55 +112,12 @@ class _ForumFormPageState extends State<ForumFormPage> {
                         ),
                         onChanged: (String? value) {
                           setState(() {
-                            _subject = value!;
+                            _message = value!;
                           });
                         },
                         validator: (String? value) {
                           if (value == null || value.isEmpty) {
-                            return "Subject tidak boleh kosong!";
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 17,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        style: const TextStyle(
-                          fontFamily: 'Poppins',
-                        ),
-                        decoration: const InputDecoration(
-                          labelText: "Deskripsi",
-                          floatingLabelAlignment: FloatingLabelAlignment.center,
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(
-                              vertical: 25, horizontal: 10),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 255, 255, 255)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 1, 51, 168)),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          filled:
-                              true, // Mengaktifkan pengisian warna latar belakang
-                          fillColor: Color.fromARGB(255, 236, 236,
-                              236), // Menentukan warna latar belakang
-                        ),
-                        onChanged: (String? value) {
-                          setState(() {
-                            _description = value!;
-                          });
-                        },
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return "Deskripsi tidak boleh kosong!";
+                            return "Message tidak boleh kosong!";
                           }
                           return null;
                         },
@@ -173,17 +135,16 @@ class _ForumFormPageState extends State<ForumFormPage> {
                         if (_formKey.currentState!.validate()) {
                           // Kirim ke Django dan tunggu respons
                           final response = await request.postJson(
-                            "http://localhost:8000/forum/create-flutter/${widget.bookId}/",
+                            "http://localhost:8000/forum/${widget.bookId}/create-reply-flutter/${widget.forumId}/",
                             jsonEncode(<String, String>{
-                              'subject': _subject,
-                              'description': _description,
+                              'message': _message,
                             }),
                           );
                           if (response['status'] == 'success') {
                             // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text("Forum berhasil ditambahkan!"),
+                                content: Text("Reply berhasil ditambahkan!"),
                               ),
                             );
                             // ignore: use_build_context_synchronously
