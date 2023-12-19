@@ -272,7 +272,7 @@ class _BookReviewPageState extends State<BookReviewPage> {
                                       10.0), // Mengatur radius tombol
                                 ),
                                 textStyle: const TextStyle(
-                                  fontSize: 18.0, // Mengatur ukuran teks tombol
+                                  fontSize: 14.0, // Mengatur ukuran teks tombol
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w700,
                                 ),

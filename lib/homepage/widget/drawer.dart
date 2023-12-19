@@ -19,9 +19,11 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(color:   Color(0xFFCFFAFE)),
+            // decoration: BoxDecoration(color: Color(0xFFCFFAFE)),
+            decoration: BoxDecoration(color: Color(0xFF5038BC)),
             child: Column(
               children: [
+                Padding(padding: EdgeInsets.all(10)),
                 Text(
                   "This Is UlasBuku",
                   textAlign: TextAlign.center,
@@ -29,10 +31,10 @@ class LeftDrawer extends StatelessWidget {
                     fontFamily: 'Poppins',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color:  Color(0xFF0919CD),
+                    color: Colors.white,
                   ),
                 ),
-                Padding(padding: EdgeInsets.all(10)),
+                // Padding(padding: EdgeInsets.all(10)),
                 Text(
                   "Cari Buku yang Anda Butuhkan!",
                   textAlign: TextAlign.center,
@@ -40,7 +42,7 @@ class LeftDrawer extends StatelessWidget {
                     fontFamily: 'Poppins',
                     fontSize: 15,
                     fontWeight: FontWeight.normal,
-                    color: Color(0xFFC51605),
+                    color: Colors.white,
                   ),
                 ),
               ],

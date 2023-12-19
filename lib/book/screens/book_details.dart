@@ -42,24 +42,21 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-    var url = 'http://localhost:8000/catalogue/is-admin/';
-    print('Status admin sebelum fetch: $isAdmin');
+  var url = 'http://localhost:8000/catalogue/is-admin/';
+  // print('Status admin sebelum fetch: $isAdmin');
 
-    try {
-      var response = await request.get(url);
-      print('Response: $response');
+  try {
+    var response = await request.get(url);
+    // print('Response: $response');
 
-      // Directly using the response assuming it is already a JSON object
-      if (response['is_admin'] != null) {
-        setState(() {
-          isAdmin = response['is_admin'];
-          print('Status admin setelah fetch: $isAdmin');
-        });
-      } else {
-        print('Invalid response format');
-      }
-    } catch (e) {
-      // print('Error fetching admin status: $e');
+    // Directly using the response assuming it is already a JSON object
+    if (response['is_admin'] != null) {
+      setState(() {
+        isAdmin = response['is_admin'];
+        // print('Status admin setelah fetch: $isAdmin');
+      });
+    } else {
+      // print('Invalid response format');
     }
   }
 
@@ -555,8 +552,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
             ),
             const SizedBox(height: 10.0),
             Text('Last Replied: ${forum.dateAdded.toLocal()}',
-                style:
-                    const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
+                style: const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
             const SizedBox(height: 8.0),
           ],
         ),

@@ -127,10 +127,7 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                     ),
                     const SizedBox(height: 17,),
                     ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(const Color(0xFF0077C0)),
-                      ),
+                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF5038BC)),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           // Kirim ke Django dan tunggu respons
