@@ -175,46 +175,36 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                           const SizedBox(height: 10.0),
                           Center(
                             child: Text(
-                              bookData!['description'],
+                              '"${bookData!['description']}"',
                               style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins', fontStyle: FontStyle.italic),
+                              textAlign: TextAlign.justify,
                             ),
                           ),
                           const SizedBox(height: 20.0),
                           // <---Book Details Section
-                          _buildDetailItem('Author', bookData!['author']),
-                          _buildDetailItem('ISBN-10', bookData!['isbn10']),
-                          _buildDetailItem('ISBN-13', bookData!['isbn13']),
-                          _buildDetailItem('Publish Date', bookData!['publish_date']),
-                          _buildDetailItem('Edition', bookData!['edition'].toString()),
-                          _buildDetailItem('Best Seller', bookData!['best_seller']),
-                          _buildDetailItem('Category', bookData!['category']),
-                          // Book Details Section--->
-                          const SizedBox(height: 20.0),
                           Center(
-                            child: Wrap(
-                              alignment: WrapAlignment.center,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center, // Align contents to the start
                               children: [
-                                const Text('Average Rating: ',
-                                    style: TextStyle(fontSize: 20.0, fontFamily: 'Poppins')),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    _buildStarRating(bookData!['rating']),
-                                    Text(
-                                      ' (${bookData!['rating'].toDouble().toStringAsFixed(2)} Stars)',
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Poppins'
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                _buildDetailItem('Author :', bookData!['author']),
+                                _buildDetailItem('ISBN-10 :', bookData!['isbn10']),
+                                _buildDetailItem('ISBN-13 :', bookData!['isbn13']),
+                                _buildDetailItem('Publish Date :', bookData!['publish_date']),
+                                _buildDetailItem('Edition :', bookData!['edition'].toString()),
+                                _buildDetailItem('Best Seller :', bookData!['best_seller']),
+                                _buildDetailItem('Category :', bookData!['category']),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 40.0),
+                          const SizedBox(height: 30.0),
+                          Center(
+                            child: Column(
+                              children: [
+                                _buildAverageRating(bookData!['rating']),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 30.0),
                           Center(
                             child: _buildSectionHeader('Recent Reviews'),
                           ),
@@ -324,10 +314,14 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
         style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins'),
         children: [
           TextSpan(
-            text: '$label: ',
+            text: '$label ',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
+          ),
+          const WidgetSpan(
+            alignment: PlaceholderAlignment.middle,
+            child: SizedBox(width: 10), 
           ),
           TextSpan(
             text: value,
@@ -343,11 +337,45 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
         5,
         (index) => Icon(
           index < rating ? Icons.star : Icons.star_border,
-          color: index < rating ? Colors.yellow : Colors.grey,
+          color: index < rating ? Colors.amber : Colors.grey,
+          size: 24.0, // Adjust the size based on your preference
         ),
       ),
     );
   }
+
+  Widget _buildAverageRating(double rating) {
+    return Column(
+      children: [
+        const Text(
+          'Average Rating',
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Poppins',
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildStarRating(rating),
+            const SizedBox(width: 8.0),
+            Text(
+              '(${rating.toDouble().toStringAsFixed(2)})',
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
 
   Widget _buildSectionHeader(String title) {
     return Text(
@@ -371,12 +399,13 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           children: [
             Row(
               children: [
-                // const Text('Rating: ', style: TextStyle(fontSize: 16.0)),
                 _buildStarRating(review.star as double),
-                Text(
-                  ' (${review.star.toDouble()} Stars)',
-                  style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins'),
-                ),
+                Flexible(
+                  child: Text(
+                    ' (${review.star.toDouble()} Stars)',
+                    style: const TextStyle(fontSize: 14.0, fontFamily: 'Poppins'),
+                  ),
+                )
               ],
             ),
             Text(
