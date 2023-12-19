@@ -16,7 +16,7 @@ class _YourForumsPageState extends State<YourForumsPage> {
   Future<List<Product>> fetchProduct(request) async {
     var response =
         await request.get('http://localhost:8000/profile/get_forum/');
-    print(response);
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {

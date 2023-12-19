@@ -17,7 +17,7 @@ class LatestForumPage extends StatefulWidget {
 class _LatestForumPageState extends State<LatestForumPage> {
   Future<List<Product>> fetchProduct(request) async {
     var response = await request.get('http://localhost:8000/get_forum/');
-    print(response);
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {
@@ -30,7 +30,7 @@ class _LatestForumPageState extends State<LatestForumPage> {
 
   Future<bool> hasUserReviewed(request) async {
     var response = await request.get('http://localhost:8000/get_forum/');
-    print(response);
+    // print(response);
 
     return response.isNotEmpty; // Replace with the appropriate condition
   }
@@ -45,7 +45,10 @@ class _LatestForumPageState extends State<LatestForumPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -69,7 +72,10 @@ class _LatestForumPageState extends State<LatestForumPage> {
             return const Center(
               child: Text(
                 "Tidak ada forum terbaru.",
-                style: TextStyle(fontFamily: 'Poppins', color: Color(0xff59A5D8), fontSize: 20),
+                style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Color(0xff59A5D8),
+                    fontSize: 20),
               ),
             );
           } else {
@@ -81,11 +87,14 @@ class _LatestForumPageState extends State<LatestForumPage> {
                   onTap: () async {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk)),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              BookDetailsPage(bookId: currentProduct.bookPk)),
                     );
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -100,11 +109,14 @@ class _LatestForumPageState extends State<LatestForumPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("User: ${currentProduct.userUsername}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("User: ${currentProduct.userUsername}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Subject: ${currentProduct.subject}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Subject: ${currentProduct.subject}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Description: ${currentProduct.description}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                       ],
                     ),
                   ),

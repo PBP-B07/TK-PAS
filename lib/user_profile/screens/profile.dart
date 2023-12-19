@@ -22,7 +22,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   Future<List<Product>> fetchProduct(request) async {
     var response = await request.get('http://localhost:8000/profile/get/');
-    print(response);
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {

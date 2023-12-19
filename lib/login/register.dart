@@ -391,7 +391,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     );
                                   }
                                 } catch (e) {
-                                  print("Error during registration: $e");
+                                  // print("Error during registration: $e");
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(

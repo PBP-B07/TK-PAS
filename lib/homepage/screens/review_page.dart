@@ -35,13 +35,16 @@ class _ReviewPageState extends State<ReviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
+      appBar: AppBar(
         centerTitle: true, // Menempatkan judul di tengah
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -66,7 +69,10 @@ class _ReviewPageState extends State<ReviewPage> {
             return Center(
               child: Text(
                 "Tidak ada data produk.",
-                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20, fontFamily: 'Poppins'),
+                style: TextStyle(
+                    color: Color(0xff59A5D8),
+                    fontSize: 20,
+                    fontFamily: 'Poppins'),
               ),
             );
           } else {
@@ -76,13 +82,18 @@ class _ReviewPageState extends State<ReviewPage> {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
                   onTap: () async {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookDetailsPage(
+                                  bookId: currentProduct.bookPk,
+                                )));
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
-                    child: Column( 
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -95,11 +106,14 @@ class _ReviewPageState extends State<ReviewPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("User: ${currentProduct.profileName}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("User: ${currentProduct.profileName}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Rate: ${currentProduct.star}/5", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Rate: ${currentProduct.star}/5",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Description: ${currentProduct.description}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                       ],
                     ),
                   ),
@@ -112,7 +126,3 @@ class _ReviewPageState extends State<ReviewPage> {
     );
   }
 }
-
-
-
-

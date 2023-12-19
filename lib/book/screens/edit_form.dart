@@ -102,7 +102,8 @@ class _EditFormPageState extends State<EditFormPage> {
                   child: Text('Error: ${snapshot.error}'),
                 );
               } else {
-                _rating = snapshot.data?['rating']; // Get the rating from the fetched data
+                _rating = snapshot
+                    .data?['rating']; // Get the rating from the fetched data
                 return Form(
                   key: _formKey,
                   child: SingleChildScrollView(

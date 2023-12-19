@@ -40,7 +40,7 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   void didChangeDependencies() {
-    print('here');
+    // print('here');
     super.didChangeDependencies();
     final request = context.watch<CookieRequest>();
     fetchAdminStatus(request);
@@ -66,29 +66,26 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-  var url = 'http://localhost:8000/catalogue/is-admin/';
-  //print('Status admin sebelum fetch: $isAdmin');
+    var url = 'http://localhost:8000/catalogue/is-admin/';
+    //print('Status admin sebelum fetch: $isAdmin');
 
-  try {
-    var response = await request.get(url);
-    //print('Response: $response');
+    try {
+      var response = await request.get(url);
+      //print('Response: $response');
 
-    // Directly using the response assuming it is already a JSON object
-    if (response['is_admin'] != null) {
-      setState(() {
-        isAdmin = response['is_admin'];
-        //print('Status admin setelah fetch: $isAdmin');
-      });
-    } else {
-      //print('Invalid response format');
+      // Directly using the response assuming it is already a JSON object
+      if (response['is_admin'] != null) {
+        setState(() {
+          isAdmin = response['is_admin'];
+          //print('Status admin setelah fetch: $isAdmin');
+        });
+      } else {
+        //print('Invalid response format');
+      }
+    } catch (e) {
+      //print('Error fetching admin status: $e');
     }
-  } catch (e) {
-    //print('Error fetching admin status: $e');
   }
-}
-
-
-
 
   void filterSearchResults(String query) {
     if (query.isEmpty) {
@@ -129,12 +126,15 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       centerTitle: true, // Menempatkan judul di tengah
+        centerTitle: true, // Menempatkan judul di tengah
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -194,7 +194,8 @@ class _ProductPageState extends State<ProductPage> {
                       value: value,
                       child: Text(
                         value,
-                        style: const TextStyle(fontFamily: 'Poppins'), // Apply Poppins font here
+                        style: const TextStyle(
+                            fontFamily: 'Poppins'), // Apply Poppins font here
                       ),
                     );
                   }).toList(),
@@ -214,7 +215,8 @@ class _ProductPageState extends State<ProductPage> {
                       value: value,
                       child: Text(
                         value,
-                        style: const TextStyle(fontFamily: 'Poppins'), // Apply Poppins font here
+                        style: const TextStyle(
+                            fontFamily: 'Poppins'), // Apply Poppins font here
                       ),
                     );
                   }).toList(),
@@ -227,7 +229,7 @@ class _ProductPageState extends State<ProductPage> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
-                 style: ElevatedButton.styleFrom(
+                style: ElevatedButton.styleFrom(
                   primary: const Color(0xFF5038BC), // Set the background color
                   textStyle: const TextStyle(
                     fontFamily: 'Poppins', // Set the Poppins font
@@ -238,7 +240,8 @@ class _ProductPageState extends State<ProductPage> {
                   // Navigate to add product page
                   await Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ShopFormPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const ShopFormPage()),
                   );
                   // Fetch products again after adding a product
                   await fetchProduct().then((products) {
@@ -250,7 +253,9 @@ class _ProductPageState extends State<ProductPage> {
                     });
                   });
                 },
-                child: Text("Add Book", style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                child: Text("Add Book",
+                    style:
+                        const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
               ),
             ),
           ),
@@ -265,15 +270,18 @@ class _ProductPageState extends State<ProductPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BookDetailsPage(bookId: currentProduct.pk),
+                              builder: (context) =>
+                                  BookDetailsPage(bookId: currentProduct.pk),
                             ),
                           );
                         },
                         child: Card(
-                          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
                           elevation: 4, // adds shadow under the card
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20), // card corner radius
+                            borderRadius:
+                                BorderRadius.circular(20), // card corner radius
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
@@ -286,7 +294,8 @@ class _ProductPageState extends State<ProductPage> {
                                     fontFamily: 'Poppins',
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF333333), // Dark text for title
+                                    color: Color(
+                                        0xFF333333), // Dark text for title
                                   ),
                                 ),
                                 Text(
@@ -294,7 +303,8 @@ class _ProductPageState extends State<ProductPage> {
                                   style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 14,
-                                    color: Color(0xFF666666), // Grey text for author
+                                    color: Color(
+                                        0xFF666666), // Grey text for author
                                   ),
                                 ),
                                 Text(
@@ -302,7 +312,8 @@ class _ProductPageState extends State<ProductPage> {
                                   style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 14,
-                                    color: Color(0xFF666666), // Grey text for publish date
+                                    color: Color(
+                                        0xFF666666), // Grey text for publish date
                                   ),
                                 ),
                                 Text(
@@ -310,7 +321,8 @@ class _ProductPageState extends State<ProductPage> {
                                   style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 14,
-                                    color: Color(0xFF666666), // Grey text for category
+                                    color: Color(
+                                        0xFF666666), // Grey text for category
                                   ),
                                 ),
                                 Text(
@@ -318,7 +330,8 @@ class _ProductPageState extends State<ProductPage> {
                                   style: const TextStyle(
                                     fontFamily: 'Poppins',
                                     fontSize: 14,
-                                    color: Color(0xFF666666), // Grey text for rating
+                                    color: Color(
+                                        0xFF666666), // Grey text for rating
                                   ),
                                 ),
                               ],

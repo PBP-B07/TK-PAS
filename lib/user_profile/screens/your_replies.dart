@@ -16,7 +16,7 @@ class _YourRepliesPageState extends State<YourRepliesPage> {
   Future<List<Product>> fetchProduct(request) async {
     var response =
         await request.get('http://localhost:8000/profile/get_reply/');
-    print(response);
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {

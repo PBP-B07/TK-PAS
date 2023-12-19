@@ -215,16 +215,16 @@ class YourReviewsCard extends StatelessWidget {
                               if (response.statusCode == 200) {
                                 // Review berhasil dihapus
                                 // Tambahkan logika lanjutan jika perlu
-                                print(
-                                    "Success to delete review. Status code: ${response.statusCode}");
+                                // print(
+                                //     "Success to delete review. Status code: ${response.statusCode}");
 
                                 // Invoke the onDelete callback to notify YourReviewsPage
                                 onDelete();
                               } else {
                                 // Terjadi kesalahan saat menghapus review
                                 // Tampilkan pesan kesalahan atau lakukan aksi yang sesuai
-                                print(
-                                    "Failed to delete review. Status code: ${response.statusCode}");
+                                // print(
+                                //     "Failed to delete review. Status code: ${response.statusCode}");
                               }
                             },
                             child: Text("Sure"),
