@@ -227,6 +227,13 @@ class _ProductPageState extends State<ProductPage> {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
+                 style: ElevatedButton.styleFrom(
+                  primary: const Color(0xFF5038BC), // Set the background color
+                  textStyle: const TextStyle(
+                    fontFamily: 'Poppins', // Set the Poppins font
+                    fontSize: 16.0,
+                  ),
+                ),
                 onPressed: () async {
                   // Navigate to add product page
                   await Navigator.push(
@@ -243,7 +250,7 @@ class _ProductPageState extends State<ProductPage> {
                     });
                   });
                 },
-                child: Text("Add Buku", style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+                child: Text("Add Book", style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
               ),
             ),
           ),
