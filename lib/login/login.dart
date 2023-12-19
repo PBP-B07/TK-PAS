@@ -186,7 +186,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         if (request.loggedIn) {
                           String message = response['message'];
-                          LoginPage.uname = response['username'];
+                          String uname = response['username'];
+                          LoginPage.uname = uname;
                           // ignore: use_build_context_synchronously
                           Navigator.pushReplacement(
                             context,
@@ -197,8 +198,8 @@ class _LoginPageState extends State<LoginPage> {
                           ScaffoldMessenger.of(context)
                             ..hideCurrentSnackBar()
                             ..showSnackBar(SnackBar(
-                                content: Text(
-                                    "$message Selamat datang, $LoginPage.uname.")));
+                                content:
+                                    Text("$message Selamat datang, $uname.")));
                         } else {
                           // ignore: use_build_context_synchronously
                           showDialog(
