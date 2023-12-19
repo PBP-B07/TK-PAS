@@ -28,7 +28,7 @@ class _EventPageState extends State<EventPage> {
   }
 
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse('http://localhost:8000/get_event/');
+    var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_event/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -46,7 +46,7 @@ class _EventPageState extends State<EventPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-    var url = 'http://localhost:8000/is-admin/';
+    var url = 'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/is-admin/';
     // print('Status admin sebelum fetch: $isAdmin');
 
     try {

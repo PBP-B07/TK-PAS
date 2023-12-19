@@ -47,7 +47,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse('http://127.0.0.1:8000/books/');
+    var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -66,7 +66,7 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-    var url = 'http://localhost:8000/catalogue/is-admin/';
+    var url = 'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/catalogue/is-admin/';
     //print('Status admin sebelum fetch: $isAdmin');
 
     try {

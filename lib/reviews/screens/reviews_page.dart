@@ -32,8 +32,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
   get request => context.watch<CookieRequest>();
 
   Future<List<Product>> fetchProduct(request) async {
-    var response = await request
-        .get('http://localhost:8000/review/get-reviews-json/${widget.bookId}/');
+    var response = await request.get(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/review/get-reviews-json/${widget.bookId}/');
     // print(response);
 
     List<Product> list_product = [];
@@ -50,8 +50,8 @@ class _BookReviewPageState extends State<BookReviewPage> {
   }
 
   Future<bool> hasUserReviewed(request) async {
-    var response = await request
-        .get('http://localhost:8000/review/get-user-reviews/${widget.bookId}/');
+    var response = await request.get(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/review/get-user-reviews/${widget.bookId}/');
     // print(response);
 
     return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai

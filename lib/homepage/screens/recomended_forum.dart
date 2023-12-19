@@ -15,7 +15,8 @@ class RecomendedForumPage extends StatefulWidget {
 class _RecomendedForumPageState extends State<RecomendedForumPage> {
   Future<List<Product>> fetchProduct() async {
     // var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_recomended_forum/');
-    var url = Uri.parse('http://localhost:8000/get_recomended_forum/');
+    var url = Uri.parse(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_recomended_forum/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},

@@ -17,8 +17,8 @@ class BusiestForumPage extends StatefulWidget {
 class _BusiestForumPageState extends State<BusiestForumPage> {
   Future<List<Product>> fetchProduct(request) async {
     //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
-    var response =
-        await request.get('http://localhost:8000/get_busiest_forum/');
+    var response = await request
+        .get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
     // print(response);
 
     List<Product> list_product = [];
@@ -32,8 +32,8 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
 
   Future<bool> hasUserReviewed(request) async {
     //  var response = await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
-    var response =
-        await request.get('http://localhost:8000/get_busiest_forum/');
+    var response = await request
+        .get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
     // print(response);
 
     return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai

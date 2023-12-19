@@ -137,7 +137,7 @@ class _ReplyFormPageState extends State<ReplyFormPage> {
                         if (_formKey.currentState!.validate()) {
                           // Kirim ke Django dan tunggu respons
                           final response = await request.postJson(
-                            "http://localhost:8000/forum/${widget.bookId}/create-reply-flutter/${widget.forumId}/",
+                            "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/${widget.bookId}/create-reply-flutter/${widget.forumId}/",
                             jsonEncode(<String, String>{
                               'message': _message,
                             }),

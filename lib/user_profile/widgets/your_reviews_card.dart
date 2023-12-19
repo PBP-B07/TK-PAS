@@ -210,7 +210,7 @@ class YourReviewsCard extends StatelessWidget {
                               Navigator.pop(context);
                               // TODO: Tambahkan logika penghapusan data
                               var url = Uri.parse(
-                                  "http://localhost:8000/profile/delete_review_flutter/${item.pk}/");
+                                  "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/profile/delete_review_flutter/${item.pk}/");
                               final response = await http.post(url);
                               if (response.statusCode == 200) {
                                 // Review berhasil dihapus

@@ -16,7 +16,8 @@ class LatestForumPage extends StatefulWidget {
 
 class _LatestForumPageState extends State<LatestForumPage> {
   Future<List<Product>> fetchProduct(request) async {
-    var response = await request.get('http://localhost:8000/get_forum/');
+    var response =
+        await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
     // print(response);
 
     List<Product> list_product = [];
@@ -29,7 +30,8 @@ class _LatestForumPageState extends State<LatestForumPage> {
   }
 
   Future<bool> hasUserReviewed(request) async {
-    var response = await request.get('http://localhost:8000/get_forum/');
+    var response =
+        await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_forum/');
     // print(response);
 
     return response.isNotEmpty; // Replace with the appropriate condition

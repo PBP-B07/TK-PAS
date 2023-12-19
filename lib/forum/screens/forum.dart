@@ -20,8 +20,8 @@ class _ForumPageState extends State<ForumPage> {
   get bookId => widget.bookId;
 
   Future<List<Product>> fetchProduct() async {
-    var url =
-        Uri.parse('http://localhost:8000/forum/get-forum/${widget.bookId}/');
+    var url = Uri.parse(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/${widget.bookId}/');
     //'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/14/');
 
     var response = await http.get(

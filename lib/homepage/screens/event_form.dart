@@ -27,7 +27,8 @@ class _AddItemState extends State<AddItemEventForm> {
   }
 
   Future<void> fetchBookTitles() async {
-    final response = await http.get(Uri.parse("http://localhost:8000/books/"));
+    final response = await http
+        .get(Uri.parse("https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/"));
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
@@ -181,7 +182,7 @@ class _AddItemState extends State<AddItemEventForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
-                            "http://localhost:8000/create-flutter/",
+                            "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/create-flutter/",
                             jsonEncode(<String, String>{
                               'title': _title,
                               'description': _description,

@@ -173,7 +173,7 @@ class _ForumFormPageState extends State<ForumFormPage> {
                         if (_formKey.currentState!.validate()) {
                           // Kirim ke Django dan tunggu respons
                           final response = await request.postJson(
-                            "http://localhost:8000/forum/create-flutter/${widget.bookId}/",
+                            "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/create-flutter/${widget.bookId}/",
                             jsonEncode(<String, String>{
                               'subject': _subject,
                               'description': _description,
