@@ -22,19 +22,20 @@ class _EventPageState extends State<EventPage> {
   @override
   void initState() {
     super.initState();
-    final request = Provider.of<CookieRequest>(context, listen: false); // Assuming CookieRequest is provided in the widget tree
+    final request = Provider.of<CookieRequest>(context,
+        listen: false); // Assuming CookieRequest is provided in the widget tree
     fetchAdminStatus(request);
   }
 
   Future<List<Product>> fetchProduct() async {
-    var url = Uri.parse('http://localhost:8000/get_event/');
+    var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_event/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
     );
-    
+
     var data = jsonDecode(utf8.decode(response.bodyBytes));
-    print(data);
+    // print(data);
     List<Product> list_product = [];
     for (var d in data) {
       if (d != null) {
@@ -45,36 +46,40 @@ class _EventPageState extends State<EventPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-    var url = 'http://localhost:8000/is-admin/';
-    print('Status admin sebelum fetch: $isAdmin');
+    var url = 'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/is-admin/';
+    // print('Status admin sebelum fetch: $isAdmin');
 
     try {
       var response = await request.get(url);
-      print('Response: $response');
+      // print('Response: $response');
 
       // Directly using the response assuming it is already a JSON object
       if (response['is_admin'] != null) {
         setState(() {
           isAdmin = response['is_admin'];
-          print('Status admin setelah fetch: $isAdmin');
+          // print('Status admin setelah fetch: $isAdmin');
         });
       } else {
-        print('Invalid response format');
+        // print('Invalid response format');
       }
     } catch (e) {
-      print('Error fetching admin status: $e');
+      // print('Error fetching admin status: $e');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
+      appBar: AppBar(
         centerTitle: true, // Menempatkan judul di tengah
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -98,7 +103,10 @@ class _EventPageState extends State<EventPage> {
             return Center(
               child: Text(
                 "Tidak ada data event.",
-                style: TextStyle(fontFamily: 'Poppins', color: Color(0xff59A5D8), fontSize: 20),
+                style: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Color(0xff59A5D8),
+                    fontSize: 20),
               ),
             );
           } else {
@@ -108,11 +116,16 @@ class _EventPageState extends State<EventPage> {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
                   onTap: () async {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookDetailsPage(
+                                  bookId: currentProduct.bookPk,
+                                )));
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -127,9 +140,11 @@ class _EventPageState extends State<EventPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Description: ${currentProduct.description}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Book Title: ${currentProduct.bookTitle}", style: TextStyle(fontFamily: 'Poppins'))
+                        Text("Book Title: ${currentProduct.bookTitle}",
+                            style: TextStyle(fontFamily: 'Poppins'))
                       ],
                     ),
                   ),
@@ -139,13 +154,18 @@ class _EventPageState extends State<EventPage> {
           }
         },
       ),
-      floatingActionButton: isAdmin ? FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddItemEventForm()));
-        },
-        child: const Icon(Icons.add),
-        tooltip: 'Add Event',
-      ) : null,
+      floatingActionButton: isAdmin
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddItemEventForm()));
+              },
+              child: const Icon(Icons.add),
+              tooltip: 'Add Event',
+            )
+          : null,
     );
   }
 }

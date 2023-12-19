@@ -55,8 +55,8 @@ class LeftDrawer extends StatelessWidget {
               style: TextStyle(fontFamily: 'Poppins'),
             ),
             onTap: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => MyHomePage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MyHomePage()));
             },
           ),
           ListTile(
@@ -130,7 +130,8 @@ class LeftDrawer extends StatelessWidget {
                           ),
                           SizedBox(height: 20),
                           TextButton(
-                            child: Text('Tutup', style: TextStyle(fontFamily: 'Poppins')),
+                            child: Text('Tutup',
+                                style: TextStyle(fontFamily: 'Poppins')),
                             onPressed: () {
                               Navigator.pushReplacement(
                                 context,
@@ -155,7 +156,7 @@ class LeftDrawer extends StatelessWidget {
             ),
             onTap: () async {
               final response = await request.logout(
-                  "http://localhost:8000/auth/logout/"); // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                  "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/logout/"); // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
               String message = response["message"];
               if (response['status']) {
                 String uname = response["username"];

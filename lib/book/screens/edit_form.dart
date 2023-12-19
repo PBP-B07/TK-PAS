@@ -91,7 +91,8 @@ class _EditFormPageState extends State<EditFormPage> {
                   child: Text('Error: ${snapshot.error}'),
                 );
               } else {
-                _rating = snapshot.data?['rating']; // Get the rating from the fetched data
+                _rating = snapshot
+                    .data?['rating']; // Get the rating from the fetched data
                 return Form(
                   key: _formKey,
                   child: SingleChildScrollView(
@@ -119,7 +120,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -140,7 +143,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -161,7 +166,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -182,7 +189,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -203,7 +212,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -224,7 +235,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -245,7 +258,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -266,7 +281,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -287,7 +304,9 @@ class _EditFormPageState extends State<EditFormPage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
-                              labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                              labelStyle: const TextStyle(
+                                  fontFamily:
+                                      'Poppins'), // Set Poppins font for the label
                               hintStyle: const TextStyle(fontFamily: 'Poppins'),
                             ),
                             validator: (String? value) {
@@ -346,7 +365,8 @@ class _EditFormPageState extends State<EditFormPage> {
   }
 
   Future<Map<String, dynamic>> fetchBookDetails(int bookId) async {
-    var url = Uri.parse('http://127.0.0.1:8000/books/get-book/$bookId/');
+    var url = Uri.parse(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/get-book/$bookId/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -371,8 +391,8 @@ class _EditFormPageState extends State<EditFormPage> {
   }
 
   Future<void> editBook(int bookId) async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/books/edit_book_flutter/$bookId/');
+    var url = Uri.parse(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/edit_book_flutter/$bookId/');
     var response = await http.post(
       url,
       headers: {"Content-Type": "application/json"},

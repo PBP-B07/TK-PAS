@@ -334,7 +334,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
                                   final response = await http.post(
                                     Uri.parse(
-                                        'http://localhost:8000/auth/register/'),
+                                        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/register/'),
                                     //Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/register/'),
                                     body: {
                                       'username': username,
@@ -391,7 +391,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     );
                                   }
                                 } catch (e) {
-                                  print("Error during registration: $e");
+                                  // print("Error during registration: $e");
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(

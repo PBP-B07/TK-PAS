@@ -8,7 +8,6 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:ulasbuku/homepage/widget/drawer.dart';
 
-
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({super.key});
 
@@ -40,7 +39,10 @@ class _ShopFormPageState extends State<ShopFormPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -70,8 +72,11 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
-                    hintStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the hint
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
+                    hintStyle: const TextStyle(
+                        fontFamily: 'Poppins'), // Set Poppins font for the hint
                   ),
                   onChanged: (String? value) {
                     setState(() {
@@ -95,7 +100,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -120,7 +127,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -145,7 +154,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -170,7 +181,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -195,7 +208,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -220,7 +235,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -248,7 +265,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -264,32 +283,32 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   },
                 ),
               ),
-            //   Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: TextFormField(
-            //       decoration: InputDecoration(
-            //         hintText: "Rating",
-            //         labelText: "Rating",
-            //         border: OutlineInputBorder(
-            //           borderRadius: BorderRadius.circular(5.0),
-            //         ),
-            //       ),
-            //       onChanged: (String? value) {
-            //         setState(() {
-            //           _rating = double.parse(value!);
-            //         });
-            //       },
-            //       validator: (String? value) {
-            //         if (value == null || value.isEmpty) {
-            //           return "Rating tidak boleh kosong!";
-            //         }
-            //         if (double.tryParse(value) == null) {
-            //           return "Rating harus berupa angka!";
-            //         }
-            //         return null;
-            //       },
-            //     ),
-            //   ),
+              //   Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: TextFormField(
+              //       decoration: InputDecoration(
+              //         hintText: "Rating",
+              //         labelText: "Rating",
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(5.0),
+              //         ),
+              //       ),
+              //       onChanged: (String? value) {
+              //         setState(() {
+              //           _rating = double.parse(value!);
+              //         });
+              //       },
+              //       validator: (String? value) {
+              //         if (value == null || value.isEmpty) {
+              //           return "Rating tidak boleh kosong!";
+              //         }
+              //         if (double.tryParse(value) == null) {
+              //           return "Rating harus berupa angka!";
+              //         }
+              //         return null;
+              //       },
+              //     ),
+              //   ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -299,7 +318,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
                     ),
-                    labelStyle: const TextStyle(fontFamily: 'Poppins'), // Set Poppins font for the label
+                    labelStyle: const TextStyle(
+                        fontFamily:
+                            'Poppins'), // Set Poppins font for the label
                     hintStyle: const TextStyle(fontFamily: 'Poppins'),
                   ),
                   onChanged: (String? value) {
@@ -329,7 +350,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                         // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                         final response = await request.postJson(
                           //"https://muhammad-farrel21-tugas.pbp.cs.ui.ac.id/create-flutter/"
-                          "http://127.0.0.1:8000/catalogue/create-flutter/",
+                          "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/catalogue/create-flutter/",
                           jsonEncode(<String, dynamic>{
                             'title': _title,
                             'description': _description,
@@ -351,7 +372,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                           ));
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => ProductPage()),
+                            MaterialPageRoute(
+                                builder: (context) => ProductPage()),
                           );
                         } else {
                           ScaffoldMessenger.of(context)
@@ -364,7 +386,8 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     },
                     child: const Text(
                       "Save",
-                      style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+                      style:
+                          TextStyle(fontFamily: 'Poppins', color: Colors.white),
                     ),
                   ),
                 ),

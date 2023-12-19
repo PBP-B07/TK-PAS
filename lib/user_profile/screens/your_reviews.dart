@@ -16,8 +16,9 @@ class _YourReviewsPageState extends State<YourReviewsPage> {
   List<Product> yourReviews = [];
 
   Future<List<Product>> fetchProduct(request) async {
-    var response = await request.get('http://localhost:8000/profile/reviews/');
-    print(response);
+    var response = await request
+        .get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/profile/reviews/');
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {

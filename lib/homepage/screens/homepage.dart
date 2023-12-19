@@ -8,12 +8,18 @@ class MyHomePage extends StatelessWidget {
 
   final List<ShopItem> items = [
     // ShopItem("Lihat Buku", Icons.checklist, Color.fromARGB(255, 244, 163, 63)),
-    ShopItem("Top Latest Reviews", Icons.reviews_outlined, Color.fromARGB(255, 92, 39, 171)),
-    ShopItem("Latest Event", Icons.event_note_outlined, Color.fromARGB(255, 229, 218, 11)),
-    ShopItem("Latest Forum", Icons.forum_rounded, Color.fromARGB(255, 106, 204, 206)),
-    ShopItem("Busiest Forum", Icons.add_shopping_cart, Color.fromARGB(255, 87, 135, 116)),
-    ShopItem("Recomended Forum", Icons.recommend_outlined, Color.fromARGB(255, 194, 49, 24)),
-    ShopItem("Not Recomended Forum", Icons.not_interested, Color.fromARGB(255, 182, 38, 136)),
+    ShopItem("Top Latest Reviews", Icons.reviews_outlined,
+        Color.fromARGB(255, 92, 39, 171)),
+    ShopItem("Latest Event", Icons.event_note_outlined,
+        Color.fromARGB(255, 229, 218, 11)),
+    ShopItem("Latest Forum", Icons.forum_rounded,
+        Color.fromARGB(255, 106, 204, 206)),
+    ShopItem("Busiest Forum", Icons.add_shopping_cart,
+        Color.fromARGB(255, 87, 135, 116)),
+    ShopItem("Recomended Forum", Icons.recommend_outlined,
+        Color.fromARGB(255, 194, 49, 24)),
+    ShopItem("Not Recomended Forum", Icons.not_interested,
+        Color.fromARGB(255, 182, 38, 136)),
   ];
 
   @override
@@ -25,7 +31,10 @@ class MyHomePage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',

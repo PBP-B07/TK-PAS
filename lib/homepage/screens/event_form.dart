@@ -27,7 +27,8 @@ class _AddItemState extends State<AddItemEventForm> {
   }
 
   Future<void> fetchBookTitles() async {
-    final response = await http.get(Uri.parse("http://localhost:8000/books/"));
+    final response = await http
+        .get(Uri.parse("https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/"));
 
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
@@ -52,7 +53,10 @@ class _AddItemState extends State<AddItemEventForm> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -122,9 +126,9 @@ class _AddItemState extends State<AddItemEventForm> {
                 ),
               ),
               Padding(
-              padding: const EdgeInsets.all(8.0),
-              // child: Container(
-              //   width: 500, // Set a maximum width for the dropdown menu
+                padding: const EdgeInsets.all(8.0),
+                // child: Container(
+                //   width: 500, // Set a maximum width for the dropdown menu
                 child: DropdownButtonFormField<String>(
                   value: _selectedBookTitle,
                   style: TextStyle(fontFamily: 'Poppins'), // Use Poppins font
@@ -135,17 +139,18 @@ class _AddItemState extends State<AddItemEventForm> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  isExpanded: true, // Make the dropdown button take up the full width
+                  isExpanded:
+                      true, // Make the dropdown button take up the full width
                   items: bookTitles.isNotEmpty
                       ? bookTitles
                           .toSet()
                           .toList()
                           .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList()
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList()
                       : [], // Set to null if bookTitles is empty
                   onChanged: (String? newValue) {
                     setState(() {
@@ -177,7 +182,7 @@ class _AddItemState extends State<AddItemEventForm> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         final response = await request.postJson(
-                            "http://localhost:8000/create-flutter/",
+                            "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/create-flutter/",
                             jsonEncode(<String, String>{
                               'title': _title,
                               'description': _description,
@@ -196,8 +201,8 @@ class _AddItemState extends State<AddItemEventForm> {
                         } else {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
-                            content: Text(
-                                "Terdapat kesalahan, silakan coba lagi."),
+                            content:
+                                Text("Terdapat kesalahan, silakan coba lagi."),
                           ));
                         }
                       }

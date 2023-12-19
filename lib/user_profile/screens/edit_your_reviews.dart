@@ -121,7 +121,7 @@ class _ReviewEditPageState extends State<ReviewEditPage> {
                     if (_formKey.currentState!.validate()) {
                       // Kirim ke Django dan tunggu respons
                       final response = await request.postJson(
-                        "http://localhost:8000/profile/edit_review_flutter/${widget.reviewId}/",
+                        "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/profile/edit_review_flutter/${widget.reviewId}/",
                         jsonEncode(<String, String>{
                           'star': _star.toString(),
                           'description': _description,

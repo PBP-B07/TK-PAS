@@ -44,7 +44,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   }
 
   Future<void> fetchAdminStatus(request) async {
-    var url = 'http://localhost:8000/catalogue/is-admin/';
+    var url = 'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/catalogue/is-admin/';
     // print('Status admin sebelum fetch: $isAdmin');
 
     try {
@@ -66,8 +66,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   }
 
   Future<void> fetchBookDetails() async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/books/get-book/${widget.bookId}/');
+    var url = Uri.parse(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/books/get-book/${widget.bookId}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -84,7 +84,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
 
   Future<void> fetchRecentReviews() async {
     var url = Uri.parse(
-        'http://127.0.0.1:8000/review/get-reviews-json/${widget.bookId}/');
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/review/get-reviews-json/${widget.bookId}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -95,10 +95,12 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           (jsonDecode(utf8.decode(response.bodyBytes)) as List)
               .map((review) => review_product.Product.fromJson(review))
               .toList();
-      
-      reviews.sort((a, b) => b.pk.compareTo(a.pk)); // Sort reviews by PK in descending order
 
-      List<review_product.Product> selectedReviews = reviews.sublist(0, min(3, reviews.length));
+      reviews.sort((a, b) =>
+          b.pk.compareTo(a.pk)); // Sort reviews by PK in descending order
+
+      List<review_product.Product> selectedReviews =
+          reviews.sublist(0, min(3, reviews.length));
       setState(() {
         recentReviews = selectedReviews;
       });
@@ -108,8 +110,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   }
 
   Future<void> fetchRecentForums() async {
-    var url =
-        Uri.parse('http://127.0.0.1:8000/forum/get-forum/${widget.bookId}/');
+    var url = Uri.parse(
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/${widget.bookId}/');
     var response = await http.get(
       url,
       headers: {"Content-Type": "application/json"},
@@ -120,10 +122,12 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           (jsonDecode(utf8.decode(response.bodyBytes)) as List)
               .map((forum) => forum_product.Product.fromJson(forum))
               .toList();
-      
-      forums.sort((a, b) => b.pk.compareTo(a.pk)); // Sort forums by PK in descending order
 
-      List<forum_product.Product> selectedForums = forums.sublist(0, min(3, forums.length));
+      forums.sort((a, b) =>
+          b.pk.compareTo(a.pk)); // Sort forums by PK in descending order
+
+      List<forum_product.Product> selectedForums =
+          forums.sublist(0, min(3, forums.length));
 
       setState(() {
         recentForums = selectedForums;
@@ -132,7 +136,6 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       throw Exception('Failed to load recent forums');
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

@@ -31,7 +31,10 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -54,7 +57,8 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
               padding: const EdgeInsets.all(10.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255), // Set the background color
+                  color: const Color.fromARGB(
+                      255, 255, 255, 255), // Set the background color
                   borderRadius: BorderRadius.circular(20.0),
                   boxShadow: const [
                     BoxShadow(
@@ -69,7 +73,9 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: RatingBar.builder(
@@ -79,7 +85,8 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         allowHalfRating: false,
                         itemCount: 5,
                         itemSize: 30,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -91,26 +98,35 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 12,),
+                    const SizedBox(
+                      height: 12,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        style: const TextStyle(fontFamily: 'Poppins',),
+                        style: const TextStyle(
+                          fontFamily: 'Poppins',
+                        ),
                         decoration: const InputDecoration(
                           labelText: "Deskripsi",
                           floatingLabelAlignment: FloatingLabelAlignment.center,
                           floatingLabelBehavior: FloatingLabelBehavior.always,
-                          contentPadding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 25, horizontal: 10),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color.fromARGB(255, 1, 51, 168)),
-                            borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          filled: true, // Mengaktifkan pengisian warna latar belakang
-                          fillColor: Color.fromARGB(255, 236, 236, 236), // Menentukan warna latar belakang
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 1, 51, 168)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                          filled:
+                              true, // Mengaktifkan pengisian warna latar belakang
+                          fillColor: Color.fromARGB(255, 236, 236,
+                              236), // Menentukan warna latar belakang
                         ),
                         onChanged: (String? value) {
                           setState(() {
@@ -125,14 +141,17 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 17,),
+                    const SizedBox(
+                      height: 17,
+                    ),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF5038BC)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF5038BC)),
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           // Kirim ke Django dan tunggu respons
                           final response = await request.postJson(
-                            "http://localhost:8000/review/create-reviews-flutter/${widget.bookId}/",
+                            "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/review/create-reviews-flutter/${widget.bookId}/",
                             jsonEncode(<String, String>{
                               'star': _star.toString(),
                               'description': _description,
@@ -149,14 +168,16 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => BookReviewPage(bookId: bookId),
+                                builder: (context) =>
+                                    BookReviewPage(bookId: bookId),
                               ),
                             );
                           } else {
                             // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text("Terdapat kesalahan, silakan coba lagi."),
+                                content: Text(
+                                    "Terdapat kesalahan, silakan coba lagi."),
                               ),
                             );
                           }
@@ -164,10 +185,13 @@ class _ReviewFormPageState extends State<ReviewFormPage> {
                       },
                       child: const Text(
                         "Save",
-                        style: TextStyle(fontFamily: 'Poppins',color: Colors.white),
+                        style: TextStyle(
+                            fontFamily: 'Poppins', color: Colors.white),
                       ),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                   ],
                 ),
               ),

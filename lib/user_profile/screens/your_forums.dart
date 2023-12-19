@@ -14,9 +14,9 @@ class YourForumsPage extends StatefulWidget {
 
 class _YourForumsPageState extends State<YourForumsPage> {
   Future<List<Product>> fetchProduct(request) async {
-    var response =
-        await request.get('http://localhost:8000/profile/get_forum/');
-    print(response);
+    var response = await request
+        .get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/profile/get_forum/');
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {

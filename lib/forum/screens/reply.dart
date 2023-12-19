@@ -29,7 +29,7 @@ class _ReplyPageState extends State<ReplyPage> {
 
   Future<List<Product>> fetchProduct() async {
     var url = Uri.parse(
-        'http://localhost:8000/forum/${widget.bookId}/get-reply/${widget.forumId}/');
+        'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/${widget.bookId}/get-reply/${widget.forumId}/');
     //'https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/forum/get-forum/14/');
 
     var response = await http.get(

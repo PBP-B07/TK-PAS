@@ -174,7 +174,7 @@ class YourReviewsCard extends StatelessWidget {
                 // Implementasikan aksi sesuai pilihan yang dipilih
                 if (value == 'edit') {
                   // Aksi untuk edit
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ReviewEditPage(
@@ -210,21 +210,21 @@ class YourReviewsCard extends StatelessWidget {
                               Navigator.pop(context);
                               // TODO: Tambahkan logika penghapusan data
                               var url = Uri.parse(
-                                  "http://localhost:8000/profile/delete_review_flutter/${item.pk}/");
+                                  "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/profile/delete_review_flutter/${item.pk}/");
                               final response = await http.post(url);
                               if (response.statusCode == 200) {
                                 // Review berhasil dihapus
                                 // Tambahkan logika lanjutan jika perlu
-                                print(
-                                    "Success to delete review. Status code: ${response.statusCode}");
+                                // print(
+                                //     "Success to delete review. Status code: ${response.statusCode}");
 
                                 // Invoke the onDelete callback to notify YourReviewsPage
                                 onDelete();
                               } else {
                                 // Terjadi kesalahan saat menghapus review
                                 // Tampilkan pesan kesalahan atau lakukan aksi yang sesuai
-                                print(
-                                    "Failed to delete review. Status code: ${response.statusCode}");
+                                // print(
+                                //     "Failed to delete review. Status code: ${response.statusCode}");
                               }
                             },
                             child: Text("Sure"),

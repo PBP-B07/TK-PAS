@@ -17,8 +17,9 @@ class BusiestForumPage extends StatefulWidget {
 class _BusiestForumPageState extends State<BusiestForumPage> {
   Future<List<Product>> fetchProduct(request) async {
     //  var url = Uri.parse('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
-    var response = await request.get('http://localhost:8000/get_busiest_forum/');
-    print(response);
+    var response = await request
+        .get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
+    // print(response);
 
     List<Product> list_product = [];
     for (var d in response) {
@@ -31,8 +32,9 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
 
   Future<bool> hasUserReviewed(request) async {
     //  var response = await request.get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
-    var response = await request.get('http://localhost:8000/get_busiest_forum/');
-    print(response);
+    var response = await request
+        .get('https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/get_busiest_forum/');
+    // print(response);
 
     return response.isNotEmpty; // Gantilah dengan kondisi yang sesuai
   }
@@ -41,13 +43,16 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Scaffold(
-     appBar: AppBar(
+      appBar: AppBar(
         centerTitle: true, // Menempatkan judul di tengah
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.black),
         title: RichText(
           text: const TextSpan(
-            style: TextStyle(fontFamily: 'Poppins', fontSize: 32, fontWeight: FontWeight.w700),
+            style: TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 32,
+                fontWeight: FontWeight.w700),
             children: [
               TextSpan(
                 text: 'Ulas',
@@ -71,7 +76,10 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
             return Center(
               child: Text(
                 "Tidak ada forum teramai.",
-                style: TextStyle(color: Color(0xff59A5D8), fontSize: 20, fontFamily: 'Poppins'),
+                style: TextStyle(
+                    color: Color(0xff59A5D8),
+                    fontSize: 20,
+                    fontFamily: 'Poppins'),
               ),
             );
           } else {
@@ -81,11 +89,16 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
                 Product currentProduct = snapshot.data![index];
                 return InkWell(
                   onTap: () async {
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => BookDetailsPage(bookId: currentProduct.bookPk,)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BookDetailsPage(
+                                  bookId: currentProduct.bookPk,
+                                )));
                   },
                   child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -100,11 +113,14 @@ class _BusiestForumPageState extends State<BusiestForumPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Text("User: ${currentProduct.userUsername}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("User: ${currentProduct.userUsername}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Subject: ${currentProduct.subject}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Subject: ${currentProduct.subject}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                         const SizedBox(height: 10),
-                        Text("Description: ${currentProduct.description}", style: TextStyle(fontFamily: 'Poppins')),
+                        Text("Description: ${currentProduct.description}",
+                            style: TextStyle(fontFamily: 'Poppins')),
                       ],
                     ),
                   ),
