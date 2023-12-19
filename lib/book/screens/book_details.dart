@@ -43,20 +43,20 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
 
   Future<void> fetchAdminStatus(request) async {
   var url = 'http://localhost:8000/catalogue/is-admin/';
-  print('Status admin sebelum fetch: $isAdmin');
+  // print('Status admin sebelum fetch: $isAdmin');
 
   try {
     var response = await request.get(url);
-    print('Response: $response');
+    // print('Response: $response');
 
     // Directly using the response assuming it is already a JSON object
     if (response['is_admin'] != null) {
       setState(() {
         isAdmin = response['is_admin'];
-        print('Status admin setelah fetch: $isAdmin');
+        // print('Status admin setelah fetch: $isAdmin');
       });
     } else {
-      print('Invalid response format');
+      // print('Invalid response format');
     }
   } catch (e) {
     // print('Error fetching admin status: $e');
@@ -541,7 +541,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
               style: const TextStyle(fontStyle: FontStyle.italic, fontFamily: 'Poppins'),
             ),
             const SizedBox(height: 10.0),
-            Text('Posted on: ${forum.dateAdded.toLocal()}',
+            Text('Last Replied: ${forum.dateAdded.toLocal()}',
                 style: const TextStyle(color: Colors.grey, fontFamily: 'Poppins')),
             const SizedBox(height: 8.0),
           ],
