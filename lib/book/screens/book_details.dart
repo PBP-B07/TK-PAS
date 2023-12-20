@@ -454,7 +454,8 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   Widget _buildDetailItem(String label, String value) {
     return RichText(
       text: TextSpan(
-        style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins', color: Colors.black),
+        style: const TextStyle(
+            fontSize: 16.0, fontFamily: 'Poppins', color: Colors.black),
         children: [
           TextSpan(
             text: '$label ',
@@ -510,7 +511,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           children: [
             Row(
               children: [
-                _buildStarRating(review.star as double),
+                _buildStarRating(review.star.toDouble()),
                 Flexible(
                   child: Text(
                     ' (${review.star.toDouble()} Stars)',
