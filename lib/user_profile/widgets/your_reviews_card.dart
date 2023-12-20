@@ -76,7 +76,7 @@ class YourReviewsCard extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    item.bookRating.toString(),
+                                    item.bookRating.toStringAsFixed(1),
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
                                       fontSize: 12.0,

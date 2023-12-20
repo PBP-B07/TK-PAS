@@ -435,7 +435,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
                 const SizedBox(width: 8.0),
                 Flexible(
                   child: Text(
-                    '(${bookData!['rating'].toDouble().toStringAsFixed(2)})',
+                    '(${bookData!['rating'].toDouble().toStringAsFixed(1)})',
                     style: const TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
