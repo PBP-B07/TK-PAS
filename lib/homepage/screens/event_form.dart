@@ -148,7 +148,13 @@ class _AddItemState extends State<AddItemEventForm> {
                           .map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
-                            child: Text(value),
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                  color: Colors.black, // Mengatur warna teks menjadi hitam
+                                  fontFamily: 'Poppins'
+                              ),
+                            ),
                           );
                         }).toList()
                       : [], // Set to null if bookTitles is empty
