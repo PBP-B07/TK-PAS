@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       image: const DecorationImage(
-                        image: AssetImage("panda.png"),
+                        image: AssetImage("assets/panda.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
