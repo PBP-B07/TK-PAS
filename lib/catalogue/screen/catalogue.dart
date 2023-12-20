@@ -123,239 +123,223 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true, // Menempatkan judul di tengah
-        backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: RichText(
-          text: const TextSpan(
-            style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: 32,
-                fontWeight: FontWeight.w700),
-            children: [
-              TextSpan(
-                text: 'Ulas',
-                style: TextStyle(color: Color(0xFF0919CD)),
-              ),
-              TextSpan(
-                text: 'Buku',
-                style: TextStyle(color: Color(0xFFC51605)),
-              ),
-            ],
-          ),
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.white,
+      iconTheme: const IconThemeData(color: Colors.black),
+      title: RichText(
+        text: const TextSpan(
+          style: TextStyle(
+              fontFamily: 'Poppins',
+              fontSize: 32,
+              fontWeight: FontWeight.w700),
+          children: [
+            TextSpan(
+              text: 'Ulas',
+              style: TextStyle(color: Color(0xFF0919CD)),
+            ),
+            TextSpan(
+              text: 'Buku',
+              style: TextStyle(color: Color(0xFFC51605)),
+            ),
+          ],
         ),
       ),
-      drawer: const LeftDrawer(),
-      backgroundColor: const Color(0xFFCFFAFE),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: searchController,
-              onChanged: filterSearchResults,
-              style: const TextStyle(
-                fontFamily: 'Poppins', // Apply Poppins font to text
+    ),
+    drawer: const LeftDrawer(),
+    backgroundColor: const Color(0xFFCFFAFE),
+    body: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextField(
+            controller: searchController,
+            onChanged: filterSearchResults,
+            style: const TextStyle(
+              fontFamily: 'Poppins',
+            ),
+            decoration: InputDecoration(
+              hintText: "Search...",
+              hintStyle: const TextStyle(
+                fontFamily: 'Poppins',
               ),
-              decoration: InputDecoration(
-                hintText: "Search...",
-                hintStyle: const TextStyle(
-                  fontFamily: 'Poppins', // Apply Poppins font to hint text
-                ),
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.white,
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
               ),
+              filled: true,
+              fillColor: Colors.white,
             ),
           ),
-          const SizedBox(height: 8.0),
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownButton<String>(
-                  value: selectedSort,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedSort = newValue!;
-                      sortProducts(); // Sort products by rating
-                    });
-                  },
-                  items:
-                      sortOptions.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: const TextStyle(
-                            fontFamily: 'Poppins'), // Apply Poppins font here
-                      ),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(width: 16.0),
-                DropdownButton<String>(
-                  value: selectedCategory,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedCategory = newValue!;
-                      filterByCategory(); // Filter products by category
-                    });
-                  },
-                  items:
-                      categories.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: const TextStyle(
-                            fontFamily: 'Poppins'), // Apply Poppins font here
-                      ),
-                    );
-                  }).toList(),
-                ),
-              ],
-            ),
-          ),
-          Visibility(
-            visible: isAdmin,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF5038BC), // Set the background color
-                  textStyle: const TextStyle(
-                    fontFamily: 'Poppins', // Set the Poppins font
-                    fontSize: 16.0,
+        ),
+        const SizedBox(height: 8.0),
+        // Sort Dropdown Row
+        Center(
+          child: DropdownButton<String>(
+            value: selectedSort,
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedSort = newValue!;
+                sortProducts();
+              });
+            },
+            items: sortOptions.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
                   ),
                 ),
-                onPressed: () async {
-                  // Navigate to add product page
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ShopFormPage()),
-                  );
-                  // Fetch products again after adding a product
-                  await fetchProduct().then((products) {
-                    setState(() {
-                      allProducts = products;
-                      sortProductsByTitle();
-                      filteredProducts = allProducts;
-                      updateCategories();
-                    });
-                  });
-                },
-                child: Text("Add Book",
-                    style:
-                        const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        // Category Dropdown Row
+        Center(
+          child: DropdownButton<String>(
+            value: selectedCategory,
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedCategory = newValue!;
+                filterByCategory();
+              });
+            },
+            items: categories.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(height: 8.0),
+        Visibility(
+          visible: isAdmin,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xFF5038BC),
+                textStyle: const TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 16.0,
+                ),
               ),
+              onPressed: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ShopFormPage()),
+                );
+                await fetchProduct().then((products) {
+                  setState(() {
+                    allProducts = products;
+                    sortProductsByTitle();
+                    filteredProducts = allProducts;
+                    updateCategories();
+                  });
+                });
+              },
+              child: Text("Add Book",
+                  style:
+                      const TextStyle(fontSize: 16.0, fontFamily: 'Poppins')),
             ),
           ),
-          Expanded(
-            child: filteredProducts.isNotEmpty
-                ? ListView.builder(
-                    itemCount: filteredProducts.length,
-                    itemBuilder: (_, index) {
-                      Product currentProduct = filteredProducts[index];
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  BookDetailsPage(bookId: currentProduct.pk),
-                            ),
-                          );
-                        },
-                        child: Card(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 8),
-                          elevation: 4, // adds shadow under the card
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(20), // card corner radius
+        ),
+        Expanded(
+          child: filteredProducts.isNotEmpty
+              ? ListView.builder(
+                  itemCount: filteredProducts.length,
+                  itemBuilder: (_, index) {
+                    Product currentProduct = filteredProducts[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                BookDetailsPage(bookId: currentProduct.pk),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  currentProduct.fields.title,
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(
-                                        0xFF333333), // Dark text for title
-                                  ),
+                        );
+                      },
+                      child: Card(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                currentProduct.fields.title,
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF333333),
                                 ),
-                                Text(
-                                  "Author: ${currentProduct.fields.author}",
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 14,
-                                    color: Color(
-                                        0xFF666666), // Grey text for author
+                              ),
+                              Text(
+                                "Author: ${currentProduct.fields.author}",
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Color(0xFF666666),
                                   ),
+                              ),
+                              Text(
+                                "Category: ${currentProduct.fields.category}",
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Color(0xFF666666),
                                 ),
-                                Text(
-                                  "Publish Date: ${currentProduct.fields.publishDate}",
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 14,
-                                    color: Color(
-                                        0xFF666666), // Grey text for publish date
-                                  ),
+                              ),
+                              Text(
+                                "Rating: ${currentProduct.fields.rating}",
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 14,
+                                  color: Color(0xFF666666),
                                 ),
-                                Text(
-                                  "Category: ${currentProduct.fields.category}",
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 14,
-                                    color: Color(
-                                        0xFF666666), // Grey text for category
-                                  ),
-                                ),
-                                Text(
-                                  "Rating: ${currentProduct.fields.rating}",
-                                  style: const TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 14,
-                                    color: Color(
-                                        0xFF666666), // Grey text for rating
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  )
-                : Center(
-                    child: Text(
-                      "No products found.",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Color(0xff59A5D8),
-                        fontSize: 20,
                       ),
+                    );
+                  },
+                )
+              : Center(
+                  child: Text(
+                    "No products found.",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      color: Color(0xff59A5D8),
+                      fontSize: 20,
                     ),
                   ),
-          )
-        ],
-      ),
-    );
-  }
+                ),
+        ),
+      ],
+    ),
+  );
+}
 
   void filterByCategory() {
     if (selectedCategory == 'All Categories') {
