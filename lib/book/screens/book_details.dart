@@ -454,7 +454,7 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
   Widget _buildDetailItem(String label, String value) {
     return RichText(
       text: TextSpan(
-        style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins'),
+        style: const TextStyle(fontSize: 16.0, fontFamily: 'Poppins', color: Colors.black),
         children: [
           TextSpan(
             text: '$label ',
@@ -468,6 +468,9 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
           ),
           TextSpan(
             text: value,
+            style: const TextStyle(
+              color: Colors.black, // Mengatur warna value menjadi hitam
+            ),
           ),
         ],
       ),

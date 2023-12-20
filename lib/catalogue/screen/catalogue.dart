@@ -230,7 +230,8 @@ Widget build(BuildContext context) {
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF5038BC),
+                backgroundColor: const Color(0xFF5038BC),
+                foregroundColor: Colors.white,
                 textStyle: const TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 16.0,
@@ -274,6 +275,7 @@ Widget build(BuildContext context) {
                         );
                       },
                       child: Card(
+                        color: Colors.white,
                         margin: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
                         elevation: 4,
