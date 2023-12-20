@@ -303,6 +303,15 @@ Widget build(BuildContext context) {
                                   ),
                               ),
                               Text(
+                                  "Publish Date: ${currentProduct.fields.publishDate}",
+                                  style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 14,
+                                    color: Color(
+                                        0xFF666666), 
+                                  ),
+                              ),
+                              Text(
                                 "Category: ${currentProduct.fields.category}",
                                 style: const TextStyle(
                                   fontFamily: 'Poppins',
