@@ -1,6 +1,6 @@
 # UlasBuku 📖
 
-# Link deploy:
+## Link deploy:
 https://install.appcenter.ms/orgs/tkpbp-b07/apps/ulas-buku/distribution_groups/public
 
 ## Kelompok B-07 💁‍♂️💁‍♀️
@@ -36,36 +36,36 @@ Namun, UlasBuku bukan sekadar tempat untuk ulasan. Seiring dengan pertumbuhan pe
     - Tentang UlasBuku 
     
 
-2. Profile (ditaruh di navbar) (Hanan)
-    - Riwayat ulasan buku yang pernah di ulas oleh user 
+2. Profile (Posisi di drawer) (Hanan)
+    - Riwayat ulasan buku yang pernah diulas oleh user 
     - Riwayat forum yang pernah user kontribusi 
     - Deskripsi diri 
     - Hapus ulasan 
     - Edit ulasan 
 
-3. Katalog buku (ditaruh di navbar) (Farrel)
-    - Berisi apa saja buku yang ada di UlasBuku yang terurut sesuai abjad 
-    - Didalam page ini ada fitur ‘search’ buku 
-    - Didalam page ini ada fitur filter (berdasarkan tag)
+3. Catalogue buku (Posisi di drawer) (Farrel)
+    - Menampilkan buku yang ada di UlasBuku yang terurut sesuai abjad 
+    - Fitur ‘search’ buku 
+    - Fitur filter, berdasarkan:
         1. Kategori buku
         2. Bintang (hasil ulasan)
     - `Admin` dapat menambahkan detail buku 
 
-4. Deskripsi per buku (ada di setiap buku) (Azmi)
+4. Deskripsi Buku (Azmi)
     - Details buku (Judul, Deskripsi, Penulis, ISBN-10, ISBN-13, Tanggal Rilis, Edisi, Best Seller, Estimasi Harga, tag buku) 
     - Melihat review dan rate user jika ada 
     - Lihat ringkasan review dan rate yang ada di buku yang berkaitan 
     - Lihat ringkasan forum diskusi yang ada di buku yang berkaitan 
     - `Admin` dapat mengedit deskripsi buku 
 
-5. Review + Rate (ada di setiap buku) (Alifa)
+5. Review + Rate (Alifa)
     - User dapat memberikan satu review/ulasan dan rating terhadap satu buku 
     - User dapat melihat review dan rating secara lengkap 
     - User dapat memfilter review dan rating yang diinginkan berdasarkan: 
         1. Jumlah Bintang (1-5) 
         2. Terbaru-Terlama
 
-6. Forum (ada di setiap buku) (Rahida)
+6. Forum (Rahida)
     - User dapat memposting pembicaraannya pada forum 
     - User dapat mengirimkan foto pada forum 
     - User dapat melihat perbincangan di forum tersebut 
