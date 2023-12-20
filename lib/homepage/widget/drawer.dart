@@ -158,16 +158,20 @@ class LeftDrawer extends StatelessWidget {
             ),
             onTap: () async {
               final response = await request.logout(
-                  "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/logout/"); // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+                  "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/auth/logout/");
+
               String message = response["message"];
               if (response['status']) {
                 String uname = response["username"];
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("$message Sampai jumpa, $uname."),
                 ));
-                Navigator.pushReplacement(
+
+                // Ganti perintah Navigator.pushReplacement dengan Navigator.pushAndRemoveUntil
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false,
                 );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
