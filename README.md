@@ -1,6 +1,7 @@
 # UlasBuku 📖
 
-
+# Link deploy:
+https://install.appcenter.ms/orgs/tkpbp-b07/apps/ulas-buku/distribution_groups/public
 
 ## Kelompok B-07 💁‍♂️💁‍♀️
 - Alifa Hanania Ardha - 2206024392<br>
