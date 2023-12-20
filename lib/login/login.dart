@@ -221,6 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                       style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
                         backgroundColor: const Color(0xFF5038BC),
                         minimumSize: const Size.fromHeight(50),
                         padding: const EdgeInsets.all(
@@ -236,6 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: 'Poppins',
                             fontSize: 16,
                             fontWeight: FontWeight.w700),
+
                       ),
                     ),
                     const SizedBox(height: 12.0),
@@ -248,6 +250,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
                         backgroundColor: const Color(0xFF5038BC),
                         minimumSize: const Size.fromHeight(50),
                         padding: const EdgeInsets.all(

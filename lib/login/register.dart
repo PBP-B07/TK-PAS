@@ -58,7 +58,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       image: const DecorationImage(
-                        image: AssetImage("panda.png"),
+                        image: AssetImage("assets/panda.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -402,6 +402,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
                               backgroundColor: const Color(0xFF5038BC),
                               minimumSize: const Size.fromHeight(50),
                               padding: const EdgeInsets.all(
