@@ -2,6 +2,7 @@
 
 ## Link deploy:
 https://install.appcenter.ms/orgs/tkpbp-b07/apps/ulas-buku/distribution_groups/public
+[![Build status](https://build.appcenter.ms/v0.1/apps/32451f5b-f0e4-4632-8206-6cbe83125d0a/branches/main/badge)](https://appcenter.ms)
 
 ## Kelompok B-07 💁‍♂️💁‍♀️
 - Alifa Hanania Ardha - 2206024392<br>
