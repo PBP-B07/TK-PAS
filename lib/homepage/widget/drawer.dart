@@ -97,50 +97,52 @@ class LeftDrawer extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            'About UlasBuku',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(height: 15),
-                          RichText(
-                            textAlign: TextAlign.justify,
-                            text: TextSpan(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        padding: EdgeInsets.all(20),
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              'About UlasBuku',
                               style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                              text:
-                                  'UlasBuku adalah platform online di mana para pecinta Computer Science '
-                                  'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
-                                  'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
-                                  'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
-                                  'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
-                                  'bertukar perspektif, dan bantuan dalam topik sulit.',
+                                  fontFamily: 'Poppins',
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          SizedBox(height: 20),
-                          TextButton(
-                            child: Text('Tutup',
-                                style: TextStyle(fontFamily: 'Poppins')),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyHomePage()),
-                              );
-                            },
-                          ),
-                        ],
+                            SizedBox(height: 15),
+                            RichText(
+                              textAlign: TextAlign.justify,
+                              text: TextSpan(
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                                text:
+                                    'UlasBuku adalah platform online di mana para pecinta Computer Science '
+                                    'dapat memberikan ulasan jujur tentang buku-buku yang mereka baca. '
+                                    'Tujuannya untuk membantu orang lain menghindari kesalahan dan memastikan nilai setiap pembelian buku. '
+                                    'Dengan pertumbuhan pengguna, kami terus hadirkan fitur baru. '
+                                    'Kami meluncurkan forum diskusi untuk anggota berbagi konsep dari buku yang mereka baca, '
+                                    'bertukar perspektif, dan bantuan dalam topik sulit.',
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            TextButton(
+                              child: Text('Tutup',
+                                  style: TextStyle(fontFamily: 'Poppins')),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyHomePage()),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
