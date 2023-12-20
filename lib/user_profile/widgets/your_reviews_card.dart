@@ -25,7 +25,6 @@ class YourReviewsItem {
 
 class YourReviewsCard extends StatelessWidget {
   final YourReviewsItem item;
-
   final Function() onDelete;
 
   const YourReviewsCard(this.item, {Key? key, required this.onDelete})
@@ -51,53 +50,52 @@ class YourReviewsCard extends StatelessWidget {
                     color: Colors.grey, // Warna abu-abu
                     borderRadius: BorderRadius.circular(10.0), // Corners tumpul
                   ),
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Text(
-                        "NO PHOTOS",
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white, // Tulisan putih
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/panda.png",
+                          width: 100.0,
+                          height: 125.0,
                         ),
-                      ),
-                      Positioned(
-                        bottom: 6,
-                        right: 6,
-                        child: Container(
-                          width: 50.0, // Lebar fixed (bisa disesuaikan)
-                          height: 30.0, // Tinggi fixed (bisa disesuaikan)
-                          decoration: BoxDecoration(
-                            color: Color(0xFF102542), // Warna oval kecil
-                            borderRadius:
-                                BorderRadius.circular(16.0), // Corners round
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  item.bookRating.toString(), // Rating buku
-                                  style: TextStyle(
-                                    fontFamily: 'Poppins',
-                                    fontSize: 12.0,
-                                    color: Colors.white, // Tulisan rating putih
+                        Positioned(
+                          bottom: 6,
+                          right: 6,
+                          child: Container(
+                            width: 50.0,
+                            height: 30.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF102542),
+                              borderRadius:
+                                  BorderRadius.circular(16.0), // Corners round
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    item.bookRating.toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: 12.0,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 4.0),
-                                Icon(
-                                  Icons.star,
-                                  size: 12.0,
-                                  color: Colors.white, // Icon bintang putih
-                                ),
-                              ],
+                                  SizedBox(width: 4.0),
+                                  Icon(
+                                    Icons.star,
+                                    size: 12.0,
+                                    color: Colors.white,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -105,7 +103,6 @@ class YourReviewsCard extends StatelessWidget {
 
             SizedBox(width: 16.0), // Spasi antara Bagian 1 dan Bagian 2
 
-            // Bagian 2 (Tengah Kanan)
             // Bagian 2 (Tengah Kanan)
             Expanded(
               child: Column(
@@ -138,21 +135,32 @@ class YourReviewsCard extends StatelessWidget {
                   Row(
                     children: [
                       // Icon bintang berwarna kuning sebanyak item.star
-                      Row(
-                        children: List.generate(
-                          item.star,
-                          (index) => Icon(Icons.star, color: Colors.yellow),
+                      Flexible(
+                        child: Wrap(
+                          spacing: 4.0, // Atur spasi antara ikon bintang
+                          runSpacing:
+                              4.0, // Atur spasi antara baris ikon bintang
+                          children: List.generate(
+                            item.star,
+                            (index) => Icon(Icons.star, color: Colors.yellow),
+                          ),
                         ),
                       ),
                       // Icon bintang tidak berwarna kuning sebanyak 5 - item.star
-                      Row(
-                        children: List.generate(
-                          5 - item.star,
-                          (index) => Icon(Icons.star, color: Colors.grey),
+                      Flexible(
+                        child: Wrap(
+                          spacing: 4.0, // Atur spasi antara ikon bintang
+                          runSpacing:
+                              4.0, // Atur spasi antara baris ikon bintang
+                          children: List.generate(
+                            5 - item.star,
+                            (index) => Icon(Icons.star, color: Colors.grey),
+                          ),
                         ),
                       ),
                     ],
                   ),
+
                   SizedBox(height: 8.0),
 
                   // Bagian 2D (Description)
@@ -161,7 +169,7 @@ class YourReviewsCard extends StatelessWidget {
                   SizedBox(height: 8.0),
 
                   Text(
-                    item.formattedDateAdded, // Ubah sesuai property date pada objek item
+                    item.formattedDateAdded,
                     style: TextStyle(fontFamily: 'Poppins', color: Colors.grey),
                   ),
                 ],
@@ -171,9 +179,7 @@ class YourReviewsCard extends StatelessWidget {
             // Bagian 3 (Kanan Bawah)
             PopupMenuButton<String>(
               onSelected: (value) {
-                // Implementasikan aksi sesuai pilihan yang dipilih
                 if (value == 'edit') {
-                  // Aksi untuk edit
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -184,8 +190,6 @@ class YourReviewsCard extends StatelessWidget {
                     ),
                   );
                 } else if (value == 'delete') {
-                  // Aksi untuk delete
-                  // Tampilkan pop-up konfirmasi penghapusan
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
@@ -195,7 +199,6 @@ class YourReviewsCard extends StatelessWidget {
                         actions: [
                           TextButton(
                             onPressed: () {
-                              // Batal menghapus
                               Navigator.pop(context);
                             },
                             child: Text(
@@ -206,25 +209,15 @@ class YourReviewsCard extends StatelessWidget {
                           ),
                           TextButton(
                             onPressed: () async {
-                              // Lakukan aksi penghapusan
                               Navigator.pop(context);
-                              // TODO: Tambahkan logika penghapusan data
                               var url = Uri.parse(
                                   "https://ulasbuku-b07-tk.pbp.cs.ui.ac.id/profile/delete_review_flutter/${item.pk}/");
                               final response = await http.post(url);
                               if (response.statusCode == 200) {
-                                // Review berhasil dihapus
-                                // Tambahkan logika lanjutan jika perlu
-                                // print(
-                                //     "Success to delete review. Status code: ${response.statusCode}");
-
-                                // Invoke the onDelete callback to notify YourReviewsPage
                                 onDelete();
                               } else {
-                                // Terjadi kesalahan saat menghapus review
-                                // Tampilkan pesan kesalahan atau lakukan aksi yang sesuai
-                                // print(
-                                //     "Failed to delete review. Status code: ${response.statusCode}");
+                                print(
+                                    "Failed to delete review. Status code: ${response.statusCode}");
                               }
                             },
                             child: Text("Sure"),
